@@ -1,30 +1,38 @@
-export function runBlocks(blocks, engine) {
-  for (const block of blocks) {
-    executeBlock(block, engine)
+function resolveValue(val, variables) {
+  if (val && typeof val === 'object' && val.type === 'variable') {
+    return variables[val.name] ?? 0
   }
+  return val
 }
 
-function executeBlock(block, engine) {
+export function runBlocks(blocks, engine, variables = {}) {
+  for (const block of blocks) {
+    executeBlock(block, engine, variables)
+  }
+  return variables
+}
+
+function executeBlock(block, engine, variables) {
   const { type, args = [] } = block
 
   switch (type) {
     case 'avancer':
-      engine.avancer(args[0])
+      engine.avancer(resolveValue(args[0], variables))
       break
     case 'reculer':
-      engine.reculer(args[0])
+      engine.reculer(resolveValue(args[0], variables))
       break
     case 'tournerDroite':
-      engine.tournerDroite(args[0])
+      engine.tournerDroite(resolveValue(args[0], variables))
       break
     case 'tournerGauche':
-      engine.tournerGauche(args[0])
+      engine.tournerGauche(resolveValue(args[0], variables))
       break
     case 'allerA':
-      engine.allerA(args[0], args[1])
+      engine.allerA(resolveValue(args[0], variables), resolveValue(args[1], variables))
       break
     case 'orienter':
-      engine.orienter(args[0])
+      engine.orienter(resolveValue(args[0], variables))
       break
     case 'styloPoser':
       engine.styloPoser()
@@ -33,16 +41,24 @@ function executeBlock(block, engine) {
       engine.styloRelever()
       break
     case 'setCouleur':
-      engine.setCouleur(args[0])
+      engine.setCouleur(resolveValue(args[0], variables))
       break
     case 'setEpaisseur':
-      engine.setEpaisseur(args[0])
+      engine.setEpaisseur(resolveValue(args[0], variables))
       break
-    case 'repeter':
-      for (let i = 0; i < args[0]; i++) {
-        runBlocks(block.body || [], engine)
+    case 'mettre_variable':
+      variables[args[0]] = resolveValue(args[1], variables)
+      break
+    case 'ajouter_variable':
+      variables[args[0]] = (variables[args[0]] ?? 0) + resolveValue(args[1], variables)
+      break
+    case 'repeter': {
+      const times = resolveValue(args[0], variables)
+      for (let i = 0; i < times; i++) {
+        runBlocks(block.body || [], engine, variables)
       }
       break
+    }
     default:
       console.warn(`Unknown block type: ${type}`)
   }

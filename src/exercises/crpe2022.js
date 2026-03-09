@@ -2,75 +2,116 @@ export const exercises2022 = [
   {
     id: '2022-1',
     year: 2022,
-    title: 'Le carré',
+    title: 'Losange avec variable C',
     description:
-      'Un programme Scratch permet de tracer un carré de côté 100 pas. Le lutin part du centre de la scène orienté vers la droite.',
-    question: 'Quelle figure obtient-on en exécutant ce programme ?',
+      'EST MAT 1, Exercice 4 — Le Programme 1 utilise une variable C (valeur initiale C = 50) pour tracer un quadrilatère. Échelle : 1 cm = 10 pixels. Le Programme 2 utilise le Programme 1 en boucle en modifiant la variable C pour obtenir des losanges emboîtés.',
+    question:
+      '1) En prenant C = 50 et 1 cm pour 10 pixels, tracer la figure du Programme 1. 2) Quelle est la nature de la figure tracée ? 3) Quelles valeurs attribuer à A et N dans le Programme 2 ?',
     blocks: [
+      { type: 'mettre_variable', args: ['C', 50], category: 'variables' },
       { type: 'styloPoser', args: [], category: 'pen' },
       {
         type: 'repeter',
         args: [4],
         category: 'control',
         body: [
-          { type: 'avancer', args: [100], category: 'motion' },
+          { type: 'avancer', args: [{ type: 'variable', name: 'C' }], category: 'motion' },
           { type: 'tournerDroite', args: [90], category: 'motion' },
         ],
       },
     ],
-    hints: ['Un carré a 4 côtés égaux et 4 angles droits.', 'L\'angle extérieur d\'un carré est 90°.'],
-    answer: 'On obtient un carré de côté 100 pas.',
+    hints: [
+      'Le Programme 1 trace un quadrilatère avec 4 côtés de C pas et des angles de 90°.',
+      'Un carré est un losange particulier (losange à angles droits).',
+      'Pour le Programme 2, observer comment la variable C évolue à chaque itération.',
+    ],
+    answer:
+      'Le Programme 1 trace un carré (losange à angles droits) de côté 50 pas = 5 cm. Pour le Programme 2, A est la valeur ajoutée à C après chaque losange et N le nombre de répétitions.',
   },
   {
     id: '2022-2',
     year: 2022,
-    title: 'Le triangle équilatéral',
+    title: 'Tirets horizontaux',
     description:
-      'Un programme Scratch trace un polygone régulier. Le lutin part du centre orienté vers le haut.',
-    question: 'Quelle figure est tracée par ce programme ?',
-    blocks: [
-      { type: 'orienter', args: [0], category: 'motion' },
-      { type: 'styloPoser', args: [], category: 'pen' },
+      'EST MAT 3, Exercice 4 — Un programme Scratch trace des tirets. Trois sous-questions progressives : tracer un tiret unique, puis des tirets répétés de 10 px séparés de 10 px, puis des tirets sur plusieurs lignes (translation).',
+    question:
+      '1) Représenter la figure obtenue. 2) Quelles modifications pour obtenir des tirets de 10 px séparés de 10 px ? 3) Comment obtenir des tirets sur plusieurs lignes ? Quelle transformation géométrique ?',
+    subExercises: [
       {
-        type: 'repeter',
-        args: [3],
-        category: 'control',
-        body: [
-          { type: 'avancer', args: [120], category: 'motion' },
-          { type: 'tournerDroite', args: [120], category: 'motion' },
+        label: 'Q1 — Tiret unique',
+        blocks: [
+          { type: 'styloPoser', args: [], category: 'pen' },
+          { type: 'avancer', args: [30], category: 'motion' },
+        ],
+      },
+      {
+        label: 'Q2 — Tirets répétés',
+        blocks: [
+          {
+            type: 'repeter',
+            args: [5],
+            category: 'control',
+            body: [
+              { type: 'styloPoser', args: [], category: 'pen' },
+              { type: 'avancer', args: [10], category: 'motion' },
+              { type: 'styloRelever', args: [], category: 'pen' },
+              { type: 'avancer', args: [10], category: 'motion' },
+            ],
+          },
+        ],
+      },
+      {
+        label: 'Q3 — Plusieurs lignes',
+        blocks: [
+          { type: 'mettre_variable', args: ['y', 0], category: 'variables' },
+          {
+            type: 'repeter',
+            args: [4],
+            category: 'control',
+            body: [
+              { type: 'allerA', args: [0, { type: 'variable', name: 'y' }], category: 'motion' },
+              { type: 'orienter', args: [90], category: 'motion' },
+              {
+                type: 'repeter',
+                args: [5],
+                category: 'control',
+                body: [
+                  { type: 'styloPoser', args: [], category: 'pen' },
+                  { type: 'avancer', args: [10], category: 'motion' },
+                  { type: 'styloRelever', args: [], category: 'pen' },
+                  { type: 'avancer', args: [10], category: 'motion' },
+                ],
+              },
+              { type: 'ajouter_variable', args: ['y', -20], category: 'variables' },
+            ],
+          },
         ],
       },
     ],
+    blocks: [],
     hints: [
-      'Le lutin tourne de 120° à chaque sommet.',
-      'L\'angle extérieur d\'un triangle équilatéral vaut 360°/3 = 120°.',
+      'Q1 : Le lutin trace un simple segment de 30 pixels.',
+      'Q2 : Alterner stylo posé/relevé avec avancer(10) pour les tirets et les espaces.',
+      'Q3 : Ajouter une boucle externe avec un déplacement vertical. C\'est une translation.',
     ],
-    answer: 'On obtient un triangle équilatéral de côté 120 pas.',
+    answer:
+      'Q2 : Utiliser répéter 5 fois [styloPoser, avancer(10), styloRelever, avancer(10)]. Q3 : Ajouter une boucle externe avec déplacement vertical. La transformation est une translation.',
   },
   {
     id: '2022-3',
     year: 2022,
-    title: 'L\'hexagone régulier',
+    title: 'Programme de calcul d\'Adam',
     description:
-      'Un programme Scratch trace un polygone régulier à 6 côtés. Le lutin part du centre.',
-    question: 'Déterminer la figure obtenue et justifier l\'angle de rotation.',
-    blocks: [
-      { type: 'styloPoser', args: [], category: 'pen' },
-      {
-        type: 'repeter',
-        args: [6],
-        category: 'control',
-        body: [
-          { type: 'avancer', args: [80], category: 'motion' },
-          { type: 'tournerDroite', args: [60], category: 'motion' },
-        ],
-      },
-    ],
+      'EST MAT 2, Exercice — Programme de calcul : choisir un nombre x, lui ajouter 3, multiplier le résultat par (2x − 4), puis développer. Il faut montrer que le résultat final est 2x² − x − 6.',
+    type: 'quiz',
+    question:
+      'Le programme d\'Adam : choisir x, calculer (2x + 3)(x − 2). Montrer que le résultat est 2x² − x − 6.',
+    blocks: [],
     hints: [
-      'Un hexagone régulier a 6 côtés.',
-      'L\'angle extérieur vaut 360°/6 = 60°.',
+      'Développer (2x + 3)(x − 2) en utilisant la double distributivité.',
+      '2x × x = 2x², 2x × (−2) = −4x, 3 × x = 3x, 3 × (−2) = −6.',
     ],
     answer:
-      'On obtient un hexagone régulier de côté 80 pas. L\'angle de rotation est 360°/6 = 60°.',
+      '(2x + 3)(x − 2) = 2x² − 4x + 3x − 6 = 2x² − x − 6.',
   },
 ]

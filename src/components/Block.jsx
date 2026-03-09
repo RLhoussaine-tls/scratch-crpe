@@ -1,18 +1,27 @@
 import { getCategoryColor } from '../utils/colors'
 import './Block.css'
 
+function formatArg(val) {
+  if (val && typeof val === 'object' && val.type === 'variable') {
+    return val.name
+  }
+  return val
+}
+
 const LABELS = {
-  avancer: (args) => `avancer de ${args[0]} pas`,
-  reculer: (args) => `reculer de ${args[0]} pas`,
-  tournerDroite: (args) => `tourner ↻ de ${args[0]} degrés`,
-  tournerGauche: (args) => `tourner ↺ de ${args[0]} degrés`,
-  allerA: (args) => `aller à x: ${args[0]} y: ${args[1]}`,
-  orienter: (args) => `s'orienter à ${args[0]}°`,
+  avancer: (args) => `avancer de ${formatArg(args[0])} pas`,
+  reculer: (args) => `reculer de ${formatArg(args[0])} pas`,
+  tournerDroite: (args) => `tourner ↻ de ${formatArg(args[0])} degrés`,
+  tournerGauche: (args) => `tourner ↺ de ${formatArg(args[0])} degrés`,
+  allerA: (args) => `aller à x: ${formatArg(args[0])} y: ${formatArg(args[1])}`,
+  orienter: (args) => `s'orienter à ${formatArg(args[0])}°`,
   styloPoser: () => 'stylo en position d\'écriture',
   styloRelever: () => 'relever le stylo',
-  setCouleur: (args) => `mettre la couleur du stylo à ${args[0]}`,
-  setEpaisseur: (args) => `mettre la taille du stylo à ${args[0]}`,
-  repeter: (args) => `répéter ${args[0]} fois`,
+  setCouleur: (args) => `mettre la couleur du stylo à ${formatArg(args[0])}`,
+  setEpaisseur: (args) => `mettre la taille du stylo à ${formatArg(args[0])}`,
+  repeter: (args) => `répéter ${formatArg(args[0])} fois`,
+  mettre_variable: (args) => `mettre ${args[0]} à ${formatArg(args[1])}`,
+  ajouter_variable: (args) => `ajouter ${formatArg(args[1])} à ${args[0]}`,
 }
 
 export default function Block({ block, depth = 0 }) {

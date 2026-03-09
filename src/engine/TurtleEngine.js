@@ -6,7 +6,7 @@ export default class TurtleEngine {
   reset() {
     this.x = 0
     this.y = 0
-    this.angle = 90 // Scratch default: pointing up (90° in math = up)
+    this.angle = 0 // Scratch default: 0° = pointing up
     this.penDown = true
     this.color = '#0000FF'
     this.thickness = 1

@@ -11,17 +11,25 @@ import './App.css'
 export default function App() {
   const engineRef = useRef(new TurtleEngine())
   const [selectedExercise, setSelectedExercise] = useState(null)
+  const [activeSubIndex, setActiveSubIndex] = useState(0)
   const [segments, setSegments] = useState([])
   const [turtleState, setTurtleState] = useState(engineRef.current.getState())
 
+  const activeBlocks = selectedExercise?.subExercises
+    ? selectedExercise.subExercises[activeSubIndex]?.blocks ?? []
+    : selectedExercise?.blocks ?? []
+
+  const isQuiz = selectedExercise?.type === 'quiz'
+  const showCanvas = selectedExercise && !isQuiz
+
   const handleRun = useCallback(() => {
-    if (!selectedExercise) return
+    if (!selectedExercise || isQuiz) return
     const engine = engineRef.current
     engine.reset()
-    runBlocks(selectedExercise.blocks, engine)
+    runBlocks(activeBlocks, engine, {})
     setSegments(engine.getSegments())
     setTurtleState(engine.getState())
-  }, [selectedExercise])
+  }, [selectedExercise, activeBlocks, isQuiz])
 
   const handleReset = useCallback(() => {
     const engine = engineRef.current
@@ -32,6 +40,7 @@ export default function App() {
 
   const handleSelect = useCallback((exercise) => {
     setSelectedExercise(exercise)
+    setActiveSubIndex(0)
     const engine = engineRef.current
     engine.reset()
     setSegments([])
@@ -45,16 +54,24 @@ export default function App() {
         onSelect={handleSelect}
       />
       <main className="main-area">
-        <ExercisePanel exercise={selectedExercise} />
-        {selectedExercise && (
+        <ExercisePanel
+          exercise={selectedExercise}
+          activeSubIndex={activeSubIndex}
+          onSubSelect={setActiveSubIndex}
+        />
+        {selectedExercise && activeBlocks.length > 0 && (
           <div className="workspace">
             <div className="blocks-area">
-              <BlockSequence blocks={selectedExercise.blocks} />
-              <Toolbar onRun={handleRun} onReset={handleReset} />
+              <BlockSequence blocks={activeBlocks} />
+              {showCanvas && (
+                <Toolbar onRun={handleRun} onReset={handleReset} />
+              )}
             </div>
-            <div className="canvas-area">
-              <TurtleCanvas segments={segments} turtleState={turtleState} />
-            </div>
+            {showCanvas && (
+              <div className="canvas-area">
+                <TurtleCanvas segments={segments} turtleState={turtleState} />
+              </div>
+            )}
           </div>
         )}
       </main>

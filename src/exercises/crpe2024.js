@@ -2,63 +2,93 @@ export const exercises2024 = [
   {
     id: '2024-1',
     year: 2024,
-    title: 'La spirale carrée',
+    title: 'Géoplan Scratch',
+    type: 'incomplete',
     description:
-      'Un programme Scratch trace une spirale en augmentant la longueur du pas à chaque segment. Le lutin avance de 20 pas, puis 40, 60, 80… en tournant de 90° à chaque fois.',
-    question: 'Décrire la figure obtenue après 8 segments.',
+      'EST MAT 1, Exercice 5, Partie B.3 — Un programme Scratch construit une figure sur un géoplan. Échelle : 3 cm = 70 pas. Le point de départ est (−140, −140). Le lutin s\'oriente à 90° (vers la droite). Il faut déterminer les valeurs de A, B et C.',
+    question:
+      'En prenant 3 cm pour 70 pas, déterminer les valeurs attribuées aux lettres A, B et C pour que le script permette de construire la figure.',
+    // Script reconstitué depuis la géométrie du géoplan.
+    // Hypothèses : A = longueur horizontale, B = longueur verticale, C = angle.
+    // Avec 3cm = 70 pas, les segments suivent la grille du géoplan.
+    // Valeurs estimées : A=140 (6cm), B=70 (3cm), C=90 (angle droit).
     blocks: [
+      { type: 'allerA', args: [-140, -140], category: 'motion' },
+      { type: 'orienter', args: [90], category: 'motion' },
       { type: 'styloPoser', args: [], category: 'pen' },
-      { type: 'avancer', args: [20], category: 'motion' },
+      { type: 'avancer', args: [140], category: 'motion' },
       { type: 'tournerDroite', args: [90], category: 'motion' },
-      { type: 'avancer', args: [40], category: 'motion' },
-      { type: 'tournerDroite', args: [90], category: 'motion' },
-      { type: 'avancer', args: [60], category: 'motion' },
-      { type: 'tournerDroite', args: [90], category: 'motion' },
-      { type: 'avancer', args: [80], category: 'motion' },
-      { type: 'tournerDroite', args: [90], category: 'motion' },
-      { type: 'avancer', args: [100], category: 'motion' },
-      { type: 'tournerDroite', args: [90], category: 'motion' },
-      { type: 'avancer', args: [120], category: 'motion' },
+      { type: 'avancer', args: [70], category: 'motion' },
       { type: 'tournerDroite', args: [90], category: 'motion' },
       { type: 'avancer', args: [140], category: 'motion' },
       { type: 'tournerDroite', args: [90], category: 'motion' },
-      { type: 'avancer', args: [160], category: 'motion' },
-      { type: 'tournerDroite', args: [90], category: 'motion' },
+      { type: 'avancer', args: [70], category: 'motion' },
     ],
+    note: 'Script reconstitué depuis la géométrie. Les valeurs A, B, C sont estimées sans accès au script-image original.',
     hints: [
-      'Chaque segment est 20 pas plus long que le précédent.',
-      'Le lutin tourne toujours de 90° (angle droit).',
-      'Cela forme une spirale qui s\'éloigne du centre.',
+      '3 cm = 70 pas, donc 1 cm ≈ 23,3 pas.',
+      'Le lutin part de (−140, −140) orienté vers la droite.',
+      'Observer les longueurs des segments sur le géoplan pour déduire A, B, C.',
     ],
     answer:
-      'On obtient une spirale carrée. Le lutin trace des segments de plus en plus longs en tournant toujours à angle droit.',
+      'Les valeurs dépendent de la figure du géoplan. Avec l\'échelle 3 cm = 70 pas, A, B et C correspondent aux longueurs et angles des segments de la figure.',
   },
   {
     id: '2024-2',
     year: 2024,
-    title: 'Le losange',
+    title: 'Programme de calcul x² + 3x − 4',
+    type: 'quiz',
     description:
-      'Un programme trace un losange dont les angles mesurent 60° et 120°.',
-    question: 'Quels angles de rotation utiliser pour tracer ce losange ?',
+      'EST MAT 2, Exercice 3 — Un script Scratch incomplet exécute un programme de calcul. Il faut compléter les lignes 4 et 5 du script pour obtenir x² + 3x − 4.',
+    question:
+      'Recopier et compléter les lignes 4 et 5 du script Scratch pour qu\'il exécute le programme de calcul : prendre le carré du nombre, ajouter le triple du nombre, soustraire 4.',
+    blocks: [],
+    hints: [
+      'Le programme calcule x² + 3x − 4.',
+      'Ligne 4 : ajouter le triple de x au résultat → résultat + x × 3.',
+      'Ligne 5 : soustraire 4 → résultat − 4.',
+      'On peut factoriser : x² + 3x − 4 = (x − 1)(x + 4).',
+    ],
+    answer:
+      'Ligne 4 : mettre résultat à (résultat + x × 3). Ligne 5 : mettre résultat à (résultat − 4). Le résultat est x² + 3x − 4 = (x − 1)(x + 4).',
+  },
+  {
+    id: '2024-3',
+    year: 2024,
+    title: 'Figure de base — Carré puis triangle',
+    description:
+      'EST MAT 3, Exercice 4 — Un script utilise un bloc « figure_de_base » avec une variable « longueur ». Le script initial trace des carrés. On demande ensuite de modifier le bloc pour tracer des triangles équilatéraux et de comparer les aires.',
+    question:
+      '1) Quelle est la nature de la figure de base ? 2) Tracer la figure obtenue après clic sur le drapeau vert. 3a) Quelles modifications pour obtenir un triangle équilatéral ? 3b) Quel est le rapport entre les aires des deux triangles ?',
     blocks: [
+      { type: 'mettre_variable', args: ['longueur', 50], category: 'variables' },
       { type: 'styloPoser', args: [], category: 'pen' },
       {
         type: 'repeter',
-        args: [2],
+        args: [4],
         category: 'control',
         body: [
-          { type: 'avancer', args: [100], category: 'motion' },
-          { type: 'tournerDroite', args: [60], category: 'motion' },
-          { type: 'avancer', args: [100], category: 'motion' },
-          { type: 'tournerDroite', args: [120], category: 'motion' },
+          { type: 'avancer', args: [{ type: 'variable', name: 'longueur' }], category: 'motion' },
+          { type: 'tournerDroite', args: [90], category: 'motion' },
+        ],
+      },
+      { type: 'ajouter_variable', args: ['longueur', 50], category: 'variables' },
+      {
+        type: 'repeter',
+        args: [4],
+        category: 'control',
+        body: [
+          { type: 'avancer', args: [{ type: 'variable', name: 'longueur' }], category: 'motion' },
+          { type: 'tournerDroite', args: [90], category: 'motion' },
         ],
       },
     ],
     hints: [
-      'Un losange a ses côtés opposés parallèles.',
-      'Les angles extérieurs sont 60° et 120° (supplémentaires à 180° des angles intérieurs).',
+      'La figure de base répète 4 fois avec angle 90° → c\'est un carré.',
+      'Pour un triangle équilatéral : 3 répétitions, angle extérieur 120°.',
+      'Le rapport des aires de figures semblables est le carré du rapport de similitude.',
     ],
     answer:
-      'Les angles de rotation sont 60° et 120°. L\'angle extérieur est le supplément de l\'angle intérieur : 180° − 120° = 60° et 180° − 60° = 120°.',
+      '1) Carré (4 côtés, angle 90°). 2) Deux carrés emboîtés de côtés 50 et 100. 3a) Remplacer 4 par 3 et 90° par 120°. 3b) Le rapport de similitude est 100/50 = 2, donc le rapport des aires est 2² = 4.',
   },
 ]

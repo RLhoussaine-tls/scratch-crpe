@@ -65,6 +65,44 @@
   line-height: 1.4;
 }
 
+.exercise-incomplete-banner {
+  background: #FFF8E1;
+  border-left: 3px solid #FFC107;
+  padding: 8px 12px;
+  margin: 8px 0;
+  border-radius: 0 4px 4px 0;
+  font-size: 13px;
+  color: #795548;
+}
+
+.sub-exercise-tabs {
+  display: flex;
+  gap: 6px;
+  margin: 12px 0;
+  flex-wrap: wrap;
+}
+
+.sub-tab {
+  padding: 6px 14px;
+  border: 2px solid #4C97FF;
+  border-radius: 6px;
+  background: #fff;
+  color: #4C97FF;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.sub-tab:hover {
+  background: #E3F2FD;
+}
+
+.sub-tab.active {
+  background: #4C97FF;
+  color: #fff;
+}
+
 .answer-text {
   background: #E8F5E9;
   border-left: 3px solid #4CAF50;
