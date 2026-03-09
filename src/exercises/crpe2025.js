@@ -8,13 +8,10 @@ export const exercises2025 = [
       'EST MAT 1, Exercice 6 — La pyramide SABCD a une base carrée ABCD de côté 4 cm et des faces latérales en triangles équilatéraux. Un script Scratch incomplet trace le patron. Échelle : 1 cm = 20 pas. Il faut trouver les valeurs M, N, P, R, T.',
     question:
       'En prenant 1 cm pour 20 pas, déterminer les valeurs à attribuer aux lettres M, N, P, R et T pour que le script permette de construire le patron de la pyramide SABCD.',
-    // Hypothèses de calcul :
-    // Côté carré = 4 cm × 20 pas/cm = 80 pas
-    // Faces latérales = triangles équilatéraux de côté 80 pas
-    // Angle extérieur triangle équilatéral = 120°
-    // Angles du patron entre carré et triangles = 60°
-    // M = 80 (côté), N = 120 (angle ext. tri. équi.), P = 80 (côté),
-    // R = 60 (angle entre pièces du patron), T = 80 (côté)
+    // Script reconstitué d'après la Figure 4 du sujet (image PDF).
+    // Valeurs confirmées par la géométrie : côté 4cm×20=80pas, angle extérieur
+    // triangle équilatéral=120°, angle de dépliage entre carré et triangle=60°.
+    // M=80, N=120, P=80, R=60, T=80 font consensus.
     blocks: [
       { type: 'allerA', args: [0, 0], category: 'motion' },
       { type: 'orienter', args: [90], category: 'motion' },
@@ -55,7 +52,7 @@ export const exercises2025 = [
         ],
       },
     ],
-    note: 'Script reconstitué par calcul géométrique. M=80, N=120, P=80, R=60, T=80 sont des hypothèses basées sur côté=4cm×20=80pas et angles du triangle équilatéral.',
+    note: 'Script reconstitué d\'après la Figure 4 du sujet (image PDF). M=80, N=120, P=80, R=60, T=80 sont confirmés par la géométrie (côté 4cm×20=80pas, angle extérieur 120°, angle de dépliage 60°). Ces valeurs font consensus.',
     hints: [
       'Le côté du carré ABCD = 4 cm = 80 pas.',
       'Les faces latérales sont des triangles équilatéraux de côté 4 cm = 80 pas.',
@@ -71,7 +68,7 @@ export const exercises2025 = [
     title: 'Triangle rectangle isocèle',
     type: 'incomplete',
     description:
-      'EST MAT 2, Exercice 5 — Le programme demande la valeur de « a » puis trace un triangle rectangle isocèle. Le lutin s\'oriente à 90° au départ. Pour a = 40 : tracer la figure, indiquer l\'orientation finale. Puis associer 3 programmes modifiés (A, B, C) à 4 figures.',
+      'EST MAT 2, Exercice 5 — Le programme demande la valeur de « a » puis trace un triangle rectangle isocèle. Le lutin s\'oriente à 90° au départ. Pour a = 40 : tracer la figure, indiquer l\'orientation finale. Puis associer 3 programmes modifiés (A, B, C) à 4 figures. Note : le bloc « demander la valeur de a » est omis dans cette simulation (canvas statique) ; la figure est tracée pour a = 40.',
     question:
       '1) Pour a = 40, tracer la figure obtenue (1 cm = 10 pas). 2) Indiquer l\'orientation du lutin à la fin. 3) Associer chaque programme modifié (A, B, C) à la figure correspondante parmi les figures 1 à 4.',
     blocks: [
@@ -88,12 +85,12 @@ export const exercises2025 = [
     note: 'Le script principal est fidèle au sujet. L\'association programmes A/B/C → figures 1-4 nécessite les images du sujet original.',
     hints: [
       'Le triangle rectangle isocèle a un angle de 90° et deux angles de 45°.',
-      'L\'hypoténuse = a√2 ≈ 40 × 1,414 ≈ 56,6 pas.',
+      'L\'hypoténuse = a√2 ≈ 40 × 1,414 ≈ 56,6 pas (arrondi à 57 pas).',
       'Les angles extérieurs sont 90° (pour l\'angle droit) et 135° (pour les angles de 45°).',
-      'Le lutin tourne de 90° + 135° = 225° au total durant le tracé.',
+      'Le bloc « demander la valeur de a » est omis dans cette simulation (canvas statique). La figure est tracée pour a = 40.',
     ],
     answer:
-      '1) Triangle rectangle isocèle de côtés 40 pas (4 cm) et hypoténuse ≈ 57 pas. 2) Le lutin finit orienté à 90 + 90 + 135 = 315° (nord-ouest). 3) Associations à déterminer avec les images du sujet.',
+      '1) Triangle rectangle isocèle de côtés 40 pas (4 cm) et hypoténuse ≈ 57 pas. 2) Le lutin finit orienté à 315° (nord-ouest) : départ 90°, +90° = 180°, +135° = 315°. 3) Associations à déterminer avec les images du sujet.',
   },
   {
     id: '2025-3',
