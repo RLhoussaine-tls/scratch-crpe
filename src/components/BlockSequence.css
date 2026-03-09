@@ -1,0 +1,22 @@
+.block-sequence {
+  padding: 12px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  min-width: 260px;
+}
+
+.block-sequence-hat {
+  background: #FFD500;
+  color: #000;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 12px 12px 4px 4px;
+  margin-bottom: 2px;
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}

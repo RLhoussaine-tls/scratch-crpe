@@ -1,0 +1,54 @@
+.exercise-list {
+  width: 220px;
+  min-width: 220px;
+  background: #2C2C2C;
+  color: #eee;
+  padding: 16px 12px;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.exercise-list-title {
+  font-size: 18px;
+  font-weight: 800;
+  margin: 0 0 16px 0;
+  color: #FFD500;
+}
+
+.year-heading {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #999;
+  margin: 12px 0 4px 0;
+  letter-spacing: 1px;
+}
+
+.exercise-year-group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.exercise-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #ddd;
+  padding: 6px 8px;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+
+.exercise-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.exercise-item.active {
+  background: #4C97FF;
+  color: #fff;
+  font-weight: 600;
+}

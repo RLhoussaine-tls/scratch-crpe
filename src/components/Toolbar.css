@@ -1,0 +1,29 @@
+.toolbar {
+  display: flex;
+  gap: 8px;
+  padding: 8px 0;
+}
+
+.toolbar-btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.toolbar-btn:hover {
+  opacity: 0.85;
+}
+
+.toolbar-run {
+  background: #4CAF50;
+  color: white;
+}
+
+.toolbar-reset {
+  background: #FF5722;
+  color: white;
+}

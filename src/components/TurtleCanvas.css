@@ -1,0 +1,11 @@
+.turtle-canvas-wrapper {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  display: inline-block;
+  background: #fff;
+}
+
+.turtle-canvas {
+  display: block;
+}
