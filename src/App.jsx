@@ -70,6 +70,11 @@ export default function App() {
             </div>
           </div>
         )}
+        {showCanvas && activeBlocks.length === 0 && selectedExercise?.subExercises && (
+          <div className="exercise-panel exercise-panel-empty">
+            <p>← Sélectionnez une question ci-dessus pour voir les blocs</p>
+          </div>
+        )}
       </main>
     </div>
   )

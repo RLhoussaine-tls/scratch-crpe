@@ -52,18 +52,12 @@ export default class TurtleEngine {
   }
 
   allerA(x, y) {
-    if (this.penDown) {
-      this.segments.push({
-        fromX: this.x,
-        fromY: this.y,
-        toX: x,
-        toY: y,
-        color: this.color,
-        thickness: this.thickness,
-      })
-    }
     this.x = x
     this.y = y
+  }
+
+  clearSegments() {
+    this.segments = []
   }
 
   ajouterX(dx) {

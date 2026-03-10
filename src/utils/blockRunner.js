@@ -30,6 +30,9 @@ function executeBlock(block, engine, variables, registry = {}) {
     case 'tourner_gauche':
       engine.tournerGauche(resolveValue(args[0], variables))
       break
+    case 'effacer':
+      engine.clearSegments()
+      break
     case 'allerA':
       engine.allerA(resolveValue(args[0], variables), resolveValue(args[1], variables))
       break
