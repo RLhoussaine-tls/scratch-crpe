@@ -7,6 +7,7 @@ import BlockSequence from './components/BlockSequence'
 import TurtleCanvas from './components/TurtleCanvas'
 import Toolbar from './components/Toolbar'
 import VariablePanel from './components/VariablePanel'
+import AskModal from './components/AskModal'
 import './App.css'
 
 function deepClone(obj) {
@@ -33,6 +34,7 @@ export default function App() {
   const [animDelay, setAnimDelay] = useState(300)
   const [editedBlocks, setEditedBlocks] = useState(null)
   const [variables, setVariables] = useState({})
+  const [askModal, setAskModal] = useState(null) // { label, defaultVal, resolve }
 
   const activeBlocks = selectedExercise?.subExercises
     ? selectedExercise.subExercises[activeSubIndex]?.blocks ?? []
@@ -46,6 +48,19 @@ export default function App() {
   const hasBlocks = displayBlocks && displayBlocks.length > 0
   const showCanvas = selectedExercise && !isQuiz
   const showBlocksReadOnly = selectedExercise && isQuiz && hasBlocks
+
+  const askCallback = useCallback((label, defaultVal) => {
+    return new Promise((resolve) => {
+      setAskModal({ label, defaultVal, resolve })
+    })
+  }, [])
+
+  const handleAskOk = useCallback((value) => {
+    if (askModal?.resolve) {
+      askModal.resolve(value)
+    }
+    setAskModal(null)
+  }, [askModal])
 
   const handleEditBlock = useCallback((path, newValue) => {
     const base = editedBlocks ?? activeBlocks
@@ -77,7 +92,10 @@ export default function App() {
         setVariables({ ...vars })
       },
       animDelay,
-      cancelRef
+      cancelRef,
+      {},
+      [],
+      askCallback
     )
 
     setSegments(engine.getSegments())
@@ -133,6 +151,13 @@ export default function App() {
 
   return (
     <div className="app">
+      {askModal && (
+        <AskModal
+          label={askModal.label}
+          defaultVal={askModal.defaultVal}
+          onConfirm={handleAskOk}
+        />
+      )}
       <header className="scratch-header">
         <div className="scratch-logo">scratch-CRPE</div>
         <div className="scratch-subtitle">Annales CRPE 2022-2025</div>

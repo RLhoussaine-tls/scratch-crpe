@@ -28,7 +28,8 @@ export function resolveValue(val, variables) {
         const right = resolveValue(val.right, variables)
         return right !== 0 ? left / right : 0
       }
-      case '%': {
+      case '%':
+      case 'mod': {
         const right = resolveValue(val.right, variables)
         return right !== 0 ? left % right : 0
       }
@@ -45,6 +46,13 @@ export function resolveValue(val, variables) {
   }
 
   return val
+}
+
+/** Alias for evalExpr — evaluates a Scratch expression node to a number */
+export function evalExpr(expr, variables) {
+  if (expr == null) return 0
+  if (typeof expr === 'boolean') return expr ? 1 : 0
+  return Number(resolveValue(expr, variables)) || 0
 }
 
 /**
@@ -106,11 +114,11 @@ export function runBlocks(blocks, engine, variables = {}, registry = {}) {
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
-export async function runBlocksAnimated(blocks, engine, variables = {}, onStep, onDraw, delay = 300, cancelRef = null, registry = {}, currentPath = []) {
+export async function runBlocksAnimated(blocks, engine, variables = {}, onStep, onDraw, delay = 300, cancelRef = null, registry = {}, currentPath = [], askCallback = null) {
   for (let i = 0; i < blocks.length; i++) {
     if (cancelRef && cancelRef.current) return
     const block = blocks[i]
-    if (block.type === 'definir_bloc') {
+    if (block.type === 'definirBloc') {
       executeBlock(block, engine, variables, registry)
       continue
     }
@@ -126,32 +134,42 @@ export async function runBlocksAnimated(blocks, engine, variables = {}, onStep, 
       }
       for (let j = 0; j < times; j++) {
         if (cancelRef && cancelRef.current) return
-        await runBlocksAnimated(block.body || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'body'])
+        await runBlocksAnimated(block.body || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'body'], askCallback)
       }
-    } else if (block.type === 'repeter_jusqu_a') {
+    } else if (block.type === 'repeterJusqua') {
       let iterations = 0
       while (!resolveCondition(block.args[0], variables)) {
         if (cancelRef && cancelRef.current) return
         if (iterations++ >= MAX_ITERATIONS) {
-          console.error(`Boucle repeter_jusqu_a limitée à ${MAX_ITERATIONS} itérations`)
+          console.error(`Boucle repeterJusqua limitée à ${MAX_ITERATIONS} itérations`)
           break
         }
-        await runBlocksAnimated(block.body || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'body'])
+        await runBlocksAnimated(block.body || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'body'], askCallback)
       }
     } else if (block.type === 'si') {
       if (resolveCondition(block.args[0], variables)) {
-        await runBlocksAnimated(block.body || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'body'])
+        await runBlocksAnimated(block.body || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'body'], askCallback)
       }
-    } else if (block.type === 'si_sinon') {
+    } else if (block.type === 'siSinon') {
       if (resolveCondition(block.args[0], variables)) {
-        await runBlocksAnimated(block.body || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'body'])
+        await runBlocksAnimated(block.body || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'body'], askCallback)
       } else {
-        await runBlocksAnimated(block.elseBody || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'elseBody'])
+        await runBlocksAnimated(block.elseBody || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'elseBody'], askCallback)
       }
-    } else if (block.type === 'appeler_bloc') {
+    } else if (block.type === 'appelerBloc') {
       if (registry[block.args[0]]) {
-        await runBlocksAnimated(registry[block.args[0]], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'custom'])
+        await runBlocksAnimated(registry[block.args[0]], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'custom'], askCallback)
       }
+    } else if (block.type === 'demander') {
+      const varName = block.args[0]
+      const defaultVal = resolveValue(block.args[1], variables)
+      if (askCallback) {
+        const userInput = await askCallback(String(varName), defaultVal)
+        variables[varName] = parseFloat(userInput) || 0
+      } else {
+        variables[varName] = defaultVal
+      }
+      onDraw()
     } else {
       executeBlock(block, engine, variables, registry)
       onDraw()
@@ -170,11 +188,9 @@ function executeBlock(block, engine, variables, registry = {}) {
       engine.reculer(Math.round(resolveValue(args[0], variables)))
       break
     case 'tournerDroite':
-    case 'tourner_droite':
       engine.tournerDroite(resolveValue(args[0], variables))
       break
     case 'tournerGauche':
-    case 'tourner_gauche':
       engine.tournerGauche(resolveValue(args[0], variables))
       break
     case 'effacer':
@@ -187,11 +203,9 @@ function executeBlock(block, engine, variables, registry = {}) {
       engine.orienter(resolveValue(args[0], variables))
       break
     case 'styloPoser':
-    case 'stylo_poser':
       engine.styloPoser()
       break
     case 'styloRelever':
-    case 'stylo_relever':
       engine.styloRelever()
       break
     case 'setCouleur':
@@ -200,33 +214,34 @@ function executeBlock(block, engine, variables, registry = {}) {
     case 'setEpaisseur':
       engine.setEpaisseur(resolveValue(args[0], variables))
       break
-    case 'mettre_variable':
+    case 'mettreVariable':
       variables[args[0]] = resolveValue(args[1], variables)
       break
 
     /**
-     * Simulated input block: set variable to default value (editable in UI).
+     * Simulated input block: set variable to default value.
+     * Async variant is handled in runBlocksAnimated.
      * { type: 'demander', args: ['varName', defaultValue] }
      */
     case 'demander':
       variables[args[0]] = resolveValue(args[1], variables)
       break
-    case 'ajouter_variable':
+    case 'ajouterVariable':
       variables[args[0]] = (variables[args[0]] ?? 0) + resolveValue(args[1], variables)
       break
-    case 'ajouter_x':
+    case 'ajouterX':
       engine.ajouterX(resolveValue(args[0], variables))
       break
-    case 'ajouter_y':
+    case 'ajouterY':
       engine.ajouterY(resolveValue(args[0], variables))
       break
 
     /**
      * Operator block: compute valA OP valB and store in variable.
-     * { type: 'mettre_variable_op', args: ['varName', valA, operator, valB] }
+     * { type: 'mettreVariableOp', args: ['varName', valA, operator, valB] }
      * operator in '+' | '-' | '*' | '/' | '%'
      */
-    case 'mettre_variable_op': {
+    case 'mettreVariableOp': {
       const varName = args[0]
       const a = resolveValue(args[1], variables)
       const op = args[2]
@@ -237,17 +252,16 @@ function executeBlock(block, engine, variables, registry = {}) {
         case '*': variables[varName] = a * b; break
         case '/': variables[varName] = b !== 0 ? a / b : 0; break
         case '%': variables[varName] = b !== 0 ? a % b : 0; break
-        default: console.warn(`mettre_variable_op: unknown operator ${op}`)
+        default: console.warn(`mettreVariableOp: unknown operator ${op}`)
       }
       break
     }
 
     /**
      * Comparison block: compare valA and valB, store boolean in variable.
-     * { type: 'mettre_variable_comp', args: ['varName', valA, comparator, valB] }
-     * comparator in '<' | '>' | '=' | '<=' | '>='
+     * { type: 'mettreVariableComp', args: ['varName', valA, comparator, valB] }
      */
-    case 'mettre_variable_comp': {
+    case 'mettreVariableComp': {
       const varName = args[0]
       const a = resolveValue(args[1], variables)
       const comp = args[2]
@@ -258,7 +272,7 @@ function executeBlock(block, engine, variables, registry = {}) {
         case '=': variables[varName] = a === b; break
         case '<=': variables[varName] = a <= b; break
         case '>=': variables[varName] = a >= b; break
-        default: console.warn(`mettre_variable_comp: unknown comparator ${comp}`)
+        default: console.warn(`mettreVariableComp: unknown comparator ${comp}`)
       }
       break
     }
@@ -267,10 +281,10 @@ function executeBlock(block, engine, variables, registry = {}) {
       variables['__dire__'] = String(resolveValue(args[0], variables))
       break
 
-    case 'definir_bloc':
+    case 'definirBloc':
       registry[args[0]] = block.body || []
       break
-    case 'appeler_bloc':
+    case 'appelerBloc':
       if (registry[args[0]]) {
         runBlocks(registry[args[0]], engine, variables, registry)
       } else {
@@ -291,11 +305,11 @@ function executeBlock(block, engine, variables, registry = {}) {
     }
 
     /** Repeat until condition is true */
-    case 'repeter_jusqu_a': {
+    case 'repeterJusqua': {
       let iterations = 0
       while (!resolveCondition(args[0], variables)) {
         if (iterations++ >= MAX_ITERATIONS) {
-          console.error(`Boucle repeter_jusqu_a limitée à ${MAX_ITERATIONS} itérations`)
+          console.error(`Boucle repeterJusqua limitée à ${MAX_ITERATIONS} itérations`)
           break
         }
         runBlocks(block.body || [], engine, variables, registry)
@@ -311,7 +325,7 @@ function executeBlock(block, engine, variables, registry = {}) {
       break
 
     /** Conditional with else: execute body or elseBody */
-    case 'si_sinon':
+    case 'siSinon':
       if (resolveCondition(args[0], variables)) {
         runBlocks(block.body || [], engine, variables, registry)
       } else {
