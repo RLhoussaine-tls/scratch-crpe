@@ -7,7 +7,7 @@ export default class TurtleEngine {
     this.x = 0
     this.y = 0
     this.angle = 0 // Scratch default: 0° = pointing up
-    this.penDown = true
+    this.penDown = false
     this.color = '#0000FF'
     this.thickness = 1
     this.segments = []

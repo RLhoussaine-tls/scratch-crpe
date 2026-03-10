@@ -52,6 +52,11 @@ export default function TurtleCanvas({ segments, turtleState }) {
         style={{ width: CANVAS_W, height: CANVAS_H }}
         className="turtle-canvas"
       />
+      <div className="turtle-coords">
+        x : {Math.round(turtleState?.x ?? 0)} &nbsp;&nbsp;
+        y : {Math.round(turtleState?.y ?? 0)} &nbsp;&nbsp;
+        direction : {Math.round(turtleState?.angle ?? 0)}°
+      </div>
     </div>
   )
 }
@@ -92,6 +97,19 @@ function drawGrid(ctx) {
   ctx.fillStyle = '#999'
   ctx.font = '10px sans-serif'
   ctx.fillText('0', CANVAS_W / 2 + 3, CANVAS_H / 2 + 12)
+
+  // Labels axe X
+  ctx.fillStyle = '#999'
+  ctx.font = '9px sans-serif'
+  ctx.textAlign = 'center'
+  for (const x of [-240, -200, -160, -120, -80, -40, 40, 80, 120, 160, 200, 240]) {
+    ctx.fillText(String(x), CANVAS_W / 2 + x, CANVAS_H / 2 + 12)
+  }
+  // Labels axe Y
+  ctx.textAlign = 'right'
+  for (const y of [-160, -120, -80, -40, 40, 80, 120, 160]) {
+    ctx.fillText(String(y), CANVAS_W / 2 - 4, CANVAS_H / 2 - y + 3)
+  }
   ctx.restore()
 }
 
