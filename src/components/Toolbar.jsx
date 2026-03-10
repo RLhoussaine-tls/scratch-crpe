@@ -8,15 +8,15 @@ export default function Toolbar({ onRun, onStop, onResetCanvas, onResetExercise,
           <svg width="16" height="16" viewBox="0 0 16 16" style={{ marginRight: 4, verticalAlign: 'middle' }}>
             <polygon points="3,1 14,8 3,15" fill="#4CBF56" />
           </svg>
-          Executer
+          Exécuter
         </button>
         {isRunning && (
           <button className="toolbar-btn toolbar-stop" onClick={onStop}>
-            Stop
+            ⏹ Stop
           </button>
         )}
         <button className="toolbar-btn toolbar-reset" onClick={onResetCanvas} disabled={isRunning}>
-          Reinitialiser le canvas
+          Réinitialiser le canvas
         </button>
         {hasEdits && (
           <button className="toolbar-btn toolbar-reset-exercise" onClick={onResetExercise} disabled={isRunning}>

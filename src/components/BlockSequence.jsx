@@ -1,7 +1,7 @@
 import Block from './Block'
 import './BlockSequence.css'
 
-export default function BlockSequence({ blocks, activeIndex, onEditBlock }) {
+export default function BlockSequence({ blocks, activePath, onEditBlock }) {
   if (!blocks || blocks.length === 0) return null
 
   return (
@@ -10,14 +10,14 @@ export default function BlockSequence({ blocks, activeIndex, onEditBlock }) {
         <svg width="16" height="16" viewBox="0 0 16 16" style={{ marginRight: 6 }}>
           <polygon points="3,1 14,8 3,15" fill="#4CBF56" />
         </svg>
-        quand drapeau vert clique
+        quand 🚩 est cliqué
       </div>
       {blocks.map((block, i) => (
         <Block
           key={i}
           block={block}
-          activeIndex={activeIndex}
-          blockIndex={i}
+          activePath={activePath}
+          blockPath={[i]}
           onEditBlock={onEditBlock}
           path={[i]}
         />

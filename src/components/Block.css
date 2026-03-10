@@ -104,10 +104,11 @@
 }
 
 /* Active block highlight */
-.block-active {
+.block-active > .block-header,
+.block-active.block-stack {
   outline: 3px solid #FFD700;
-  outline-offset: 2px;
-  filter: brightness(1.15);
+  outline-offset: 1px;
+  filter: brightness(1.2);
   transition: outline 0.1s;
 }
 

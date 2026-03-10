@@ -27,7 +27,7 @@ export default function App() {
   const [activeSubIndex, setActiveSubIndex] = useState(0)
   const [segments, setSegments] = useState([])
   const [turtleState, setTurtleState] = useState(engineRef.current.getState())
-  const [activeBlockIndex, setActiveBlockIndex] = useState(null)
+  const [activePath, setActivePath] = useState(null)
   const [isRunning, setIsRunning] = useState(false)
   const [animDelay, setAnimDelay] = useState(300)
   const [editedBlocks, setEditedBlocks] = useState(null)
@@ -53,7 +53,7 @@ export default function App() {
   const handleRun = useCallback(async () => {
     if (!selectedExercise || isQuiz || isRunning) return
     setIsRunning(true)
-    setActiveBlockIndex(null)
+    setActivePath(null)
     cancelRef.current = false
     const engine = engineRef.current
     engine.reset()
@@ -64,8 +64,8 @@ export default function App() {
       displayBlocks,
       engine,
       {},
-      (index) => {
-        setActiveBlockIndex(index)
+      (path) => { setActivePath(path) },
+      () => {
         setSegments([...engine.getSegments()])
         setTurtleState({ ...engine.getState() })
       },
@@ -75,14 +75,14 @@ export default function App() {
 
     setSegments(engine.getSegments())
     setTurtleState(engine.getState())
-    setActiveBlockIndex(null)
+    setActivePath(null)
     setIsRunning(false)
   }, [selectedExercise, displayBlocks, isQuiz, isRunning, animDelay])
 
   const handleStop = useCallback(() => {
     cancelRef.current = true
     setIsRunning(false)
-    setActiveBlockIndex(null)
+    setActivePath(null)
   }, [])
 
   const handleResetCanvas = useCallback(() => {
@@ -139,7 +139,7 @@ export default function App() {
           {showBlocksReadOnly && (
             <div className="workspace workspace-readonly">
               <div className="scripts-area">
-                <div className="readonly-label">Programme Scratch a analyser</div>
+                <div className="readonly-label">Programme Scratch à analyser</div>
                 <BlockSequence blocks={displayBlocks} />
               </div>
             </div>
@@ -149,7 +149,7 @@ export default function App() {
               <div className="scripts-area">
                 <BlockSequence
                   blocks={displayBlocks}
-                  activeIndex={activeBlockIndex}
+                  activePath={activePath}
                   onEditBlock={handleEditBlock}
                 />
                 <Toolbar
@@ -170,7 +170,7 @@ export default function App() {
           )}
           {showCanvas && displayBlocks.length === 0 && selectedExercise?.subExercises && (
             <div className="exercise-panel exercise-panel-empty">
-              <p>Selectionnez une question ci-dessus pour voir les blocs</p>
+              <p>Sélectionnez une question ci-dessus pour voir les blocs</p>
             </div>
           )}
         </main>

@@ -1,6 +1,11 @@
 import { getCategoryColor } from '../utils/colors'
 import './Block.css'
 
+function pathStartsWith(full, prefix) {
+  if (!full || full.length < prefix.length) return false
+  return prefix.every((v, i) => full[i] === v)
+}
+
 function ArgDisplay({ val, argIndex, path, onEditBlock }) {
   if (val && typeof val === 'object' && val.type === 'variable') {
     return <span className="block-arg-variable">{val.name}</span>
@@ -27,34 +32,34 @@ function ArgDisplay({ val, argIndex, path, onEditBlock }) {
 const LABELS = {
   avancer: (args, path, onEdit) => <>avancer de <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> pas</>,
   reculer: (args, path, onEdit) => <>reculer de <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> pas</>,
-  tournerDroite: (args, path, onEdit) => <>tourner &#8635; de <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> degres</>,
-  tournerGauche: (args, path, onEdit) => <>tourner &#8634; de <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> degres</>,
-  allerA: (args, path, onEdit) => <>aller a x: <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> y: <ArgDisplay val={args[1]} argIndex={1} path={path} onEditBlock={onEdit} /></>,
-  orienter: (args, path, onEdit) => <>s&apos;orienter a <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /></>,
-  styloPoser: () => "stylo en position d'ecriture",
+  tournerDroite: (args, path, onEdit) => <>tourner &#8635; de <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> degrés</>,
+  tournerGauche: (args, path, onEdit) => <>tourner &#8634; de <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> degrés</>,
+  allerA: (args, path, onEdit) => <>aller à x: <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> y: <ArgDisplay val={args[1]} argIndex={1} path={path} onEditBlock={onEdit} /></>,
+  orienter: (args, path, onEdit) => <>s&apos;orienter à <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /></>,
+  styloPoser: () => "stylo en position d'écriture",
   styloRelever: () => 'relever le stylo',
-  setCouleur: (args, path, onEdit) => <>mettre la couleur du stylo a <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /></>,
-  setEpaisseur: (args, path, onEdit) => <>mettre la taille du stylo a <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /></>,
-  repeter: (args, path, onEdit) => <>repeter <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> fois</>,
-  mettre_variable: (args, path, onEdit) => <>mettre {args[0]} a <ArgDisplay val={args[1]} argIndex={1} path={path} onEditBlock={onEdit} /></>,
-  ajouter_variable: (args, path, onEdit) => <>ajouter <ArgDisplay val={args[1]} argIndex={1} path={path} onEditBlock={onEdit} /> a {args[0]}</>,
-  ajouter_x: (args, path, onEdit) => <>ajouter <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> a x</>,
-  ajouter_y: (args, path, onEdit) => <>ajouter <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> a y</>,
-  tourner_droite: (args, path, onEdit) => <>tourner &#8635; de <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> degres</>,
-  tourner_gauche: (args, path, onEdit) => <>tourner &#8634; de <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> degres</>,
-  stylo_poser: () => "stylo en position d'ecriture",
+  setCouleur: (args, path, onEdit) => <>mettre la couleur du stylo à <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /></>,
+  setEpaisseur: (args, path, onEdit) => <>mettre la taille du stylo à <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /></>,
+  repeter: (args, path, onEdit) => <>répéter <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> fois</>,
+  mettre_variable: (args, path, onEdit) => <>mettre {args[0]} à <ArgDisplay val={args[1]} argIndex={1} path={path} onEditBlock={onEdit} /></>,
+  ajouter_variable: (args, path, onEdit) => <>ajouter <ArgDisplay val={args[1]} argIndex={1} path={path} onEditBlock={onEdit} /> à {args[0]}</>,
+  ajouter_x: (args, path, onEdit) => <>ajouter <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> à x</>,
+  ajouter_y: (args, path, onEdit) => <>ajouter <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> à y</>,
+  tourner_droite: (args, path, onEdit) => <>tourner &#8635; de <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> degrés</>,
+  tourner_gauche: (args, path, onEdit) => <>tourner &#8634; de <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> degrés</>,
+  stylo_poser: () => "stylo en position d'écriture",
   stylo_relever: () => 'relever le stylo',
-  definir_bloc: (args) => <>definir {args[0]}</>,
+  definir_bloc: (args) => <>définir {args[0]}</>,
   appeler_bloc: (args) => <>{args[0]}</>,
   effacer: () => 'tout effacer',
 }
 
-export default function Block({ block, depth = 0, activeIndex, blockIndex, onEditBlock, path = [] }) {
+export default function Block({ block, depth = 0, activePath, blockPath = [], onEditBlock, path = [] }) {
   const { type, args = [], category = 'motion', body } = block
   const color = getCategoryColor(category)
   const labelFn = LABELS[type]
   const label = labelFn ? labelFn(args, path, onEditBlock) : type
-  const isActive = activeIndex !== null && activeIndex !== undefined && blockIndex === activeIndex
+  const isActive = pathStartsWith(activePath, blockPath)
 
   if (type === 'repeter' || type === 'definir_bloc') {
     return (
@@ -66,6 +71,8 @@ export default function Block({ block, depth = 0, activeIndex, blockIndex, onEdi
               key={i}
               block={child}
               depth={depth + 1}
+              activePath={activePath}
+              blockPath={[...blockPath, 'body', i]}
               onEditBlock={onEditBlock}
               path={[...path, 'body', i]}
             />
