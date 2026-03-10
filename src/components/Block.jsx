@@ -108,13 +108,14 @@ const LABELS = {
   appeler_bloc: (args) => <>{args[0]}</>,
   effacer: () => 'tout effacer',
   demander: (args, path, onEdit) => <>demander {args[0]} (d&eacute;faut : <ArgDisplay val={args[1]} argIndex={1} path={path} onEditBlock={onEdit} />)</>,
+  dire: (args) => <>dire <ExprDisplay val={args[0]} /></>,
 }
 
 const C_SHAPE_BLOCKS = ['repeter', 'definir_bloc', 'si', 'repeter_jusqu_a']
 
 export default function Block({ block, depth = 0, activePath, blockPath = [], onEditBlock, path = [] }) {
   const { type, args = [], category = 'motion', body } = block
-  const color = getCategoryColor(category)
+  const color = type === 'dire' ? '#9966FF' : getCategoryColor(category)
   const labelFn = LABELS[type]
   const label = labelFn ? labelFn(args, path, onEditBlock) : type
   const isActive = pathStartsWith(activePath, blockPath)

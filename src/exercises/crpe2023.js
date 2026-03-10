@@ -102,15 +102,38 @@ export const exercises2023 = [
     year: 2023,
     title: 'Programmes de calcul A et B',
     sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
-    type: 'quiz',
-    description: "Programme A (blocs Scratch) : demander un nombre, mettre a←réponse, mettre b←(2×a+5), mettre c←(5×a−4), mettre d←b×c, dire d.\nProgramme B (textuel) : choisir un nombre, prendre son double, ajouter 5, calculer le carré du résultat.",
-    question: "1. Montrer que si l'utilisateur saisit 2, le programme A retourne 54.\n2. Calculer le résultat du programme A pour 1,15.\n3. Pour quels nombres le programme A retourne-t-il 0 ?\n4a. Programme B pour x=3 ?\n4b. Programme B pour x=3/4 ?\n7. Pour quels nombres les deux programmes retournent-ils le même résultat ?",
+    type: 'calcul',
+    description: "Deux programmes de calcul : le programme A utilise des blocs Scratch exécutables, le programme B est décrit textuellement.",
+    question: "1. Montrer que si l'utilisateur saisit 2, le programme A retourne 54.\n2. Calculer le résultat du programme A pour 1, 15.\n3. Pour quels nombres le programme A retourne-t-il 0 ?\n4a. Programme B pour x=3 ?\n4b. Programme B pour x=3/4 ?\n7. Pour quels nombres les deux programmes retournent-ils le même résultat ?",
     hints: [
-      'Programme A : pour x=2 → b=2×2+5=9, c=5×2−4=6, d=9×6=54',
+      'Programme A : pour x=2 → b=2×2+5=9, c=5×2−4=6, résultat=9×6=54',
       'Programme A retourne (2x+5)(5x−4) = 10x²+17x−20',
       'Programme B retourne (2x+5)²',
       'A=B ⟺ (2x+5)(5x−4) = (2x+5)² ⟺ (2x+5)(5x−4−2x−5) = 0 ⟺ (2x+5)(3x−9) = 0',
     ],
-    answer: "Programme A donne (2x+5)(5x−4). Programme B donne (2x+5)². Ils sont égaux pour x=−5/2 ou x=3.",
+    answer: "Programme A = (2x+5)(5x−4) = 10x²+17x−20. Programme B = (2x+5)². Égaux pour x=−5/2 ou x=3 (résoudre (2x+5)(3x−9)=0).",
+    subExercises: [
+      {
+        subtitle: 'Programme A',
+        description: "Choisir un nombre x, calculer b = 2x+5, calculer c = 5x−4, calculer résultat = b×c.\nPour x=2 → b=9, c=6, résultat=54. Pour x=1 → résultat=(2+5)(5−4)=7×1=7. Pour x=−5/2 → résultat=0.",
+        blocks: [
+          { type: 'demander', args: ['x', 2], category: 'sensing' },
+          { type: 'mettre_variable_op', args: ['b', { type: 'variable', name: 'x' }, '*', 2], category: 'variables' },
+          { type: 'mettre_variable_op', args: ['b', { type: 'variable', name: 'b' }, '+', 5], category: 'variables' },
+          { type: 'mettre_variable_op', args: ['c', { type: 'op', op: '*', left: 5, right: { type: 'variable', name: 'x' } }, '-', 4], category: 'variables' },
+          { type: 'mettre_variable_op', args: ['résultat', { type: 'variable', name: 'b' }, '*', { type: 'variable', name: 'c' }], category: 'variables' },
+        ],
+      },
+      {
+        subtitle: 'Programme B',
+        type: 'quiz',
+        description: "Choisir un nombre x, prendre son double, ajouter 5, calculer le carré du résultat → (2x+5)².",
+        blocks: [
+          { type: 'demander', args: ['x', 3], category: 'sensing' },
+          { type: 'mettre_variable_op', args: ['b', { type: 'op', op: '*', left: 2, right: { type: 'variable', name: 'x' } }, '+', 5], category: 'variables' },
+          { type: 'mettre_variable_op', args: ['résultat', { type: 'variable', name: 'b' }, '*', { type: 'variable', name: 'b' }], category: 'variables' },
+        ],
+      },
+    ],
   },
 ]

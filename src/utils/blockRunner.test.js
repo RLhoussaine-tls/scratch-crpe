@@ -277,4 +277,23 @@ describe('runBlocks', () => {
     const vars = runBlocks(blocks, engine)
     expect(vars.flag).toBe(true)
   })
+
+  it('executes dire block', () => {
+    const engine = createMockEngine()
+    const blocks = [
+      { type: 'dire', args: ['Bonjour !'] },
+    ]
+    const vars = runBlocks(blocks, engine)
+    expect(vars.__dire__).toBe('Bonjour !')
+  })
+
+  it('dire with variable', () => {
+    const engine = createMockEngine()
+    const blocks = [
+      { type: 'demander', args: ['x', 42] },
+      { type: 'dire', args: [{ type: 'variable', name: 'x' }] },
+    ]
+    const vars = runBlocks(blocks, engine)
+    expect(vars.__dire__).toBe('42')
+  })
 })
