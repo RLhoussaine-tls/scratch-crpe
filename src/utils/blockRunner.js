@@ -12,6 +12,36 @@ export function runBlocks(blocks, engine, variables = {}, registry = {}) {
   return variables
 }
 
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+
+export async function runBlocksAnimated(blocks, engine, variables = {}, onStep, onDraw, delay = 300, cancelRef = null, registry = {}, currentPath = []) {
+  for (let i = 0; i < blocks.length; i++) {
+    if (cancelRef && cancelRef.current) return
+    const block = blocks[i]
+    if (block.type === 'definir_bloc') {
+      executeBlock(block, engine, variables, registry)
+      continue
+    }
+    onStep([...currentPath, i])
+    await sleep(delay)
+    if (cancelRef && cancelRef.current) return
+    if (block.type === 'repeter') {
+      const times = resolveValue(block.args[0], variables)
+      for (let j = 0; j < times; j++) {
+        if (cancelRef && cancelRef.current) return
+        await runBlocksAnimated(block.body || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'body'])
+      }
+    } else if (block.type === 'appeler_bloc') {
+      if (registry[block.args[0]]) {
+        await runBlocksAnimated(registry[block.args[0]], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'custom'])
+      }
+    } else {
+      executeBlock(block, engine, variables, registry)
+      onDraw()
+    }
+  }
+}
+
 function executeBlock(block, engine, variables, registry = {}) {
   const { type, args = [] } = block
 

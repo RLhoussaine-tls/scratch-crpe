@@ -11,7 +11,34 @@ body {
 
 .app {
   display: flex;
+  flex-direction: column;
   min-height: 100vh;
+}
+
+.scratch-header {
+  background: #855CD6;
+  color: white;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.scratch-logo {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.scratch-subtitle {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.app-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
 }
 
 .main-area {
@@ -27,8 +54,15 @@ body {
   flex-wrap: wrap;
 }
 
-.blocks-area {
+.scripts-area {
   flex: 0 0 auto;
+  background-color: #E9EFF5;
+  background-image: radial-gradient(circle, #c0ccd8 1px, transparent 1px);
+  background-size: 24px 24px;
+  padding: 16px;
+  border-radius: 8px;
+  min-height: 300px;
+  min-width: 260px;
 }
 
 .canvas-area {
@@ -51,7 +85,7 @@ body {
 }
 
 @media (max-width: 900px) {
-  .app {
+  .app-body {
     flex-direction: column;
   }
 
