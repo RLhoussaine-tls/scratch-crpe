@@ -3,6 +3,7 @@ export const exercises2025 = [
     id: '2025-1',
     year: 2025,
     title: 'Patron de pyramide SABCD',
+    sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description:
       "EST MAT 1, Exercice 6 — La pyramide SABCD a une base carrée ABCD de côté 4 cm et des faces latérales triangulaires équilatérales de côté 4 cm. Un script Scratch trace le patron. Échelle : 1 cm = 20 pas (donc 4 cm = 80 pas). Le lutin s'oriente à 90° au départ.",
     question:
@@ -65,6 +66,7 @@ export const exercises2025 = [
     id: '2025-2',
     year: 2025,
     title: 'Triangle rectangle isocèle',
+    sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description:
       "EST MAT 2, Exercice 5 — Le programme demande la valeur de « a » puis trace un triangle rectangle isocèle. Le lutin s'oriente à 90° au départ. Programme de base (a=40) : avancer a, tourner droite 90°, avancer a, tourner droite 135°, avancer a√2, tourner droite 135°, avancer a, tourner droite 90°.\nProgramme A : ajoute « avancer de a+10 pas » à la fin → décale le départ vers la droite.\nProgramme B : supprime le dernier « avancer a » et « tourner droite 90° » → triangle sans retour.\nProgramme C : ajoute « ajouter 10 à a » à la fin → triangles de taille croissante.",
     question:
@@ -124,7 +126,7 @@ export const exercises2025 = [
       },
       {
         subtitle: "Programme C → Figure 3",
-        description: "Programme C : programme de base + « ajouter 10 à a » à la fin. Triangles de taille croissante (a = 40, 50, 60, 70…).\nNote : l'hypoténuse est approximée à 57 pas (valeur pour a=40). Dans le vrai programme, elle vaudrait a×√2 (Scratch ne calcule pas √2 nativement). La figure simulée ici montre 4 triangles avec une hypoténuse fixe de 57 pas.",
+        description: "Programme C : programme de base + « ajouter 10 à a » à la fin. Triangles de taille croissante (a = 40, 50, 60, 70…). L'hypoténuse vaut a×√2 (calculée dynamiquement).",
         question: "À quelle figure correspond le programme C ?",
         blocks: [
           { type: 'mettre_variable', args: ['a', 30], category: 'variables' },
@@ -136,13 +138,13 @@ export const exercises2025 = [
             { type: 'tournerDroite', args: [90], category: 'motion' },
             { type: 'avancer', args: [{ type: 'variable', name: 'a' }], category: 'motion' },
             { type: 'tournerDroite', args: [135], category: 'motion' },
-            { type: 'avancer', args: [57], category: 'motion' },
+            { type: 'avancer', args: [{ type: 'op', op: '*', left: { type: 'variable', name: 'a' }, right: { type: 'op', op: 'sqrt', left: 2 } }], category: 'motion' },
             { type: 'tournerDroite', args: [135], category: 'motion' },
             { type: 'avancer', args: [{ type: 'variable', name: 'a' }], category: 'motion' },
             { type: 'tournerDroite', args: [90], category: 'motion' },
           ]},
         ],
-        answer: "Programme C → Figure 3 : triangles de taille croissante vers la gauche. La valeur de a augmente de 10 à chaque itération (40, 50, 60, 70…).",
+        answer: "Programme C → Figure 3 : triangles de taille croissante vers la gauche. La valeur de a augmente de 10 à chaque itération (40, 50, 60, 70…). L'hypoténuse = a×√2.",
       },
     ],
     blocks: [],
@@ -160,6 +162,7 @@ export const exercises2025 = [
     id: '2025-3',
     year: 2025,
     title: 'Patron pyramide — Bloc triangle',
+    sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description:
       "EST MAT 3, Exercice 5 — Un bloc « triangle » trace un triangle équilatéral de côté 40 pas. Il faut compléter L1 et L2 du bloc, puis L3, L4, L5 du script pour tracer le patron d'un moule pyramidal (base carrée de 4 cm, faces = triangles équilatéraux). Échelle : 10 pas = 1 cm.",
     question:

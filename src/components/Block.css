@@ -149,3 +149,23 @@
   padding: 1px 6px;
   font-weight: bold;
 }
+
+/* Expression display */
+.block-arg-expr {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  padding: 1px 6px;
+  font-weight: bold;
+}
+
+/* Else header for si_sinon */
+.block-c .block-else-header {
+  background: var(--block-color);
+  padding: 4px 12px;
+  border-left: 1px solid rgba(0, 0, 0, 0.15);
+  border-right: 1px solid rgba(0, 0, 0, 0.15);
+  color: #fff;
+  font-weight: 500;
+  font-size: 13px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+}

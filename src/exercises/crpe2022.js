@@ -3,10 +3,11 @@ export const exercises2022 = [
     id: '2022-1',
     year: 2022,
     title: 'Losange avec variable C',
+    sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description:
-      'EST MAT 1, Exercice 4 — Le Programme 1 utilise une variable C (valeur initiale C = 50) pour tracer un quadrilatère. Échelle : 1 cm = 10 pixels. Le Programme 2 utilise le Programme 1 en boucle en modifiant la variable C pour obtenir des losanges emboîtés.',
+      'EST MAT 1, Exercice 4 — Le Programme 1 utilise une variable C (valeur initiale C = 50) pour tracer un quadrilatère : répéter 4 fois { avancer de C pas, tourner de 90° }. Échelle : 1 cm = 10 pixels. Le Programme 2 utilise le Programme 1 en boucle en modifiant la variable C pour obtenir des carrés emboîtés.',
     question:
-      '1) En prenant C = 50 et 1 cm pour 10 pixels, tracer la figure du Programme 1. 2) Quelle est la nature de la figure tracée ? 3) Quelles valeurs attribuer à A et N dans le Programme 2 ?',
+      '1) En prenant C = 50 et 1 cm pour 10 pixels, tracer la figure du Programme 1. 2) Quelle est la nature de la figure tracée ? Justifier. 3) Quelles valeurs attribuer à A et N dans le Programme 2 ?',
     blocks: [
       { type: 'mettre_variable', args: ['C', 50], category: 'variables' },
       { type: 'styloPoser', args: [], category: 'pen' },
@@ -26,32 +27,35 @@ export const exercises2022 = [
       'Pour le Programme 2, observer comment la variable C évolue à chaque itération.',
     ],
     answer:
-      'Le Programme 1 trace un carré (losange à angles droits) de côté 50 pas = 5 cm. Pour le Programme 2, A est la valeur ajoutée à C après chaque losange et N le nombre de répétitions.',
+      'Le Programme 1 trace un carré de côté 50 pas = 5 cm (4 côtés égaux, 4 angles droits). Un carré est un cas particulier de losange (losange à angles droits). Pour le Programme 2, A est la valeur ajoutée à C après chaque carré et N le nombre de répétitions.',
   },
   {
     id: '2022-g2-adam',
     year: 2022,
     title: "Programme d'Adam",
-    type: 'quiz',
-    description: "Adam a créé un programme de calcul dans Scratch. L'utilisateur saisit un nombre x. Le programme calcule (x−3) et (2x+2), puis les multiplie.",
-    question: "Si l'utilisateur saisit le nombre 2, montrer que le programme retourne −6. Puis montrer que pour tout nombre x, le programme retourne 2x²−x−6.",
+    sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
+    type: 'calcul',
+    description: "CRPE 2022, Groupement 2, Exercice 4 — Adam a créé un programme de calcul dans Scratch. L'utilisateur choisit un nombre x, l'élève au carré, soustrait 3, multiplie par 2, puis soustrait le nombre de départ. Cela donne f(x) = (x²−3)×2 − x = 2x²−x−6.",
+    question: "Exécuter le programme pour différentes valeurs de x. Montrer que pour tout nombre x, le programme retourne 2x²−x−6. Factoriser cette expression.",
     blocks: [
-      { type: 'mettre_variable', args: ['résultat', { type: 'variable', name: 'x' }], category: 'variables' },
+      { type: 'demander', args: ['x', 3], category: 'sensing' },
+      { type: 'mettre_variable_op', args: ['résultat', { type: 'variable', name: 'x' }, '*', { type: 'variable', name: 'x' }], category: 'operators' },
       { type: 'ajouter_variable', args: ['résultat', -3], category: 'variables' },
-      { type: 'mettre_variable', args: ['temp', { type: 'variable', name: 'x' }], category: 'variables' },
-      { type: 'ajouter_variable', args: ['temp', { type: 'variable', name: 'x' }], category: 'variables' },
-      { type: 'ajouter_variable', args: ['temp', 2], category: 'variables' },
+      { type: 'mettre_variable_op', args: ['résultat', { type: 'variable', name: 'résultat' }, '*', 2], category: 'operators' },
+      { type: 'mettre_variable_op', args: ['résultat', { type: 'variable', name: 'résultat' }, '-', { type: 'variable', name: 'x' }], category: 'operators' },
     ],
     hints: [
-      'Pour x=2 : (2−3)=−1 et (2×2+2)=6, donc (−1)×6=−6',
-      'Développer (x−3)(2x+2) = 2x²+2x−6x−6 = 2x²−x−6 (sic)',
+      "Pour x=2 : x²=4, 4−3=1, 1×2=2, 2−2=0... Attention : pour x=2, résultat = 2×4−2−6 = −6 ✔",
+      'Pour tout x : résultat = x², puis −3 → x²−3, puis ×2 → 2x²−6, puis −x → 2x²−x−6',
+      'On peut factoriser : 2x²−x−6 = (2x+3)(x−2)',
     ],
-    answer: 'Le programme retourne 2x²−x−6 pour tout x.',
+    answer: 'Pour tout x : x²→x²−3→2(x²−3)=2x²−6→2x²−6−x=2x²−x−6. Factorisation : 2x²−x−6 = (2x+3)(x−2). Pour x=3 : 2(9)−3−6 = 9. Pour x=0 : −6. Pour x=2 : 0.',
   },
   {
     id: '2022-g3-tirets',
     year: 2022,
     title: 'Tirets et transformations',
+    sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description: "Un programme Scratch trace des tirets. Le lutin est initialement orienté vers la droite (90°).",
     subExercises: [
       {
@@ -61,13 +65,13 @@ export const exercises2022 = [
         question: 'Représenter la figure obtenue (1 mm = 1 pixel).',
         blocks: [
           { type: 'orienter', args: [90], category: 'motion' },
-          { type: 'stylo_poser', category: 'pen' },
+          { type: 'styloPoser', category: 'pen' },
           { type: 'repeter', args: [4], category: 'control', body: [
             { type: 'avancer', args: [10], category: 'motion' },
-            { type: 'stylo_relever', category: 'pen' },
+            { type: 'styloRelever', category: 'pen' },
             { type: 'avancer', args: [10], category: 'motion' },
-            { type: 'tourner_droite', args: [90], category: 'motion' },
-            { type: 'stylo_poser', category: 'pen' },
+            { type: 'tournerDroite', args: [90], category: 'motion' },
+            { type: 'styloPoser', category: 'pen' },
           ]},
         ],
         answer: 'On obtient un L composé de 4 tirets formant un carré ouvert.',
@@ -79,12 +83,12 @@ export const exercises2022 = [
         question: 'Quelles modifications apporter pour obtenir 8 tirets alignés horizontalement ?',
         blocks: [
           { type: 'orienter', args: [90], category: 'motion' },
-          { type: 'stylo_poser', category: 'pen' },
+          { type: 'styloPoser', category: 'pen' },
           { type: 'repeter', args: [8], category: 'control', body: [
             { type: 'avancer', args: [10], category: 'motion' },
-            { type: 'stylo_relever', category: 'pen' },
+            { type: 'styloRelever', category: 'pen' },
             { type: 'avancer', args: [10], category: 'motion' },
-            { type: 'stylo_poser', category: 'pen' },
+            { type: 'styloPoser', category: 'pen' },
           ]},
         ],
         answer: "Supprimer le bloc 'tourner' et passer le répéter à 8 fois.",
@@ -96,13 +100,13 @@ export const exercises2022 = [
         question: "Quelles modifications pour obtenir une étoile de tirets ? Quelle transformation géométrique passe d'un tiret à l'autre ?",
         blocks: [
           { type: 'orienter', args: [90], category: 'motion' },
-          { type: 'stylo_poser', category: 'pen' },
+          { type: 'styloPoser', category: 'pen' },
           { type: 'repeter', args: [8], category: 'control', body: [
             { type: 'avancer', args: [10], category: 'motion' },
-            { type: 'stylo_relever', category: 'pen' },
+            { type: 'styloRelever', category: 'pen' },
             { type: 'avancer', args: [10], category: 'motion' },
-            { type: 'tourner_droite', args: [45], category: 'motion' },
-            { type: 'stylo_poser', category: 'pen' },
+            { type: 'tournerDroite', args: [45], category: 'motion' },
+            { type: 'styloPoser', category: 'pen' },
           ]},
         ],
         answer: 'Changer 90° en 45° et répéter 8 fois. La transformation est une rotation de 45°.',
@@ -120,6 +124,7 @@ export const exercises2022 = [
     id: '2022-g4-patron-cube',
     year: 2022,
     title: 'Patron de cube',
+    sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description: "Une enseignante veut faire construire des dés cubiques de 3 cm de côté avec Scratch. 1 pas = 0.05 cm, donc 60 pas = 3 cm. Le bloc 'carré' trace un carré de 60 pas puis avance de 60 pas stylo relevé.",
     subExercises: [
       {
@@ -128,12 +133,12 @@ export const exercises2022 = [
         description: 'Compléter le bloc carré (avancer 60, tourner 90°, répéter 4 fois) puis ordonner les instructions pour tracer le patron en croix.',
         blocks: [
           { type: 'definir_bloc', args: ['carré'], category: 'custom', body: [
-            { type: 'stylo_poser', category: 'pen' },
+            { type: 'styloPoser', category: 'pen' },
             { type: 'repeter', args: [4], category: 'control', body: [
               { type: 'avancer', args: [60], category: 'motion' },
-              { type: 'tourner_droite', args: [90], category: 'motion' },
+              { type: 'tournerDroite', args: [90], category: 'motion' },
             ]},
-            { type: 'stylo_relever', category: 'pen' },
+            { type: 'styloRelever', category: 'pen' },
             { type: 'avancer', args: [60], category: 'motion' },
           ]},
           { type: 'appeler_bloc', args: ['carré'], category: 'custom' },
@@ -156,12 +161,12 @@ export const exercises2022 = [
         question: 'Dessiner ce patron à main levée.',
         blocks: [
           { type: 'definir_bloc', args: ['carré'], category: 'custom', body: [
-            { type: 'stylo_poser', category: 'pen' },
+            { type: 'styloPoser', category: 'pen' },
             { type: 'repeter', args: [4], category: 'control', body: [
               { type: 'avancer', args: [60], category: 'motion' },
-              { type: 'tourner_droite', args: [90], category: 'motion' },
+              { type: 'tournerDroite', args: [90], category: 'motion' },
             ]},
-            { type: 'stylo_relever', category: 'pen' },
+            { type: 'styloRelever', category: 'pen' },
             { type: 'avancer', args: [60], category: 'motion' },
           ]},
           { type: 'repeter', args: [2], category: 'control', body: [

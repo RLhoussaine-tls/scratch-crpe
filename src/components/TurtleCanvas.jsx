@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useCallback } from 'react'
 import './TurtleCanvas.css'
 
 const CANVAS_W = 480
@@ -45,6 +45,21 @@ export default function TurtleCanvas({ segments, turtleState }) {
     ctx.restore()
   }, [segments, turtleState])
 
+  const handleDownload = useCallback(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    // Create a temporary canvas at 1x DPR for clean export
+    const exportCanvas = document.createElement('canvas')
+    exportCanvas.width = CANVAS_W
+    exportCanvas.height = CANVAS_H
+    const ctx = exportCanvas.getContext('2d')
+    ctx.drawImage(canvas, 0, 0, CANVAS_W, CANVAS_H)
+    const link = document.createElement('a')
+    link.download = 'scratch-crpe.png'
+    link.href = exportCanvas.toDataURL('image/png')
+    link.click()
+  }, [])
+
   return (
     <div className="turtle-canvas-wrapper">
       <canvas
@@ -56,6 +71,11 @@ export default function TurtleCanvas({ segments, turtleState }) {
         x : {Math.round(turtleState?.x ?? 0)} &nbsp;&nbsp;
         y : {Math.round(turtleState?.y ?? 0)} &nbsp;&nbsp;
         direction : {Math.round(turtleState?.angle ?? 0)}°
+        {segments.length > 0 && (
+          <button className="download-btn" onClick={handleDownload} title="Télécharger en PNG">
+            Télécharger PNG
+          </button>
+        )}
       </div>
     </div>
   )
@@ -107,7 +127,7 @@ function drawGrid(ctx) {
   }
   // Labels axe Y
   ctx.textAlign = 'right'
-  for (const y of [-160, -120, -80, -40, 40, 80, 120, 160]) {
+  for (const y of [-180, -140, -100, -60, -20, 20, 60, 100, 140, 180]) {
     ctx.fillText(String(y), CANVAS_W / 2 - 4, CANVAS_H / 2 - y + 3)
   }
   ctx.restore()

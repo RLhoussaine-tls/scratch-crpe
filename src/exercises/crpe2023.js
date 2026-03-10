@@ -3,6 +3,7 @@ export const exercises2023 = [
     id: '2023-1',
     year: 2023,
     title: 'Triangles emboîtés',
+    sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description:
       'EST MAT 1, Exercice 3 — Un programme utilise un bloc « Triangle » paramétré par la variable « côté ». Le script appelle ce bloc plusieurs fois en augmentant « côté » de 20 à chaque itération, en partant de côté = 20.',
     question:
@@ -40,6 +41,7 @@ export const exercises2023 = [
     id: '2023-2',
     year: 2023,
     title: 'Carré — Qui a raison ?',
+    sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description:
       'EST MAT 3, Exercice 3, Q1 — Un script trace « répéter 4 fois [avancer de 100 pas, tourner ↻ de 90 degrés] ». Quatre élèves commentent : Pierre dit « c\'est un losange », Ana dit « ce n\'est pas un rectangle », Karim dit « c\'est un quadrilatère », Lucie dit « c\'est un carré ».',
     question:
@@ -67,6 +69,7 @@ export const exercises2023 = [
     id: '2023-3',
     year: 2023,
     title: 'Étoile à 5 branches',
+    sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description:
       'EST MAT 3, Exercice 3, Q2c — Un script Scratch incomplet trace une étoile à 5 branches. Le lutin est orienté à 90° (vers la droite). Il faut compléter le nombre de répétitions et l\'angle de rotation aux pointes.',
     question:
@@ -98,6 +101,7 @@ export const exercises2023 = [
     id: '2023-g2-programmes-calcul',
     year: 2023,
     title: 'Programmes de calcul A et B',
+    sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     type: 'quiz',
     description: "Programme A (blocs Scratch) : demander un nombre, mettre a←réponse, mettre b←(2×a+5), mettre c←(5×a−4), mettre d←b×c, dire d.\nProgramme B (textuel) : choisir un nombre, prendre son double, ajouter 5, calculer le carré du résultat.",
     question: "1. Montrer que si l'utilisateur saisit 2, le programme A retourne 54.\n2. Calculer le résultat du programme A pour 1,15.\n3. Pour quels nombres le programme A retourne-t-il 0 ?\n4a. Programme B pour x=3 ?\n4b. Programme B pour x=3/4 ?\n7. Pour quels nombres les deux programmes retournent-ils le même résultat ?",
