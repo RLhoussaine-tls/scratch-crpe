@@ -107,7 +107,7 @@ function drawGrid(ctx) {
   }
   // Labels axe Y
   ctx.textAlign = 'right'
-  for (const y of [-160, -120, -80, -40, 40, 80, 120, 160]) {
+  for (const y of [-180, -140, -100, -60, -20, 20, 60, 100, 140, 180]) {
     ctx.fillText(String(y), CANVAS_W / 2 - 4, CANVAS_H / 2 - y + 3)
   }
   ctx.restore()

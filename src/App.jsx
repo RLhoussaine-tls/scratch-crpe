@@ -6,6 +6,7 @@ import ExercisePanel from './components/ExercisePanel'
 import BlockSequence from './components/BlockSequence'
 import TurtleCanvas from './components/TurtleCanvas'
 import Toolbar from './components/Toolbar'
+import VariablePanel from './components/VariablePanel'
 import './App.css'
 
 function deepClone(obj) {
@@ -31,6 +32,7 @@ export default function App() {
   const [isRunning, setIsRunning] = useState(false)
   const [animDelay, setAnimDelay] = useState(300)
   const [editedBlocks, setEditedBlocks] = useState(null)
+  const [variables, setVariables] = useState({})
 
   const activeBlocks = selectedExercise?.subExercises
     ? selectedExercise.subExercises[activeSubIndex]?.blocks ?? []
@@ -39,6 +41,7 @@ export default function App() {
   const displayBlocks = editedBlocks ?? activeBlocks
 
   const isQuiz = selectedExercise?.type === 'quiz'
+  const isCalcul = selectedExercise?.type === 'calcul'
   const hasBlocks = displayBlocks && displayBlocks.length > 0
   const showCanvas = selectedExercise && !isQuiz
   const showBlocksReadOnly = selectedExercise && isQuiz && hasBlocks
@@ -59,15 +62,18 @@ export default function App() {
     engine.reset()
     setSegments([])
     setTurtleState(engine.getState())
+    const vars = {}
+    setVariables(vars)
 
     await runBlocksAnimated(
       displayBlocks,
       engine,
-      {},
+      vars,
       (path) => { setActivePath(path) },
       () => {
         setSegments([...engine.getSegments()])
         setTurtleState({ ...engine.getState() })
+        setVariables({ ...vars })
       },
       animDelay,
       cancelRef
@@ -75,6 +81,7 @@ export default function App() {
 
     setSegments(engine.getSegments())
     setTurtleState(engine.getState())
+    setVariables({ ...vars })
     setActivePath(null)
     setIsRunning(false)
   }, [selectedExercise, displayBlocks, isQuiz, isRunning, animDelay])
@@ -90,6 +97,7 @@ export default function App() {
     engine.reset()
     setSegments([])
     setTurtleState(engine.getState())
+    setVariables({})
   }, [])
 
   const handleResetExercise = useCallback(() => {
@@ -98,6 +106,7 @@ export default function App() {
     engine.reset()
     setSegments([])
     setTurtleState(engine.getState())
+    setVariables({})
   }, [])
 
   const handleSelect = useCallback((exercise) => {
@@ -108,6 +117,7 @@ export default function App() {
     engine.reset()
     setSegments([])
     setTurtleState(engine.getState())
+    setVariables({})
   }, [])
 
   const handleSubSelect = useCallback((i) => {
@@ -117,6 +127,7 @@ export default function App() {
     engine.reset()
     setSegments([])
     setTurtleState(engine.getState())
+    setVariables({})
   }, [])
 
   return (
@@ -164,7 +175,11 @@ export default function App() {
                 />
               </div>
               <div className="canvas-area">
-                <TurtleCanvas segments={segments} turtleState={turtleState} />
+                {isCalcul ? (
+                  <VariablePanel variables={variables} />
+                ) : (
+                  <TurtleCanvas segments={segments} turtleState={turtleState} />
+                )}
               </div>
             </div>
           )}

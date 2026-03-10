@@ -1,6 +1,10 @@
 import './Toolbar.css'
 
 export default function Toolbar({ onRun, onStop, onResetCanvas, onResetExercise, isRunning, animDelay, onSpeedChange, hasEdits }) {
+  // Invert the slider: high slider value = low delay = fast
+  const maxDelay = 850 // 50 + 800
+  const sliderValue = maxDelay - animDelay
+
   return (
     <div className="toolbar">
       <div className="toolbar-buttons">
@@ -12,7 +16,7 @@ export default function Toolbar({ onRun, onStop, onResetCanvas, onResetExercise,
         </button>
         {isRunning && (
           <button className="toolbar-btn toolbar-stop" onClick={onStop}>
-            ⏹ Stop
+            Stop
           </button>
         )}
         <button className="toolbar-btn toolbar-reset" onClick={onResetCanvas} disabled={isRunning}>
@@ -31,11 +35,11 @@ export default function Toolbar({ onRun, onStop, onResetCanvas, onResetExercise,
           min="50"
           max="800"
           step="50"
-          value={animDelay}
-          onChange={e => onSpeedChange(Number(e.target.value))}
+          value={sliderValue}
+          onChange={e => onSpeedChange(maxDelay - Number(e.target.value))}
         />
         <span className="speed-label">
-          {animDelay >= 600 ? 'Lente' : animDelay >= 300 ? 'Normale' : 'Rapide'}
+          {animDelay <= 150 ? 'Rapide' : animDelay <= 400 ? 'Normale' : 'Lente'}
         </span>
       </div>
     </div>

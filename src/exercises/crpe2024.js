@@ -35,26 +35,25 @@ export const exercises2024 = [
     id: '2024-2',
     year: 2024,
     title: 'Programme de calcul x² + 3x − 4',
-    type: 'quiz',
+    type: 'calcul',
     description:
-      'EST MAT 2, Exercice 3 — Un script Scratch incomplet exécute un programme de calcul. Il faut compléter les lignes 4 et 5 du script pour obtenir x² + 3x − 4.',
+      'EST MAT 2, Exercice 3 — Un script Scratch exécute un programme de calcul : choisir x, calculer x², ajouter 3x, soustraire 4. Le résultat est x² + 3x − 4.',
     question:
-      'Recopier et compléter les lignes 4 et 5 du script Scratch pour qu\'il exécute le programme de calcul : prendre le carré du nombre, ajouter le triple du nombre, soustraire 4.',
+      'Exécuter le programme pour différentes valeurs de x. Montrer que le résultat est x² + 3x − 4. Factoriser cette expression.',
     blocks: [
-      { type: 'mettre_variable', args: ['résultat', { type: 'variable', name: 'x' }], category: 'variables' },
-      { type: 'mettre_variable', args: ['résultat', { type: 'variable', name: 'résultat' }], category: 'variables' },
-      { type: 'ajouter_variable', args: ['résultat', { type: 'variable', name: 'x' }], category: 'variables' },
-      { type: 'mettre_variable', args: ['??? (ligne 4)', '???'], category: 'variables' },
-      { type: 'mettre_variable', args: ['??? (ligne 5)', '???'], category: 'variables' },
+      { type: 'mettre_variable', args: ['x', 5], category: 'variables' },
+      { type: 'mettre_variable_op', args: ['résultat', { type: 'variable', name: 'x' }, '*', { type: 'variable', name: 'x' }], category: 'operators' },
+      { type: 'mettre_variable_op', args: ['résultat', { type: 'variable', name: 'résultat' }, '+', { type: 'op', op: '*', left: { type: 'variable', name: 'x' }, right: 3 }], category: 'operators' },
+      { type: 'ajouter_variable', args: ['résultat', -4], category: 'variables' },
     ],
     hints: [
       'Le programme calcule x² + 3x − 4.',
-      'Ligne 4 : ajouter le triple de x au résultat → résultat + x × 3.',
-      'Ligne 5 : soustraire 4 → résultat − 4.',
+      'Pour x=5 : 25 + 15 − 4 = 36.',
       'On peut factoriser : x² + 3x − 4 = (x − 1)(x + 4).',
+      'Pour x=1 : 1 + 3 − 4 = 0. Pour x=−4 : 16 − 12 − 4 = 0.',
     ],
     answer:
-      'Ligne 4 : mettre résultat à (résultat + x × 3). Ligne 5 : mettre résultat à (résultat − 4). Le résultat est x² + 3x − 4 = (x − 1)(x + 4).',
+      'Le résultat est x² + 3x − 4 = (x − 1)(x + 4). Pour x=5 : 36. Pour x=1 : 0. Pour x=−4 : 0.',
   },
   {
     id: '2024-3',
