@@ -124,7 +124,7 @@ export const exercises2025 = [
       },
       {
         subtitle: "Programme C → Figure 3",
-        description: "Programme C : programme de base + « ajouter 10 à a » à la fin. Triangles de taille croissante (a = 40, 50, 60, 70…).",
+        description: "Programme C : programme de base + « ajouter 10 à a » à la fin. Triangles de taille croissante (a = 40, 50, 60, 70…).\nNote : l'hypoténuse est approximée à 57 pas (valeur pour a=40). Dans le vrai programme, elle vaudrait a×√2 (Scratch ne calcule pas √2 nativement). La figure simulée ici montre 4 triangles avec une hypoténuse fixe de 57 pas.",
         question: "À quelle figure correspond le programme C ?",
         blocks: [
           { type: 'mettre_variable', args: ['a', 30], category: 'variables' },
@@ -161,39 +161,59 @@ export const exercises2025 = [
     year: 2025,
     title: 'Patron pyramide — Bloc triangle',
     description:
-      'EST MAT 3, Exercice 5 — Un bloc « triangle » trace un triangle équilatéral de côté 40 pas. Il faut compléter L1 et L2 du bloc, puis L3, L4, L5 du script pour tracer le patron d\'un moule pyramidal (base carrée de 4 cm, faces = triangles équilatéraux). Échelle : 10 pas = 1 cm.',
+      "EST MAT 3, Exercice 5 — Un bloc « triangle » trace un triangle équilatéral de côté 40 pas. Il faut compléter L1 et L2 du bloc, puis L3, L4, L5 du script pour tracer le patron d'un moule pyramidal (base carrée de 4 cm, faces = triangles équilatéraux). Échelle : 10 pas = 1 cm.",
     question:
-      'a) Compléter L1 et L2 du bloc triangle pour tracer un triangle équilatéral de côté 40 pas. b) Compléter L3, L4, L5 du script pour tracer le patron complet.',
-    blocks: [
-      { type: 'orienter', args: [90], category: 'motion' },
-      { type: 'styloPoser', args: [], category: 'pen' },
+      "a) Compléter L1 et L2 du bloc triangle pour tracer un triangle équilatéral de côté 40 pas. b) Compléter L3, L4, L5 du script pour tracer le patron complet.",
+    subExercises: [
       {
-        type: 'repeter',
-        args: [3],
-        category: 'control',
-        body: [
-          { type: 'avancer', args: [40], category: 'motion' },
-          { type: 'tournerDroite', args: [120], category: 'motion' },
+        subtitle: "Q1 — Bloc triangle (L1 et L2)",
+        description: "Le bloc 'triangle' trace un triangle équilatéral de côté 40 pas. L1 est le nombre de répétitions, L2 est l'angle de rotation.",
+        question: "Compléter L1 et L2. L1 = ? L2 = ?",
+        blocks: [
+          { type: 'orienter', args: [90], category: 'motion' },
+          { type: 'styloPoser', args: [], category: 'pen' },
+          { type: 'repeter', args: [3], category: 'control', body: [
+            { type: 'avancer', args: [40], category: 'motion' },
+            { type: 'tournerDroite', args: [120], category: 'motion' },
+          ]},
         ],
+        answer: "L1 = 3 (un triangle a 3 côtés). L2 = 120° (angle extérieur d'un triangle équilatéral = 360°/3 = 120°).",
       },
-      { type: 'tournerDroite', args: [60], category: 'motion' },
       {
-        type: 'repeter',
-        args: [4],
-        category: 'control',
-        body: [
-          { type: 'avancer', args: [40], category: 'motion' },
-          { type: 'tournerDroite', args: [90], category: 'motion' },
+        subtitle: "Q2 — Patron complet (L3, L4, L5)",
+        description: "Le script trace le patron : carré central de 40 pas, puis 4 triangles équilatéraux sur chaque côté. Utilise le bloc 'triangle' défini en Q1.",
+        question: "Compléter L3, L4, L5 du script pour tracer le patron complet.",
+        blocks: [
+          { type: 'definir_bloc', args: ['triangle'], category: 'custom', body: [
+            { type: 'repeter', args: [3], category: 'control', body: [
+              { type: 'avancer', args: [40], category: 'motion' },
+              { type: 'tournerDroite', args: [120], category: 'motion' },
+            ]},
+          ]},
+          { type: 'orienter', args: [90], category: 'motion' },
+          { type: 'styloPoser', args: [], category: 'pen' },
+          { type: 'repeter', args: [4], category: 'control', body: [
+            { type: 'avancer', args: [40], category: 'motion' },
+            { type: 'tournerGauche', args: [90], category: 'motion' },
+          ]},
+          { type: 'repeter', args: [4], category: 'control', body: [
+            { type: 'tournerGauche', args: [60], category: 'motion' },
+            { type: 'appeler_bloc', args: ['triangle'], category: 'custom' },
+            { type: 'tournerGauche', args: [30], category: 'motion' },
+            { type: 'avancer', args: [40], category: 'motion' },
+          ]},
         ],
+        answer: "L3 = appeler 'triangle' (trace le triangle sur le côté courant). L4 = tourner à gauche de 30° (réorientation). L5 = avancer de 40 pas (passage au côté suivant). Le patron est composé du carré central et de 4 triangles équilatéraux.",
       },
     ],
+    blocks: [],
     hints: [
-      "L'angle extérieur d'un triangle équilatéral est 120° → L2 = 120.",
-      'Un triangle a 3 côtés → L1 = 3.',
-      '10 pas = 1 cm, donc côté de 4 cm = 40 pas.',
-      'Le patron a un carré central de 40 pas de côté et 4 triangles adjacents.',
+      "L1 = 3 (triangle = 3 côtés), L2 = 120° (angle extérieur du triangle équilatéral).",
+      "Le carré a 4 côtés de 40 pas, angle intérieur 90°, angle extérieur pour tourner gauche = 90°.",
+      "Pour placer un triangle sur un côté du carré : s'orienter vers l'extérieur (tourner gauche 60°), tracer le triangle, puis se réorienter (tourner gauche 30°) et avancer de 40 pas pour passer au côté suivant.",
+      "60° + 30° = 90° = angle de rotation entre deux côtés du carré.",
     ],
     answer:
-      "L1 = 3 (répéter 3 fois pour un triangle). L2 = 120 (tourner de 120° = angle extérieur du triangle équilatéral). L3, L4, L5 définissent l'agencement des triangles autour du carré.",
+      "L1 = 3, L2 = 120°. L3 = appeler 'triangle', L4 = tourner gauche 30°, L5 = avancer 40. Le patron est composé du carré central et de 4 triangles équilatéraux.",
   },
 ]

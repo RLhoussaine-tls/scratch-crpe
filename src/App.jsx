@@ -57,7 +57,13 @@ export default function App() {
         <ExercisePanel
           exercise={selectedExercise}
           activeSubIndex={activeSubIndex}
-          onSubSelect={setActiveSubIndex}
+          onSubSelect={(i) => {
+            setActiveSubIndex(i)
+            const engine = engineRef.current
+            engine.reset()
+            setSegments([])
+            setTurtleState(engine.getState())
+          }}
         />
         {showCanvas && activeBlocks.length > 0 && (
           <div className="workspace">
