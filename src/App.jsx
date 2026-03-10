@@ -40,8 +40,9 @@ export default function App() {
 
   const displayBlocks = editedBlocks ?? activeBlocks
 
-  const isQuiz = selectedExercise?.type === 'quiz'
-  const isCalcul = selectedExercise?.type === 'calcul'
+  const activeSub = selectedExercise?.subExercises?.[activeSubIndex]
+  const isQuiz = activeSub?.type === 'quiz' || (!activeSub && selectedExercise?.type === 'quiz')
+  const isCalcul = selectedExercise?.type === 'calcul' && !isQuiz
   const hasBlocks = displayBlocks && displayBlocks.length > 0
   const showCanvas = selectedExercise && !isQuiz
   const showBlocksReadOnly = selectedExercise && isQuiz && hasBlocks
@@ -178,7 +179,7 @@ export default function App() {
                 {isCalcul ? (
                   <VariablePanel variables={variables} />
                 ) : (
-                  <TurtleCanvas segments={segments} turtleState={turtleState} />
+                  <TurtleCanvas segments={segments} turtleState={turtleState} variables={variables} />
                 )}
               </div>
             </div>

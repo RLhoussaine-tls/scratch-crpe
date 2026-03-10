@@ -39,3 +39,42 @@
 .download-btn:hover {
   background: #e8e8e8;
 }
+
+.turtle-canvas-container {
+  position: relative;
+  display: inline-block;
+}
+
+.dire-bubble {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  color: #333;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  z-index: 10;
+  max-width: 80%;
+  text-align: center;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .turtle-canvas-wrapper {
+    max-width: 100%;
+  }
+
+  .turtle-canvas {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .turtle-canvas-container {
+    max-width: 100%;
+  }
+}

@@ -169,3 +169,17 @@
   font-size: 13px;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
 }
+
+@media (max-width: 768px) {
+  .block {
+    font-size: 12px;
+  }
+
+  .block-stack {
+    padding: 4px 8px;
+  }
+
+  .block-c .block-header {
+    padding: 4px 8px;
+  }
+}

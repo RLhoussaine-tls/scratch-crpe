@@ -4,7 +4,7 @@ import './TurtleCanvas.css'
 const CANVAS_W = 480
 const CANVAS_H = 360
 
-export default function TurtleCanvas({ segments, turtleState }) {
+export default function TurtleCanvas({ segments, turtleState, variables = {} }) {
   const canvasRef = useRef(null)
 
   useEffect(() => {
@@ -60,13 +60,20 @@ export default function TurtleCanvas({ segments, turtleState }) {
     link.click()
   }, [])
 
+  const direText = variables['__dire__'] || ''
+
   return (
     <div className="turtle-canvas-wrapper">
-      <canvas
-        ref={canvasRef}
-        style={{ width: CANVAS_W, height: CANVAS_H }}
-        className="turtle-canvas"
-      />
+      <div className="turtle-canvas-container">
+        <canvas
+          ref={canvasRef}
+          style={{ width: CANVAS_W, height: CANVAS_H }}
+          className="turtle-canvas"
+        />
+        {direText && (
+          <div className="dire-bubble">{direText}</div>
+        )}
+      </div>
       <div className="turtle-coords">
         x : {Math.round(turtleState?.x ?? 0)} &nbsp;&nbsp;
         y : {Math.round(turtleState?.y ?? 0)} &nbsp;&nbsp;

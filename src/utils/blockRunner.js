@@ -263,6 +263,10 @@ function executeBlock(block, engine, variables, registry = {}) {
       break
     }
 
+    case 'dire':
+      variables['__dire__'] = String(resolveValue(args[0], variables))
+      break
+
     case 'definir_bloc':
       registry[args[0]] = block.body || []
       break
