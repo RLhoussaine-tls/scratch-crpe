@@ -28,6 +28,18 @@
   font-weight: 700;
 }
 
+.exercise-source-link {
+  margin-left: auto;
+  font-size: 12px;
+  color: #4C97FF;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.exercise-source-link:hover {
+  text-decoration: underline;
+}
+
 .exercise-description {
   margin: 8px 0;
   line-height: 1.5;

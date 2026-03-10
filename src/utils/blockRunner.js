@@ -7,7 +7,7 @@ const MAX_ITERATIONS = 10000
  * @param {Object} variables - Current variable scope
  * @returns {*} The resolved value
  */
-function resolveValue(val, variables) {
+export function resolveValue(val, variables) {
   if (val == null) return 0
   if (typeof val === 'number' || typeof val === 'string') return val
   if (typeof val !== 'object') return val
@@ -53,7 +53,7 @@ function resolveValue(val, variables) {
  * @param {Object} variables
  * @returns {boolean}
  */
-function resolveCondition(cond, variables) {
+export function resolveCondition(cond, variables) {
   if (typeof cond === 'boolean') return cond
   if (typeof cond === 'number') return cond !== 0
 
@@ -76,6 +76,21 @@ function resolveCondition(cond, variables) {
           console.warn(`Unknown comparator: ${cond.op}`)
           return false
       }
+    }
+
+    /** Logical AND: { type: 'et', left: cond1, right: cond2 } */
+    if (cond.type === 'et') {
+      return resolveCondition(cond.left, variables) && resolveCondition(cond.right, variables)
+    }
+
+    /** Logical OR: { type: 'ou', left: cond1, right: cond2 } */
+    if (cond.type === 'ou') {
+      return resolveCondition(cond.left, variables) || resolveCondition(cond.right, variables)
+    }
+
+    /** Logical NOT: { type: 'non', cond: cond1 } */
+    if (cond.type === 'non') {
+      return !resolveCondition(cond.cond, variables)
     }
   }
 
@@ -186,6 +201,14 @@ function executeBlock(block, engine, variables, registry = {}) {
       engine.setEpaisseur(resolveValue(args[0], variables))
       break
     case 'mettre_variable':
+      variables[args[0]] = resolveValue(args[1], variables)
+      break
+
+    /**
+     * Simulated input block: set variable to default value (editable in UI).
+     * { type: 'demander', args: ['varName', defaultValue] }
+     */
+    case 'demander':
       variables[args[0]] = resolveValue(args[1], variables)
       break
     case 'ajouter_variable':

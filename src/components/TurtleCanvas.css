@@ -19,4 +19,23 @@
   border: 1px solid #ddd;
   border-top: none;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.download-btn {
+  margin-left: 12px;
+  padding: 2px 8px;
+  font-size: 11px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  color: #555;
+}
+
+.download-btn:hover {
+  background: #e8e8e8;
 }

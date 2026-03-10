@@ -3,10 +3,11 @@ export const exercises2022 = [
     id: '2022-1',
     year: 2022,
     title: 'Losange avec variable C',
+    sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description:
-      'EST MAT 1, Exercice 4 — Le Programme 1 utilise une variable C (valeur initiale C = 50) pour tracer un quadrilatère. Échelle : 1 cm = 10 pixels. Le Programme 2 utilise le Programme 1 en boucle en modifiant la variable C pour obtenir des losanges emboîtés.',
+      'EST MAT 1, Exercice 4 — Le Programme 1 utilise une variable C (valeur initiale C = 50) pour tracer un quadrilatère : répéter 4 fois { avancer de C pas, tourner de 90° }. Échelle : 1 cm = 10 pixels. Le Programme 2 utilise le Programme 1 en boucle en modifiant la variable C pour obtenir des carrés emboîtés.',
     question:
-      '1) En prenant C = 50 et 1 cm pour 10 pixels, tracer la figure du Programme 1. 2) Quelle est la nature de la figure tracée ? 3) Quelles valeurs attribuer à A et N dans le Programme 2 ?',
+      '1) En prenant C = 50 et 1 cm pour 10 pixels, tracer la figure du Programme 1. 2) Quelle est la nature de la figure tracée ? Justifier. 3) Quelles valeurs attribuer à A et N dans le Programme 2 ?',
     blocks: [
       { type: 'mettre_variable', args: ['C', 50], category: 'variables' },
       { type: 'styloPoser', args: [], category: 'pen' },
@@ -26,17 +27,18 @@ export const exercises2022 = [
       'Pour le Programme 2, observer comment la variable C évolue à chaque itération.',
     ],
     answer:
-      'Le Programme 1 trace un carré (losange à angles droits) de côté 50 pas = 5 cm. Pour le Programme 2, A est la valeur ajoutée à C après chaque losange et N le nombre de répétitions.',
+      'Le Programme 1 trace un carré de côté 50 pas = 5 cm (4 côtés égaux, 4 angles droits). Un carré est un cas particulier de losange (losange à angles droits). Pour le Programme 2, A est la valeur ajoutée à C après chaque carré et N le nombre de répétitions.',
   },
   {
     id: '2022-g2-adam',
     year: 2022,
     title: "Programme d'Adam",
+    sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     type: 'calcul',
     description: "CRPE 2022, Groupement 2, Exercice 4 — Adam a créé un programme de calcul dans Scratch. L'utilisateur choisit un nombre x, l'élève au carré, soustrait 3, multiplie par 2, puis soustrait le nombre de départ. Cela donne f(x) = (x²−3)×2 − x = 2x²−x−6.",
     question: "Exécuter le programme pour différentes valeurs de x. Montrer que pour tout nombre x, le programme retourne 2x²−x−6. Factoriser cette expression.",
     blocks: [
-      { type: 'mettre_variable', args: ['x', 3], category: 'variables' },
+      { type: 'demander', args: ['x', 3], category: 'sensing' },
       { type: 'mettre_variable_op', args: ['résultat', { type: 'variable', name: 'x' }, '*', { type: 'variable', name: 'x' }], category: 'operators' },
       { type: 'ajouter_variable', args: ['résultat', -3], category: 'variables' },
       { type: 'mettre_variable_op', args: ['résultat', { type: 'variable', name: 'résultat' }, '*', 2], category: 'operators' },
@@ -53,6 +55,7 @@ export const exercises2022 = [
     id: '2022-g3-tirets',
     year: 2022,
     title: 'Tirets et transformations',
+    sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description: "Un programme Scratch trace des tirets. Le lutin est initialement orienté vers la droite (90°).",
     subExercises: [
       {
@@ -121,6 +124,7 @@ export const exercises2022 = [
     id: '2022-g4-patron-cube',
     year: 2022,
     title: 'Patron de cube',
+    sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description: "Une enseignante veut faire construire des dés cubiques de 3 cm de côté avec Scratch. 1 pas = 0.05 cm, donc 60 pas = 3 cm. Le bloc 'carré' trace un carré de 60 pas puis avance de 60 pas stylo relevé.",
     subExercises: [
       {

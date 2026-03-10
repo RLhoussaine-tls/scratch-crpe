@@ -3,6 +3,7 @@ export const exercises2024 = [
     id: '2024-1',
     year: 2024,
     title: 'Géoplan Scratch',
+    sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description:
       "EST MAT 1, Exercice 5, Partie B.3 — Un programme Scratch construit une figure sur un géoplan de 25 picots (deux picots contigus = 3 cm). Échelle : 3 cm = 70 pas. Le point de départ est (−140 ; 140). Le lutin s'oriente à 90° (vers la droite). Il faut déterminer les valeurs de A, B et C.",
     question:
@@ -35,13 +36,14 @@ export const exercises2024 = [
     id: '2024-2',
     year: 2024,
     title: 'Programme de calcul x² + 3x − 4',
+    sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     type: 'calcul',
     description:
       'EST MAT 2, Exercice 3 — Un script Scratch exécute un programme de calcul : choisir x, calculer x², ajouter 3x, soustraire 4. Le résultat est x² + 3x − 4.',
     question:
       'Exécuter le programme pour différentes valeurs de x. Montrer que le résultat est x² + 3x − 4. Factoriser cette expression.',
     blocks: [
-      { type: 'mettre_variable', args: ['x', 5], category: 'variables' },
+      { type: 'demander', args: ['x', 5], category: 'sensing' },
       { type: 'mettre_variable_op', args: ['résultat', { type: 'variable', name: 'x' }, '*', { type: 'variable', name: 'x' }], category: 'operators' },
       { type: 'mettre_variable_op', args: ['résultat', { type: 'variable', name: 'résultat' }, '+', { type: 'op', op: '*', left: { type: 'variable', name: 'x' }, right: 3 }], category: 'operators' },
       { type: 'ajouter_variable', args: ['résultat', -4], category: 'variables' },
@@ -59,6 +61,7 @@ export const exercises2024 = [
     id: '2024-3',
     year: 2024,
     title: 'Figure de base — Carré puis triangle',
+    sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description:
       'EST MAT 3, Exercice 4 — Un script utilise un bloc « figure_de_base » avec une variable « longueur ». Le script initial trace des carrés. On demande ensuite de modifier le bloc pour tracer des triangles équilatéraux et de comparer les aires.',
     question:

@@ -66,6 +66,15 @@ function ConditionDisplay({ cond }) {
         </span>
       )
     }
+    if (cond.type === 'et') {
+      return <span className="block-arg-expr"><ConditionDisplay cond={cond.left} /> et <ConditionDisplay cond={cond.right} /></span>
+    }
+    if (cond.type === 'ou') {
+      return <span className="block-arg-expr"><ConditionDisplay cond={cond.left} /> ou <ConditionDisplay cond={cond.right} /></span>
+    }
+    if (cond.type === 'non') {
+      return <span className="block-arg-expr">non <ConditionDisplay cond={cond.cond} /></span>
+    }
   }
   return <span>{JSON.stringify(cond)}</span>
 }
@@ -98,6 +107,7 @@ const LABELS = {
   definir_bloc: (args) => <>d&eacute;finir {args[0]}</>,
   appeler_bloc: (args) => <>{args[0]}</>,
   effacer: () => 'tout effacer',
+  demander: (args, path, onEdit) => <>demander {args[0]} (d&eacute;faut : <ArgDisplay val={args[1]} argIndex={1} path={path} onEditBlock={onEdit} />)</>,
 }
 
 const C_SHAPE_BLOCKS = ['repeter', 'definir_bloc', 'si', 'repeter_jusqu_a']

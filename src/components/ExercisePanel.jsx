@@ -30,6 +30,16 @@ export default function ExercisePanel({ exercise, activeSubIndex, onSubSelect })
       <div className="exercise-header">
         <span className="exercise-year">{exercise.year}</span>
         <h2>{exercise.title}</h2>
+        {exercise.sourceUrl && (
+          <a
+            className="exercise-source-link"
+            href={exercise.sourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Voir le sujet officiel
+          </a>
+        )}
       </div>
       {exercise.type === 'incomplete' && (
         <div className="exercise-incomplete-banner">
