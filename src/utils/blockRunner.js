@@ -5,16 +5,14 @@ function resolveValue(val, variables) {
   return val
 }
 
-const blocRegistry = {}
-
-export function runBlocks(blocks, engine, variables = {}) {
+export function runBlocks(blocks, engine, variables = {}, registry = {}) {
   for (const block of blocks) {
-    executeBlock(block, engine, variables)
+    executeBlock(block, engine, variables, registry)
   }
   return variables
 }
 
-function executeBlock(block, engine, variables) {
+function executeBlock(block, engine, variables, registry = {}) {
   const { type, args = [] } = block
 
   switch (type) {
@@ -65,11 +63,11 @@ function executeBlock(block, engine, variables) {
       engine.ajouterY(resolveValue(args[0], variables))
       break
     case 'definir_bloc':
-      blocRegistry[args[0]] = block.body || []
+      registry[args[0]] = block.body || []
       break
     case 'appeler_bloc':
-      if (blocRegistry[args[0]]) {
-        runBlocks(blocRegistry[args[0]], engine, variables)
+      if (registry[args[0]]) {
+        runBlocks(registry[args[0]], engine, variables, registry)
       } else {
         console.warn(`Unknown custom block: ${args[0]}`)
       }
@@ -77,7 +75,7 @@ function executeBlock(block, engine, variables) {
     case 'repeter': {
       const times = resolveValue(args[0], variables)
       for (let i = 0; i < times; i++) {
-        runBlocks(block.body || [], engine, variables)
+        runBlocks(block.body || [], engine, variables, registry)
       }
       break
     }

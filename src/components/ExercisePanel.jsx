@@ -36,10 +36,8 @@ export default function ExercisePanel({ exercise, activeSubIndex, onSubSelect })
           Exercice reconstitué — certaines valeurs peuvent différer du sujet original.
         </div>
       )}
-      <p className="exercise-description">
-        {description.split('\n').map((line, i) => (
-          <span key={i}>{line}{i < description.split('\n').length - 1 && <br />}</span>
-        ))}
+      <p className="exercise-description" style={{ whiteSpace: 'pre-line' }}>
+        {description}
       </p>
       {exercise.subExercises && (
         <div className="sub-exercise-tabs">
@@ -55,11 +53,8 @@ export default function ExercisePanel({ exercise, activeSubIndex, onSubSelect })
         </div>
       )}
       {question && (
-        <div className="exercise-question">
-          <strong>Question :</strong>{' '}
-          {question.split('\n').map((line, i) => (
-            <span key={i}>{line}{i < question.split('\n').length - 1 && <br />}</span>
-          ))}
+        <div className="exercise-question" style={{ whiteSpace: 'pre-line' }}>
+          <strong>Question :</strong> {question}
         </div>
       )}
       {isQuiz && exercise.hints && exercise.hints.length > 0 && (
