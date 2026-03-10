@@ -1,21 +1,33 @@
 .toolbar {
+  padding: 12px 0 4px;
+}
+
+.toolbar-buttons {
   display: flex;
   gap: 8px;
-  padding: 8px 0;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
 }
 
 .toolbar-btn {
-  padding: 8px 20px;
+  padding: 8px 16px;
   border: none;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   transition: opacity 0.15s;
+  display: inline-flex;
+  align-items: center;
 }
 
-.toolbar-btn:hover {
+.toolbar-btn:hover:not(:disabled) {
   opacity: 0.85;
+}
+
+.toolbar-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .toolbar-run {
@@ -23,7 +35,35 @@
   color: white;
 }
 
+.toolbar-stop {
+  background: #e53935;
+  color: white;
+}
+
 .toolbar-reset {
   background: #FF5722;
   color: white;
+}
+
+.toolbar-reset-exercise {
+  background: #855CD6;
+  color: white;
+}
+
+.speed-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #555;
+}
+
+.speed-control input[type="range"] {
+  width: 120px;
+  accent-color: #855CD6;
+}
+
+.speed-label {
+  font-weight: 600;
+  min-width: 60px;
 }

@@ -5,6 +5,7 @@
   color: #fff;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
   user-select: none;
+  position: relative;
 }
 
 .block-stack {
@@ -16,6 +17,32 @@
   display: flex;
   align-items: center;
   border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+/* Puzzle connectors */
+.block-stack::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 16px;
+  width: 16px;
+  height: 5px;
+  background: inherit;
+  border-radius: 3px 3px 0 0;
+  filter: brightness(0.85);
+}
+
+.block-stack::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 16px;
+  width: 16px;
+  height: 5px;
+  background: inherit;
+  border-radius: 0 0 3px 3px;
+  filter: brightness(0.85);
+  z-index: 1;
 }
 
 .block-c {
@@ -31,6 +58,19 @@
   min-height: 28px;
   display: flex;
   align-items: center;
+  position: relative;
+}
+
+.block-c .block-header::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 16px;
+  width: 16px;
+  height: 5px;
+  background: inherit;
+  border-radius: 3px 3px 0 0;
+  filter: brightness(0.85);
 }
 
 .block-c .block-body {
@@ -39,7 +79,6 @@
   padding: 4px 0 4px 8px;
   min-height: 20px;
   background: rgba(0, 0, 0, 0.04);
-  border-radius: 0 0 0 0;
 }
 
 .block-c .block-footer {
@@ -48,4 +87,64 @@
   border-radius: 0 0 4px 4px;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-top: none;
+  position: relative;
+}
+
+.block-c .block-footer::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 16px;
+  width: 16px;
+  height: 5px;
+  background: inherit;
+  border-radius: 0 0 3px 3px;
+  filter: brightness(0.85);
+  z-index: 1;
+}
+
+/* Active block highlight */
+.block-active {
+  outline: 3px solid #FFD700;
+  outline-offset: 2px;
+  filter: brightness(1.15);
+  transition: outline 0.1s;
+}
+
+/* Editable arg inputs */
+.block-arg-input {
+  background: white;
+  border: none;
+  border-radius: 999px;
+  padding: 1px 6px;
+  font-size: inherit;
+  font-weight: bold;
+  color: #333;
+  width: auto;
+  min-width: 30px;
+  max-width: 60px;
+  text-align: center;
+  cursor: text;
+}
+
+.block-arg-input:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+/* Remove spinner arrows for cleaner look */
+.block-arg-input::-webkit-inner-spin-button,
+.block-arg-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.block-arg-input {
+  -moz-appearance: textfield;
+}
+
+/* Variable args */
+.block-arg-variable {
+  background: #FF8C1A;
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-weight: bold;
 }
