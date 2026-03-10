@@ -66,6 +66,14 @@ export default class TurtleEngine {
     this.y = y
   }
 
+  ajouterX(dx) {
+    this.x += dx
+  }
+
+  ajouterY(dy) {
+    this.y += dy
+  }
+
   orienter(deg) {
     this.angle = ((deg % 360) + 360) % 360
   }

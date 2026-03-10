@@ -59,19 +59,15 @@ export default function App() {
           activeSubIndex={activeSubIndex}
           onSubSelect={setActiveSubIndex}
         />
-        {selectedExercise && activeBlocks.length > 0 && (
+        {showCanvas && activeBlocks.length > 0 && (
           <div className="workspace">
             <div className="blocks-area">
               <BlockSequence blocks={activeBlocks} />
-              {showCanvas && (
-                <Toolbar onRun={handleRun} onReset={handleReset} />
-              )}
+              <Toolbar onRun={handleRun} onReset={handleReset} />
             </div>
-            {showCanvas && (
-              <div className="canvas-area">
-                <TurtleCanvas segments={segments} turtleState={turtleState} />
-              </div>
-            )}
+            <div className="canvas-area">
+              <TurtleCanvas segments={segments} turtleState={turtleState} />
+            </div>
           </div>
         )}
       </main>
