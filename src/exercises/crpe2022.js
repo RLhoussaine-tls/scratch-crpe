@@ -35,6 +35,13 @@ export const exercises2022 = [
     type: 'quiz',
     description: "Adam a créé un programme de calcul dans Scratch. L'utilisateur saisit un nombre x. Le programme calcule (x−3) et (2x+2), puis les multiplie.",
     question: "Si l'utilisateur saisit le nombre 2, montrer que le programme retourne −6. Puis montrer que pour tout nombre x, le programme retourne 2x²−x−6.",
+    blocks: [
+      { type: 'mettre_variable', args: ['résultat', { type: 'variable', name: 'x' }], category: 'variables' },
+      { type: 'ajouter_variable', args: ['résultat', -3], category: 'variables' },
+      { type: 'mettre_variable', args: ['temp', { type: 'variable', name: 'x' }], category: 'variables' },
+      { type: 'ajouter_variable', args: ['temp', { type: 'variable', name: 'x' }], category: 'variables' },
+      { type: 'ajouter_variable', args: ['temp', 2], category: 'variables' },
+    ],
     hints: [
       'Pour x=2 : (2−3)=−1 et (2×2+2)=6, donc (−1)×6=−6',
       'Développer (x−3)(2x+2) = 2x²+2x−6x−6 = 2x²−x−6 (sic)',

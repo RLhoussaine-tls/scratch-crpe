@@ -20,7 +20,9 @@ export default function App() {
     : selectedExercise?.blocks ?? []
 
   const isQuiz = selectedExercise?.type === 'quiz'
+  const hasBlocks = activeBlocks && activeBlocks.length > 0
   const showCanvas = selectedExercise && !isQuiz
+  const showBlocksReadOnly = selectedExercise && isQuiz && hasBlocks
 
   const handleRun = useCallback(() => {
     if (!selectedExercise || isQuiz) return
@@ -65,6 +67,14 @@ export default function App() {
             setTurtleState(engine.getState())
           }}
         />
+        {showBlocksReadOnly && (
+          <div className="workspace workspace-readonly">
+            <div className="blocks-area">
+              <div className="readonly-label">Programme Scratch à analyser</div>
+              <BlockSequence blocks={activeBlocks} />
+            </div>
+          </div>
+        )}
         {showCanvas && activeBlocks.length > 0 && (
           <div className="workspace">
             <div className="blocks-area">

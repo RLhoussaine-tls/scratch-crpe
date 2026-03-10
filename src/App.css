@@ -35,6 +35,21 @@ body {
   flex: 0 0 auto;
 }
 
+.workspace-readonly {
+  border: 2px dashed #FFAB19;
+  border-radius: 8px;
+  padding: 12px;
+  margin: 12px 0;
+  background: #fffbf0;
+}
+
+.readonly-label {
+  font-size: 13px;
+  color: #d4880a;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
 @media (max-width: 900px) {
   .app {
     flex-direction: column;
