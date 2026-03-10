@@ -94,4 +94,19 @@ export const exercises2023 = [
     answer:
       'Répéter 5 fois. L\'angle aux pointes est 144° (le lutin fait 2 tours complets : 720°/5 = 144°). L\'angle dans les creux est 72°. Le périmètre est 5 × (80 + 80) = 800 pas.',
   },
+  {
+    id: '2023-g2-programmes-calcul',
+    year: 2023,
+    title: 'Programmes de calcul A et B',
+    type: 'quiz',
+    description: "Programme A (blocs Scratch) : demander un nombre, mettre a←réponse, mettre b←(2×a+5), mettre c←(5×a−4), mettre d←b×c, dire d.\nProgramme B (textuel) : choisir un nombre, prendre son double, ajouter 5, calculer le carré du résultat.",
+    question: "1. Montrer que si l'utilisateur saisit 2, le programme A retourne 54.\n2. Calculer le résultat du programme A pour 1,15.\n3. Pour quels nombres le programme A retourne-t-il 0 ?\n4a. Programme B pour x=3 ?\n4b. Programme B pour x=3/4 ?\n7. Pour quels nombres les deux programmes retournent-ils le même résultat ?",
+    hints: [
+      'Programme A : pour x=2 → b=2×2+5=9, c=5×2−4=6, d=9×6=54',
+      'Programme A retourne (2x+5)(5x−4) = 10x²+17x−20',
+      'Programme B retourne (2x+5)²',
+      'A=B ⟺ (2x+5)(5x−4) = (2x+5)² ⟺ (2x+5)(5x−4−2x−5) = 0 ⟺ (2x+5)(3x−9) = 0',
+    ],
+    answer: "Programme A donne (2x+5)(5x−4). Programme B donne (2x+5)². Ils sont égaux pour x=−5/2 ou x=3.",
+  },
 ]

@@ -57,21 +57,28 @@ export default function App() {
         <ExercisePanel
           exercise={selectedExercise}
           activeSubIndex={activeSubIndex}
-          onSubSelect={setActiveSubIndex}
+          onSubSelect={(i) => {
+            setActiveSubIndex(i)
+            const engine = engineRef.current
+            engine.reset()
+            setSegments([])
+            setTurtleState(engine.getState())
+          }}
         />
-        {selectedExercise && activeBlocks.length > 0 && (
+        {showCanvas && activeBlocks.length > 0 && (
           <div className="workspace">
             <div className="blocks-area">
               <BlockSequence blocks={activeBlocks} />
-              {showCanvas && (
-                <Toolbar onRun={handleRun} onReset={handleReset} />
-              )}
+              <Toolbar onRun={handleRun} onReset={handleReset} />
             </div>
-            {showCanvas && (
-              <div className="canvas-area">
-                <TurtleCanvas segments={segments} turtleState={turtleState} />
-              </div>
-            )}
+            <div className="canvas-area">
+              <TurtleCanvas segments={segments} turtleState={turtleState} />
+            </div>
+          </div>
+        )}
+        {showCanvas && activeBlocks.length === 0 && selectedExercise?.subExercises && (
+          <div className="exercise-panel exercise-panel-empty">
+            <p>← Sélectionnez une question ci-dessus pour voir les blocs</p>
           </div>
         )}
       </main>

@@ -22,6 +22,14 @@ const LABELS = {
   repeter: (args) => `répéter ${formatArg(args[0])} fois`,
   mettre_variable: (args) => `mettre ${args[0]} à ${formatArg(args[1])}`,
   ajouter_variable: (args) => `ajouter ${formatArg(args[1])} à ${args[0]}`,
+  ajouter_x: (args) => `ajouter ${formatArg(args[0])} à x`,
+  ajouter_y: (args) => `ajouter ${formatArg(args[0])} à y`,
+  tourner_droite: (args) => `tourner ↻ de ${formatArg(args[0])} degrés`,
+  tourner_gauche: (args) => `tourner ↺ de ${formatArg(args[0])} degrés`,
+  stylo_poser: () => 'stylo en position d\'écriture',
+  stylo_relever: () => 'relever le stylo',
+  definir_bloc: (args) => `définir ${args[0]}`,
+  appeler_bloc: (args) => `${args[0]}`,
 }
 
 export default function Block({ block, depth = 0 }) {
@@ -30,7 +38,7 @@ export default function Block({ block, depth = 0 }) {
   const labelFn = LABELS[type]
   const label = labelFn ? labelFn(args) : type
 
-  if (type === 'repeter') {
+  if (type === 'repeter' || type === 'definir_bloc') {
     return (
       <div className="block block-c" style={{ '--block-color': color }}>
         <div className="block-header">{label}</div>

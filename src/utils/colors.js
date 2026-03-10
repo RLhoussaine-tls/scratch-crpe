@@ -7,6 +7,7 @@ export const CATEGORY_COLORS = {
   sensing: '#5CB1D6',
   operators: '#59C059',
   variables: '#FF8C1A',
+  custom: '#FF6680',
 }
 
 export function getCategoryColor(category) {
