@@ -3,34 +3,33 @@ export const exercises2024 = [
     id: '2024-1',
     year: 2024,
     title: 'Géoplan Scratch',
-    type: 'incomplete',
     description:
-      'EST MAT 1, Exercice 5, Partie B.3 — Un programme Scratch construit une figure sur un géoplan de 25 picots (deux picots contigus = 3 cm). Échelle : 3 cm = 70 pas. Le point de départ est (−140 ; 140). Le lutin s\'oriente à 90° (vers la droite). Il faut déterminer les valeurs de A, B et C.',
+      "EST MAT 1, Exercice 5, Partie B.3 — Un programme Scratch construit une figure sur un géoplan de 25 picots (deux picots contigus = 3 cm). Échelle : 3 cm = 70 pas. Le point de départ est (−140 ; 140). Le lutin s'oriente à 90° (vers la droite). Il faut déterminer les valeurs de A, B et C.",
     question:
       'En prenant 3 cm pour 70 pas, déterminer les valeurs attribuées aux lettres A, B et C pour que le script permette de construire la figure.',
-    // Script reconstitué depuis la géométrie du géoplan (image PDF).
-    // Reconstruction : A=140 pas (2 cases×70), B≈99 pas (3√2 cm×70/3≈98,99),
-    // C=70 pas (1 case×70). Le script exact reste dans une image du sujet.
     blocks: [
+      { type: 'effacer', args: [], category: 'pen' },
       { type: 'allerA', args: [-140, 140], category: 'motion' },
       { type: 'orienter', args: [90], category: 'motion' },
+      { type: 'setEpaisseur', args: [3], category: 'pen' },
       { type: 'styloPoser', args: [], category: 'pen' },
-      { type: 'avancer', args: [140], category: 'motion' },
+      { type: 'avancer', args: [210], category: 'motion' },
       { type: 'tournerDroite', args: [90], category: 'motion' },
       { type: 'avancer', args: [70], category: 'motion' },
-      { type: 'tournerDroite', args: [90], category: 'motion' },
-      { type: 'avancer', args: [140], category: 'motion' },
-      { type: 'tournerDroite', args: [90], category: 'motion' },
-      { type: 'avancer', args: [70], category: 'motion' },
+      { type: 'tournerDroite', args: [135], category: 'motion' },
+      { type: 'avancer', args: [99], category: 'motion' },
+      { type: 'tournerDroite', args: [135], category: 'motion' },
+      { type: 'avancer', args: [280], category: 'motion' },
+      { type: 'styloRelever', args: [], category: 'pen' },
     ],
-    note: 'Script reconstitué par reconstruction géométrique (script original dans image PDF). A=140 pas (2 cases horizontales × 70 pas/case), B≈99 pas (côté diagonal : 3√2 cm × 70/3 ≈ 98,99 pas, arrondi à 99), C=70 pas (1 case × 70 pas/case).',
     hints: [
-      '3 cm = 70 pas (1 case du géoplan). 2 cases = 140 pas. Diagonal de 1 case = 3√2 cm ≈ 99 pas.',
-      'Le lutin part de (−140 ; 140) orienté vers la droite (90°).',
-      'A est un côté horizontal, B est un côté diagonal (valeur approchée à l\'unité), C est un côté vertical.',
+      '3 cm = 70 pas (1 case). 210 pas = 3 cases horizontales.',
+      'La diagonale B : 3 cases en diagonale = 3√2 cm ≈ 4,24 cm ≈ 99 pas.',
+      'A = 135° : depuis l\'orientation vers le bas (après tourner 90°), tourner encore 135° oriente vers le haut-gauche.',
+      'C = 135° : même logique pour clore la figure vers la gauche.',
     ],
     answer:
-      'A = 140 pas (2 cases × 70 pas/case), B ≈ 99 pas (3√2 cm × 70/3 ≈ 98,99 pas, arrondi à 99), C = 70 pas (1 case × 70 pas/case).',
+      "A = 135° (angle pour s'orienter en diagonale vers le haut-gauche), B ≈ 99 pas (diagonale de 3 cases = 3√2 cm × 70/3 ≈ 98,99 pas, arrondi à 99), C = 135° (angle pour s'orienter vers la gauche). Échelle : 3 cm = 70 pas.",
   },
   {
     id: '2024-2',
