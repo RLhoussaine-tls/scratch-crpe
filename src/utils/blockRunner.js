@@ -144,12 +144,12 @@ export async function runBlocksAnimated(blocks, engine, variables = {}, onStep, 
         if (cancelRef && cancelRef.current) return
         await runBlocksAnimated(block.body || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'body'], askCallback)
       }
-    } else if (block.type === 'repeterJusqua') {
+    } else if (block.type === 'repeterJusqua' || block.type === 'repeter_jusqu_a') {
       let iterations = 0
       while (!resolveCondition(block.args[0], variables)) {
         if (cancelRef && cancelRef.current) return
         if (iterations++ >= MAX_ITERATIONS) {
-          console.error(`Boucle repeterJusqua limitée à ${MAX_ITERATIONS} itérations`)
+          console.error(`Boucle repeter_jusqu_a limitée à ${MAX_ITERATIONS} itérations`)
           break
         }
         await runBlocksAnimated(block.body || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'body'], askCallback)
@@ -222,6 +222,7 @@ function executeBlock(block, engine, variables, registry = {}) {
     case 'setEpaisseur':
       engine.setEpaisseur(resolveValue(args[0], variables))
       break
+    case 'mettre_variable':
     case 'mettreVariable':
       variables[args[0]] = resolveValue(args[1], variables)
       break
@@ -313,11 +314,12 @@ function executeBlock(block, engine, variables, registry = {}) {
     }
 
     /** Repeat until condition is true */
+    case 'repeter_jusqu_a':
     case 'repeterJusqua': {
       let iterations = 0
       while (!resolveCondition(args[0], variables)) {
         if (iterations++ >= MAX_ITERATIONS) {
-          console.error(`Boucle repeterJusqua limitée à ${MAX_ITERATIONS} itérations`)
+          console.error(`Boucle repeter_jusqu_a limitée à ${MAX_ITERATIONS} itérations`)
           break
         }
         runBlocks(block.body || [], engine, variables, registry)
