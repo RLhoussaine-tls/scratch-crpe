@@ -91,27 +91,23 @@ const LABELS = {
   setCouleur: (args, path, onEdit) => <>mettre la couleur du stylo &agrave; <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /></>,
   setEpaisseur: (args, path, onEdit) => <>mettre la taille du stylo &agrave; <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /></>,
   repeter: (args, path, onEdit) => <>r&eacute;p&eacute;ter <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> fois</>,
-  repeter_jusqu_a: (args) => <>r&eacute;p&eacute;ter jusqu&apos;&agrave; <ConditionDisplay cond={args[0]} /></>,
+  repeterJusqua: (args) => <>r&eacute;p&eacute;ter jusqu&apos;&agrave; <ConditionDisplay cond={args[0]} /></>,
   si: (args) => <>si <ConditionDisplay cond={args[0]} /> alors</>,
-  si_sinon: (args) => <>si <ConditionDisplay cond={args[0]} /> alors</>,
-  mettre_variable: (args, path, onEdit) => <>mettre {args[0]} &agrave; <ArgDisplay val={args[1]} argIndex={1} path={path} onEditBlock={onEdit} /></>,
-  mettre_variable_op: (args) => <>mettre {args[0]} &agrave; <ExprDisplay val={args[1]} /> {args[2]} <ExprDisplay val={args[3]} /></>,
-  mettre_variable_comp: (args) => <>mettre {args[0]} &agrave; <ExprDisplay val={args[1]} /> {args[2]} <ExprDisplay val={args[3]} /></>,
-  ajouter_variable: (args, path, onEdit) => <>ajouter <ArgDisplay val={args[1]} argIndex={1} path={path} onEditBlock={onEdit} /> &agrave; {args[0]}</>,
-  ajouter_x: (args, path, onEdit) => <>ajouter <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> &agrave; x</>,
-  ajouter_y: (args, path, onEdit) => <>ajouter <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> &agrave; y</>,
-  tourner_droite: (args, path, onEdit) => <>tourner &#8635; de <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> degr&eacute;s</>,
-  tourner_gauche: (args, path, onEdit) => <>tourner &#8634; de <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> degr&eacute;s</>,
-  stylo_poser: () => "stylo en position d'écriture",
-  stylo_relever: () => 'relever le stylo',
-  definir_bloc: (args) => <>d&eacute;finir {args[0]}</>,
-  appeler_bloc: (args) => <>{args[0]}</>,
+  siSinon: (args) => <>si <ConditionDisplay cond={args[0]} /> alors</>,
+  mettreVariable: (args, path, onEdit) => <>mettre {args[0]} &agrave; <ArgDisplay val={args[1]} argIndex={1} path={path} onEditBlock={onEdit} /></>,
+  mettreVariableOp: (args) => <>mettre {args[0]} &agrave; <ExprDisplay val={args[1]} /> {args[2]} <ExprDisplay val={args[3]} /></>,
+  mettreVariableComp: (args) => <>mettre {args[0]} &agrave; <ExprDisplay val={args[1]} /> {args[2]} <ExprDisplay val={args[3]} /></>,
+  ajouterVariable: (args, path, onEdit) => <>ajouter <ArgDisplay val={args[1]} argIndex={1} path={path} onEditBlock={onEdit} /> &agrave; {args[0]}</>,
+  ajouterX: (args, path, onEdit) => <>ajouter <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> &agrave; x</>,
+  ajouterY: (args, path, onEdit) => <>ajouter <ArgDisplay val={args[0]} argIndex={0} path={path} onEditBlock={onEdit} /> &agrave; y</>,
+  definirBloc: (args) => <>d&eacute;finir {args[0]}</>,
+  appelerBloc: (args) => <>{args[0]}</>,
   effacer: () => 'tout effacer',
   demander: (args, path, onEdit) => <>demander {args[0]} (d&eacute;faut : <ArgDisplay val={args[1]} argIndex={1} path={path} onEditBlock={onEdit} />)</>,
   dire: (args) => <>dire <ExprDisplay val={args[0]} /></>,
 }
 
-const C_SHAPE_BLOCKS = ['repeter', 'definir_bloc', 'si', 'repeter_jusqu_a']
+const C_SHAPE_BLOCKS = ['repeter', 'definirBloc', 'si', 'repeterJusqua']
 
 export default function Block({ block, depth = 0, activePath, blockPath = [], onEditBlock, path = [] }) {
   const { type, args = [], category = 'motion', body } = block
@@ -121,7 +117,7 @@ export default function Block({ block, depth = 0, activePath, blockPath = [], on
   const isActive = pathStartsWith(activePath, blockPath)
 
   // si_sinon has body + elseBody
-  if (type === 'si_sinon') {
+  if (type === 'siSinon') {
     return (
       <div className={`block block-c ${isActive ? 'block-active' : ''}`} style={{ '--block-color': color }}>
         <div className="block-header">{label}</div>
