@@ -167,7 +167,7 @@ describe('runBlocks', () => {
   it('executes si (true)', () => {
     const engine = createMockEngine()
     const blocks = [
-      { type: 'mettre_variable', args: ['x', 5] },
+      { type: 'mettreVariable', args: ['x', 5] },
       { type: 'si', args: [{ type: 'comp', op: '>', left: { type: 'variable', name: 'x' }, right: 3 }], body: [
         { type: 'avancer', args: [100] },
       ]},
@@ -180,7 +180,7 @@ describe('runBlocks', () => {
   it('executes si (false)', () => {
     const engine = createMockEngine()
     const blocks = [
-      { type: 'mettre_variable', args: ['x', 1] },
+      { type: 'mettreVariable', args: ['x', 1] },
       { type: 'si', args: [{ type: 'comp', op: '>', left: { type: 'variable', name: 'x' }, right: 3 }], body: [
         { type: 'avancer', args: [100] },
       ]},
@@ -189,11 +189,11 @@ describe('runBlocks', () => {
     expect(engine.calls).toHaveLength(0)
   })
 
-  it('executes si_sinon', () => {
+  it('executes siSinon', () => {
     const engine = createMockEngine()
     const blocks = [
-      { type: 'mettre_variable', args: ['x', 1] },
-      { type: 'si_sinon',
+      { type: 'mettreVariable', args: ['x', 1] },
+      { type: 'siSinon',
         args: [{ type: 'comp', op: '>', left: { type: 'variable', name: 'x' }, right: 3 }],
         body: [{ type: 'avancer', args: [100] }],
         elseBody: [{ type: 'avancer', args: [50] }],
@@ -203,15 +203,15 @@ describe('runBlocks', () => {
     expect(engine.calls).toEqual([['avancer', 50]])
   })
 
-  it('executes repeter_jusqu_a', () => {
+  it('executes repeterJusqua', () => {
     const engine = createMockEngine()
     const blocks = [
-      { type: 'mettre_variable', args: ['i', 0] },
-      { type: 'repeter_jusqu_a',
+      { type: 'mettreVariable', args: ['i', 0] },
+      { type: 'repeterJusqua',
         args: [{ type: 'comp', op: '>=', left: { type: 'variable', name: 'i' }, right: 3 }],
         body: [
           { type: 'avancer', args: [10] },
-          { type: 'ajouter_variable', args: ['i', 1] },
+          { type: 'ajouterVariable', args: ['i', 1] },
         ]},
     ]
     const vars = runBlocks(blocks, engine)
@@ -233,12 +233,12 @@ describe('runBlocks', () => {
     spy.mockRestore()
   })
 
-  it('guards repeter_jusqu_a against MAX_ITERATIONS', () => {
+  it('guards repeterJusqua against MAX_ITERATIONS', () => {
     const engine = createMockEngine()
     const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     // Condition never becomes true
     const blocks = [
-      { type: 'repeter_jusqu_a',
+      { type: 'repeterJusqua',
         args: [false],
         body: [{ type: 'avancer', args: [1] }],
       },
@@ -276,21 +276,21 @@ describe('runBlocks', () => {
     expect(vars.x).toBe(7)
   })
 
-  it('executes mettre_variable_op', () => {
+  it('executes mettreVariableOp', () => {
     const engine = createMockEngine()
     const blocks = [
-      { type: 'mettre_variable', args: ['a', 10] },
-      { type: 'mettre_variable_op', args: ['b', { type: 'variable', name: 'a' }, '*', 3] },
+      { type: 'mettreVariable', args: ['a', 10] },
+      { type: 'mettreVariableOp', args: ['b', { type: 'variable', name: 'a' }, '*', 3] },
     ]
     const vars = runBlocks(blocks, engine)
     expect(vars.b).toBe(30)
   })
 
-  it('executes mettre_variable_comp', () => {
+  it('executes mettreVariableComp', () => {
     const engine = createMockEngine()
     const blocks = [
-      { type: 'mettre_variable', args: ['a', 10] },
-      { type: 'mettre_variable_comp', args: ['flag', { type: 'variable', name: 'a' }, '>', 5] },
+      { type: 'mettreVariable', args: ['a', 10] },
+      { type: 'mettreVariableComp', args: ['flag', { type: 'variable', name: 'a' }, '>', 5] },
     ]
     const vars = runBlocks(blocks, engine)
     expect(vars.flag).toBe(true)

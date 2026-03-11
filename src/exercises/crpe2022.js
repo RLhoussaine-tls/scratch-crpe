@@ -10,7 +10,7 @@ export const exercises2022 = [
     question:
       '1) En prenant C = 50 et 1 cm pour 10 pixels, tracer la figure du Programme 1. 2) Quelle est la nature de la figure tracée ? Justifier. 3) Quelles valeurs attribuer à A et N dans le Programme 2 ?',
     blocks: [
-      { type: 'mettre_variable', args: ['C', 50], category: 'variables' },
+      { type: 'mettreVariable', args: ['C', 50], category: 'variables' },
       { type: 'styloPoser', args: [], category: 'pen' },
       {
         type: 'repeter',
@@ -41,13 +41,13 @@ export const exercises2022 = [
     question: "Exécuter le programme pour différentes valeurs de x. Montrer que pour tout nombre x, le programme retourne 2x²−x−6. Factoriser cette expression.",
     blocks: [
       { type: 'demander', args: ['x', 3], category: 'sensing' },
-      { type: 'mettre_variable_op', args: ['résultat', { type: 'variable', name: 'x' }, '*', { type: 'variable', name: 'x' }], category: 'operators' },
-      { type: 'ajouter_variable', args: ['résultat', -3], category: 'variables' },
-      { type: 'mettre_variable_op', args: ['résultat', { type: 'variable', name: 'résultat' }, '*', 2], category: 'operators' },
-      { type: 'mettre_variable_op', args: ['résultat', { type: 'variable', name: 'résultat' }, '-', { type: 'variable', name: 'x' }], category: 'operators' },
+      { type: 'mettreVariableOp', args: ['résultat', { type: 'variable', name: 'x' }, '*', { type: 'variable', name: 'x' }], category: 'operators' },
+      { type: 'ajouterVariable', args: ['résultat', -3], category: 'variables' },
+      { type: 'mettreVariableOp', args: ['résultat', { type: 'variable', name: 'résultat' }, '*', 2], category: 'operators' },
+      { type: 'mettreVariableOp', args: ['résultat', { type: 'variable', name: 'résultat' }, '-', { type: 'variable', name: 'x' }], category: 'operators' },
     ],
     hints: [
-      "Pour x=2 : x²=4, 4−3=1, 1×2=2, 2−2=0... Attention : pour x=2, résultat = 2×4−2−6 = −6 ✔",
+      "pour x=2 : 2×(2²)−2−6 = 8−2−6 = 0 ✔",
       'Pour tout x : résultat = x², puis −3 → x²−3, puis ×2 → 2x²−6, puis −x → 2x²−x−6',
       'On peut factoriser : 2x²−x−6 = (2x+3)(x−2)',
     ],
@@ -137,7 +137,7 @@ export const exercises2022 = [
         subtitle: 'Q1 — Patron en croix',
         description: 'Compléter le bloc carré (avancer 60, tourner 90°, répéter 4 fois) puis ordonner les instructions pour tracer le patron en croix.',
         blocks: [
-          { type: 'definir_bloc', args: ['carré'], category: 'custom', body: [
+          { type: 'definirBloc', args: ['carré'], category: 'custom', body: [
             { type: 'styloPoser', category: 'pen' },
             { type: 'repeter', args: [4], category: 'control', body: [
               { type: 'avancer', args: [60], category: 'motion' },
@@ -146,16 +146,16 @@ export const exercises2022 = [
             { type: 'styloRelever', category: 'pen' },
             { type: 'avancer', args: [60], category: 'motion' },
           ]},
-          { type: 'appeler_bloc', args: ['carré'], category: 'custom' },
-          { type: 'appeler_bloc', args: ['carré'], category: 'custom' },
-          { type: 'appeler_bloc', args: ['carré'], category: 'custom' },
-          { type: 'appeler_bloc', args: ['carré'], category: 'custom' },
-          { type: 'ajouter_y', args: [60], category: 'motion' },
-          { type: 'ajouter_x', args: [-180], category: 'motion' },
-          { type: 'appeler_bloc', args: ['carré'], category: 'custom' },
-          { type: 'ajouter_y', args: [-120], category: 'motion' },
-          { type: 'ajouter_x', args: [-60], category: 'motion' },
-          { type: 'appeler_bloc', args: ['carré'], category: 'custom' },
+          { type: 'appelerBloc', args: ['carré'], category: 'custom' },
+          { type: 'appelerBloc', args: ['carré'], category: 'custom' },
+          { type: 'appelerBloc', args: ['carré'], category: 'custom' },
+          { type: 'appelerBloc', args: ['carré'], category: 'custom' },
+          { type: 'ajouterY', args: [60], category: 'motion' },
+          { type: 'ajouterX', args: [-180], category: 'motion' },
+          { type: 'appelerBloc', args: ['carré'], category: 'custom' },
+          { type: 'ajouterY', args: [-120], category: 'motion' },
+          { type: 'ajouterX', args: [-60], category: 'motion' },
+          { type: 'appelerBloc', args: ['carré'], category: 'custom' },
         ],
         answer: 'Le patron forme une croix de 6 carrés.',
       },
@@ -165,7 +165,7 @@ export const exercises2022 = [
         description: "Un second algorithme utilise deux boucles imbriquées : répéter 2 fois { carré, répéter 3 fois { ajouter -60 à x }, ajouter -60 à y }.",
         question: 'Dessiner ce patron à main levée.',
         blocks: [
-          { type: 'definir_bloc', args: ['carré'], category: 'custom', body: [
+          { type: 'definirBloc', args: ['carré'], category: 'custom', body: [
             { type: 'styloPoser', category: 'pen' },
             { type: 'repeter', args: [4], category: 'control', body: [
               { type: 'avancer', args: [60], category: 'motion' },
@@ -175,11 +175,11 @@ export const exercises2022 = [
             { type: 'avancer', args: [60], category: 'motion' },
           ]},
           { type: 'repeter', args: [2], category: 'control', body: [
-            { type: 'appeler_bloc', args: ['carré'], category: 'custom' },
+            { type: 'appelerBloc', args: ['carré'], category: 'custom' },
             { type: 'repeter', args: [3], category: 'control', body: [
-              { type: 'ajouter_x', args: [-60], category: 'motion' },
+              { type: 'ajouterX', args: [-60], category: 'motion' },
             ]},
-            { type: 'ajouter_y', args: [-60], category: 'motion' },
+            { type: 'ajouterY', args: [-60], category: 'motion' },
           ]},
         ],
         answer: "On obtient un patron en L : 1 carré en haut à gauche, puis 3 en dessous formant une colonne décalée.",

@@ -15,7 +15,7 @@ export const exercises2025 = [
       { type: 'orienter', args: [90], category: 'motion' },
       { type: 'styloPoser', args: [], category: 'pen' },
       {
-        type: 'definir_bloc',
+        type: 'definirBloc',
         args: ['carré'],
         category: 'custom',
         body: [
@@ -31,7 +31,7 @@ export const exercises2025 = [
         ],
       },
       {
-        type: 'definir_bloc',
+        type: 'definirBloc',
         args: ['arêtes latérales'],
         category: 'custom',
         body: [
@@ -41,13 +41,13 @@ export const exercises2025 = [
           { type: 'avancer', args: [80], category: 'motion' },
         ],
       },
-      { type: 'appeler_bloc', args: ['carré'], category: 'custom' },
+      { type: 'appelerBloc', args: ['carré'], category: 'custom' },
       {
         type: 'repeter',
         args: [4],
         category: 'control',
         body: [
-          { type: 'appeler_bloc', args: ['arêtes latérales'], category: 'custom' },
+          { type: 'appelerBloc', args: ['arêtes latérales'], category: 'custom' },
           { type: 'tournerGauche', args: [90], category: 'motion' },
         ],
       },
@@ -131,9 +131,9 @@ export const exercises2025 = [
         description: "Programme C : programme de base + « ajouter 10 à a » à la fin. Triangles de taille croissante (a = 40, 50, 60, 70…). L'hypoténuse vaut a×√2 (calculée dynamiquement).",
         question: "À quelle figure correspond le programme C ?",
         blocks: [
-          { type: 'mettre_variable', args: ['a', 30], category: 'variables' },
+          { type: 'mettreVariable', args: ['a', 30], category: 'variables' },
           { type: 'repeter', args: [4], category: 'control', body: [
-            { type: 'ajouter_variable', args: ['a', 10], category: 'variables' },
+            { type: 'ajouterVariable', args: ['a', 10], category: 'variables' },
             { type: 'orienter', args: [90], category: 'motion' },
             { type: 'styloPoser', args: [], category: 'pen' },
             { type: 'avancer', args: [{ type: 'variable', name: 'a' }], category: 'motion' },
@@ -190,7 +190,7 @@ export const exercises2025 = [
         description: "Le script trace le patron : carré central de 40 pas, puis 4 triangles équilatéraux sur chaque côté. Utilise le bloc 'triangle' défini en Q1.",
         question: "Compléter L3, L4, L5 du script pour tracer le patron complet.",
         blocks: [
-          { type: 'definir_bloc', args: ['triangle'], category: 'custom', body: [
+          { type: 'definirBloc', args: ['triangle'], category: 'custom', body: [
             { type: 'repeter', args: [3], category: 'control', body: [
               { type: 'avancer', args: [40], category: 'motion' },
               { type: 'tournerDroite', args: [120], category: 'motion' },
@@ -204,7 +204,7 @@ export const exercises2025 = [
           ]},
           { type: 'repeter', args: [4], category: 'control', body: [
             { type: 'tournerGauche', args: [60], category: 'motion' },
-            { type: 'appeler_bloc', args: ['triangle'], category: 'custom' },
+            { type: 'appelerBloc', args: ['triangle'], category: 'custom' },
             { type: 'tournerGauche', args: [30], category: 'motion' },
             { type: 'avancer', args: [40], category: 'motion' },
           ]},

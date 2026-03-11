@@ -1,0 +1,61 @@
+.ask-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.ask-modal {
+  background: #fff;
+  border: 3px solid #4C97FF;
+  border-radius: 12px;
+  padding: 24px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 260px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  font-family: sans-serif;
+}
+
+.ask-modal-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+}
+
+.ask-modal-input {
+  border: 2px solid #4C97FF;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 16px;
+  text-align: center;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ask-modal-input:focus {
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 3px rgba(76, 151, 255, 0.3);
+}
+
+.ask-modal-btn {
+  background: #4C97FF;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 9px 0;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.ask-modal-btn:hover {
+  background: #1a73e8;
+}

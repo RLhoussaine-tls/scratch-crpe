@@ -10,7 +10,7 @@ export const exercises2023 = [
     question:
       'a) Quelles sont les coordonnées du point de départ du tracé ? b) Combien de triangles sont dessinés ? c) Quelle est la nature des triangles ? d) Quelle est la longueur d\'un côté du 2e triangle ?',
     blocks: [
-      { type: 'mettre_variable', args: ['côté', 20], category: 'variables' },
+      { type: 'mettreVariable', args: ['côté', 20], category: 'variables' },
       { type: 'styloPoser', args: [], category: 'pen' },
       {
         type: 'repeter',
@@ -26,7 +26,7 @@ export const exercises2023 = [
               { type: 'tournerDroite', args: [120], category: 'motion' },
             ],
           },
-          { type: 'ajouter_variable', args: ['côté', 20], category: 'variables' },
+          { type: 'ajouterVariable', args: ['côté', 20], category: 'variables' },
         ],
       },
     ],
@@ -123,18 +123,21 @@ export const exercises2023 = [
         description: "Choisir un nombre x, calculer b = 2x+5, calculer c = 5x−4, calculer résultat = b×c.\nPour x=2 → b=9, c=6, résultat=54. Pour x=1 → résultat=(2+5)(5−4)=7×1=7. Pour x=−5/2 → résultat=0.",
         blocks: [
           { type: 'demander', args: ['x', 2], category: 'sensing' },
-          { type: 'mettre_variable_op', args: ['b', { type: 'variable', name: 'x' }, '*', 2], category: 'variables' },
-          { type: 'mettre_variable_op', args: ['b', { type: 'variable', name: 'b' }, '+', 5], category: 'variables' },
-          { type: 'mettre_variable_op', args: ['c', { type: 'op', op: '*', left: 5, right: { type: 'variable', name: 'x' } }, '-', 4], category: 'variables' },
-          { type: 'mettre_variable_op', args: ['résultat', { type: 'variable', name: 'b' }, '*', { type: 'variable', name: 'c' }], category: 'variables' },
+          { type: 'mettreVariableOp', args: ['b', { type: 'variable', name: 'x' }, '*', 2], category: 'variables' },
+          { type: 'mettreVariableOp', args: ['b', { type: 'variable', name: 'b' }, '+', 5], category: 'variables' },
+          { type: 'mettreVariableOp', args: ['c', { type: 'op', op: '*', left: 5, right: { type: 'variable', name: 'x' } }, '-', 4], category: 'variables' },
+          { type: 'mettreVariableOp', args: ['résultat', { type: 'variable', name: 'b' }, '*', { type: 'variable', name: 'c' }], category: 'variables' },
         ],
       },
       {
         subtitle: 'Programme B',
         type: 'quiz',
-        scratchBlocks: false,
-        description: "Programme B (décrit textuellement, pas en blocs Scratch) :\n• Choisir un nombre x\n• Prendre son double\n• Ajouter 5\n• Calculer le carré du résultat\nRésultat : (2x+5)².",
-        blocks: [],
+        description: "Choisir un nombre x, prendre son double, ajouter 5, calculer le carré du résultat → (2x+5)².",
+        blocks: [
+          { type: 'demander', args: ['x', 3], category: 'sensing' },
+          { type: 'mettreVariableOp', args: ['b', { type: 'op', op: '*', left: 2, right: { type: 'variable', name: 'x' } }, '+', 5], category: 'variables' },
+          { type: 'mettreVariableOp', args: ['résultat', { type: 'variable', name: 'b' }, '*', { type: 'variable', name: 'b' }], category: 'variables' },
+        ],
       },
     ],
   },
