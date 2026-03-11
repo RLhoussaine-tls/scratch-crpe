@@ -32,6 +32,26 @@ export const exercises2024 = [
     ],
     answer:
       "A = 135° (angle pour s'orienter en diagonale vers le haut-gauche), B ≈ 99 pas (diagonale de 3 cases = 3√2 cm × 70/3 ≈ 98,99 pas, arrondi à 99), C = 135° (angle pour s'orienter vers la gauche). Échelle : 3 cm = 70 pas.",
+    corrige: {
+      figure: "Trapèze rectangle sur géoplan : 3 cases à droite, 1 case en bas, diagonale de 3√2 cases, 4 cases à gauche",
+      variables: { A: "135°", B: "99 pas (3√2 cm)", C: "135°" },
+      etapes: [
+        "Départ : (−140, 140), orientation 90° (droite)",
+        "Avancer 210 pas (3 cases = 3×70) → point (70, 140)",
+        "Tourner droite 90° → orientation 180° (bas)",
+        "Avancer 70 pas (1 case) → point (70, 70)",
+        "Tourner droite A=135° → orientation 315° (diagonale haut-gauche)",
+        "Avancer B=99 pas (3√2 cm ≈ 3×1,414×70/3 ≈ 99) → remonte en diagonale",
+        "Tourner droite C=135° → orientation 90° (droite), donc gauche = 270°",
+        "Avancer 280 pas pour fermer la figure",
+      ],
+      erreurs_classiques: [
+        "Oublier de calculer B avec Pythagore : B = 3√2 × 70/3 = 70√2 ≈ 99",
+        "Confondre A et C (les deux valent 135° dans cet exercice)",
+        "Mal lire l'échelle : 3 cm = 70 pas, donc 1 cm ≠ 10 pas ici",
+      ],
+      difficulte: 4,
+    },
   },
   {
     id: '2024-g2-calcul',
@@ -58,6 +78,22 @@ export const exercises2024 = [
     ],
     answer:
       'Le résultat est x² + 3x − 4 = (x − 1)(x + 4). Pour x=5 : 36. Pour x=1 : 0. Pour x=−4 : 0.',
+    corrige: {
+      figure: "Programme de calcul — résultat : x² + 3x − 4",
+      variables: { "f(x)": "x² + 3x − 4", "factorisation": "(x−1)(x+4)", "racines": "x=1 ou x=−4" },
+      etapes: [
+        "Étape 1 : résultat ← x × x = x²",
+        "Étape 2 : résultat ← x² + 3x",
+        "Étape 3 : résultat ← x² + 3x − 4",
+        "Factorisation : somme des racines = −3 (= −1+−4), produit = −4 (= −1×4) → (x−1)(x+4)",
+        "Vérification : (x−1)(x+4) = x²+4x−x−4 = x²+3x−4 ✓",
+      ],
+      erreurs_classiques: [
+        "Confondre les signes dans la factorisation : (x+1)(x−4) donne x²−3x−4, pas x²+3x−4",
+        "Ne pas vérifier la factorisation en développant",
+      ],
+      difficulte: 2,
+    },
   },
   {
     id: '2024-g3-figure-base',

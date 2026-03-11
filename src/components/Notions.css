@@ -1,0 +1,341 @@
+.notions-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 16px 48px;
+}
+
+.notions-header {
+  padding: 24px 0 16px;
+  border-bottom: 2px solid #855CD6;
+  margin-bottom: 16px;
+}
+
+.notions-header h1 {
+  margin: 8px 0 4px;
+  font-size: 24px;
+  color: #333;
+}
+
+.notions-subtitle {
+  color: #666;
+  margin: 0;
+  font-size: 14px;
+}
+
+.back-btn {
+  background: none;
+  border: 1px solid #855CD6;
+  color: #855CD6;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.back-btn:hover {
+  background: #855CD6;
+  color: white;
+}
+
+.notions-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+  padding: 12px;
+  background: #f8f6ff;
+  border-radius: 8px;
+  border: 1px solid #e0d8f5;
+}
+
+.notions-nav-link {
+  color: #855CD6;
+  text-decoration: none;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: white;
+  border: 1px solid #d0c8f0;
+  white-space: nowrap;
+}
+
+.notions-nav-link:hover {
+  background: #855CD6;
+  color: white;
+}
+
+.notion-section {
+  margin-bottom: 40px;
+  scroll-margin-top: 80px;
+}
+
+.notion-section h2 {
+  font-size: 18px;
+  color: #855CD6;
+  border-left: 4px solid #855CD6;
+  padding-left: 12px;
+  margin-bottom: 16px;
+}
+
+.section-content p {
+  line-height: 1.6;
+  color: #444;
+  margin: 8px 0;
+}
+
+.notion-tip {
+  background: #e8f5e9;
+  border-left: 4px solid #4CAF50;
+  padding: 10px 14px;
+  border-radius: 0 6px 6px 0;
+  margin: 12px 0;
+  font-size: 14px;
+  line-height: 1.5;
+  display: flex;
+  gap: 8px;
+}
+
+.notion-warning {
+  background: #fff3e0;
+  border-left: 4px solid #FF9800;
+  padding: 10px 14px;
+  border-radius: 0 6px 6px 0;
+  margin: 12px 0;
+  font-size: 14px;
+  line-height: 1.5;
+  display: flex;
+  gap: 8px;
+}
+
+.notion-formula {
+  background: #f3f0ff;
+  border: 2px solid #855CD6;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  font-weight: bold;
+  color: #4a2c8a;
+  text-align: center;
+  margin: 16px 0;
+}
+
+.notion-table-wrap {
+  overflow-x: auto;
+  margin: 12px 0;
+}
+
+.notion-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.notion-table th {
+  background: #855CD6;
+  color: white;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.notion-table td {
+  padding: 7px 12px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.notion-table tr:nth-child(even) td {
+  background: #f8f6ff;
+}
+
+.compass-display {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+
+.compass-entry {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f3f0ff;
+  border: 1px solid #d0c8f0;
+  border-radius: 8px;
+  padding: 10px 16px;
+  min-width: 160px;
+}
+
+.compass-symbol {
+  font-size: 24px;
+  color: #855CD6;
+}
+
+.compass-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.comparison-block {
+  display: flex;
+  gap: 0;
+  margin: 12px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.comparison-side {
+  flex: 1;
+  padding: 16px;
+  background: #f9f9f9;
+}
+
+.comparison-side h4 {
+  margin: 0 0 10px;
+  color: #855CD6;
+  font-size: 14px;
+}
+
+.comparison-side ul {
+  margin: 0;
+  padding: 0 0 0 16px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.comparison-vs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  background: #855CD6;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  writing-mode: vertical-rl;
+}
+
+.block-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.block-example-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.block-pill {
+  display: inline-block;
+  color: white;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  font-family: -apple-system, sans-serif;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.block-desc {
+  font-size: 13px;
+  color: #555;
+}
+
+.steps-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.step-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.step-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  background: #855CD6;
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.step-item strong {
+  display: block;
+  margin-bottom: 2px;
+  color: #333;
+}
+
+.step-item p {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.errors-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.error-item {
+  display: flex;
+  gap: 12px;
+  background: #fff5f5;
+  border: 1px solid #fcc;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.error-icon {
+  min-width: 28px;
+  height: 28px;
+  background: #e53e3e;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.error-item strong {
+  display: block;
+  color: #c53030;
+  margin-bottom: 2px;
+}
+
+.error-item p {
+  margin: 0;
+  font-size: 13px;
+  color: #555;
+}
+
+@media (max-width: 600px) {
+  .comparison-block {
+    flex-direction: column;
+  }
+  .comparison-vs {
+    writing-mode: horizontal-tb;
+    padding: 6px;
+  }
+}

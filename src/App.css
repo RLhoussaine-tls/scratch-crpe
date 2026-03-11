@@ -35,6 +35,35 @@ body {
   opacity: 0.85;
 }
 
+.header-nav {
+  margin-left: auto;
+  display: flex;
+  gap: 4px;
+}
+
+.header-nav-btn {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.header-nav-btn:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+.header-nav-btn.active {
+  background: white;
+  color: #855CD6;
+  font-weight: bold;
+  border-color: white;
+}
+
 .app-body {
   display: flex;
   flex: 1;
