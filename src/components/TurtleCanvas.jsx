@@ -60,6 +60,26 @@ export default function TurtleCanvas({ segments, turtleState, variables = {} }) 
     link.click()
   }, [])
 
+  const handleDownloadSVG = useCallback(() => {
+    const lines = segments.map((seg) => {
+      const x1 = (CANVAS_W / 2 + seg.fromX).toFixed(2)
+      const y1 = (CANVAS_H / 2 - seg.fromY).toFixed(2)
+      const x2 = (CANVAS_W / 2 + seg.toX).toFixed(2)
+      const y2 = (CANVAS_H / 2 - seg.toY).toFixed(2)
+      return `  <line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${seg.color}" stroke-width="${seg.thickness}" stroke-linecap="round" />`
+    })
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${CANVAS_W}" height="${CANVAS_H}" viewBox="0 0 ${CANVAS_W} ${CANVAS_H}">
+  <rect width="${CANVAS_W}" height="${CANVAS_H}" fill="#fff" />
+${lines.join('\n')}
+</svg>`
+    const blob = new Blob([svg], { type: 'image/svg+xml' })
+    const link = document.createElement('a')
+    link.download = 'scratch-crpe.svg'
+    link.href = URL.createObjectURL(blob)
+    link.click()
+    URL.revokeObjectURL(link.href)
+  }, [segments])
+
   const direText = variables['__dire__'] || ''
 
   return (
@@ -79,9 +99,14 @@ export default function TurtleCanvas({ segments, turtleState, variables = {} }) 
         y : {Math.round(turtleState?.y ?? 0)} &nbsp;&nbsp;
         direction : {Math.round(turtleState?.angle ?? 0)}°
         {segments.length > 0 && (
-          <button className="download-btn" onClick={handleDownload} title="Télécharger en PNG">
-            Télécharger PNG
-          </button>
+          <>
+            <button className="download-btn" onClick={handleDownload} title="Télécharger en PNG">
+              PNG
+            </button>
+            <button className="download-btn" onClick={handleDownloadSVG} title="Télécharger en SVG">
+              SVG
+            </button>
+          </>
         )}
       </div>
     </div>
