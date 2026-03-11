@@ -1,7 +1,8 @@
 export const exercises2024 = [
   {
-    id: '2024-1',
+    id: '2024-g1-geoplan',
     year: 2024,
+    groupement: 1,
     title: 'Géoplan Scratch',
     sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description:
@@ -33,8 +34,9 @@ export const exercises2024 = [
       "A = 135° (angle pour s'orienter en diagonale vers le haut-gauche), B ≈ 99 pas (diagonale de 3 cases = 3√2 cm × 70/3 ≈ 98,99 pas, arrondi à 99), C = 135° (angle pour s'orienter vers la gauche). Échelle : 3 cm = 70 pas.",
   },
   {
-    id: '2024-2',
+    id: '2024-g2-calcul',
     year: 2024,
+    groupement: 2,
     title: 'Programme de calcul x² + 3x − 4',
     sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     type: 'calcul',
@@ -58,8 +60,9 @@ export const exercises2024 = [
       'Le résultat est x² + 3x − 4 = (x − 1)(x + 4). Pour x=5 : 36. Pour x=1 : 0. Pour x=−4 : 0.',
   },
   {
-    id: '2024-3',
+    id: '2024-g3-figure-base',
     year: 2024,
+    groupement: 3,
     title: 'Figure de base — Carré puis triangle',
     sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description:

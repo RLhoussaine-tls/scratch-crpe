@@ -1,7 +1,8 @@
 export const exercises2022 = [
   {
-    id: '2022-1',
+    id: '2022-g1-losange',
     year: 2022,
+    groupement: 1,
     title: 'Losange avec variable C',
     sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description:
@@ -32,6 +33,7 @@ export const exercises2022 = [
   {
     id: '2022-g2-adam',
     year: 2022,
+    groupement: 2,
     title: "Programme d'Adam",
     sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     type: 'calcul',
@@ -54,6 +56,7 @@ export const exercises2022 = [
   {
     id: '2022-g3-tirets',
     year: 2022,
+    groupement: 3,
     title: 'Tirets et transformations',
     sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description: "Un programme Scratch trace des tirets. Le lutin est initialement orienté vers la droite (90°).",
@@ -123,6 +126,7 @@ export const exercises2022 = [
   {
     id: '2022-g4-patron-cube',
     year: 2022,
+    groupement: 4,
     title: 'Patron de cube',
     sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description: "Une enseignante veut faire construire des dés cubiques de 3 cm de côté avec Scratch. 1 pas = 0.05 cm, donc 60 pas = 3 cm. Le bloc 'carré' trace un carré de 60 pas puis avance de 60 pas stylo relevé.",

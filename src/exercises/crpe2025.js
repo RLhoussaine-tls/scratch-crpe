@@ -1,7 +1,8 @@
 export const exercises2025 = [
   {
-    id: '2025-1',
+    id: '2025-g1-pyramide',
     year: 2025,
+    groupement: 1,
     title: 'Patron de pyramide SABCD',
     sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description:
@@ -63,8 +64,9 @@ export const exercises2025 = [
       "M = 80 (côté du carré en pas), N = 90 (tourner à gauche de 90° pour le carré), P = 80 (côté du triangle en pas), R = 30 (angle d'orientation vers l'extérieur), T = 4 (4 triangles latéraux). Le script trace d'abord le carré central, puis les 4 triangles équilatéraux en pivotant de 90° entre chaque.",
   },
   {
-    id: '2025-2',
+    id: '2025-g2-triangle-iso',
     year: 2025,
+    groupement: 2,
     title: 'Triangle rectangle isocèle',
     sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description:
@@ -159,8 +161,9 @@ export const exercises2025 = [
       "1) Triangle rectangle isocèle de côtés 40 pas (4 cm) et hypoténuse ≈ 57 pas. 2) Orientation finale : 90° (tour complet : 90+135+135+90=450°=360°+90°). 3) Programme A → Figure 2, Programme B → Figure 4, Programme C → Figure 3.",
   },
   {
-    id: '2025-3',
+    id: '2025-g3-patron-triangle',
     year: 2025,
+    groupement: 3,
     title: 'Patron pyramide — Bloc triangle',
     sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description:
