@@ -246,6 +246,24 @@ describe('runBlocks', () => {
     runBlocks(blocks, engine)
     expect(engine.calls.filter(c => c[0] === 'avancer')).toHaveLength(10000)
     expect(spy).toHaveBeenCalled()
+    expect(spy).toHaveBeenCalledWith(expect.stringContaining('repeter_jusqu_a'))
+    spy.mockRestore()
+  })
+
+  it('guards repeter_jusqu_a with variable condition that never becomes true', () => {
+    const engine = createMockEngine()
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
+    const blocks = [
+      { type: 'mettre_variable', args: ['done', false] },
+      { type: 'repeter_jusqu_a',
+        args: [{ type: 'variable', name: 'done' }],
+        body: [{ type: 'avancer', args: [1] }],
+      },
+    ]
+    runBlocks(blocks, engine)
+    // Should stop at MAX_ITERATIONS (10000), not hang
+    expect(engine.calls.filter(c => c[0] === 'avancer')).toHaveLength(10000)
+    expect(spy).toHaveBeenCalledWith(expect.stringContaining('10000'))
     spy.mockRestore()
   })
 
