@@ -29,6 +29,20 @@ export const exercises2022 = [
     ],
     answer:
       'Le Programme 1 trace un carré de côté 50 pas = 5 cm (4 côtés égaux, 4 angles droits). Un carré est un cas particulier de losange (losange à angles droits). Pour le Programme 2, A est la valeur ajoutée à C après chaque carré et N le nombre de répétitions.',
+    corrige: {
+      figure: "Carré de côté 50 pas (= 5 cm à l'échelle 1 cm = 10 pas)",
+      variables: { C: 50 },
+      etapes: [
+        "Répéter 4 fois : avancer C=50 pas, tourner droite 90°",
+        "4 côtés égaux + 4 angles droits → carré (cas particulier de losange)",
+        "Pour programme 2 : A = valeur d'incrément de C, N = nombre de carrés imbriqués",
+      ],
+      erreurs_classiques: [
+        "Dire que c'est uniquement un losange sans préciser que c'est aussi un carré",
+        "Oublier de justifier géométriquement (4 côtés égaux ET 4 angles droits)",
+      ],
+      difficulte: 2,
+    },
   },
   {
     id: '2022-g2-adam',
@@ -52,6 +66,24 @@ export const exercises2022 = [
       'On peut factoriser : 2x²−x−6 = (2x+3)(x−2)',
     ],
     answer: 'Pour tout x : x²→x²−3→2(x²−3)=2x²−6→2x²−6−x=2x²−x−6. Factorisation : 2x²−x−6 = (2x+3)(x−2). Pour x=3 : 2(9)−3−6 = 9. Pour x=0 : −6. Pour x=2 : 0.',
+    corrige: {
+      figure: "Programme de calcul — résultat algébrique : 2x²−x−6",
+      variables: { "f(x)": "2x²−x−6", "factorisation": "(2x+3)(x−2)", "racines": "x=−3/2 ou x=2" },
+      etapes: [
+        "Étape 1 : x² (résultat ← x × x)",
+        "Étape 2 : x² − 3 (ajouter −3)",
+        "Étape 3 : 2(x²−3) = 2x²−6 (× 2)",
+        "Étape 4 : 2x²−6−x = 2x²−x−6 (soustraire x)",
+        "Factorisation : chercher (ax+b)(cx+d) → a×c=2, b×d=−6 → (2x+3)(x−2)",
+        "Vérification : (2x+3)(x−2) = 2x²−4x+3x−6 = 2x²−x−6 ✓",
+      ],
+      erreurs_classiques: [
+        "Oublier de développer pour vérifier la factorisation",
+        "Confondre les signes lors de la décomposition",
+        "Ne pas tester des valeurs particulières pour vérifier (x=2 → 0)",
+      ],
+      difficulte: 3,
+    },
   },
   {
     id: '2022-g3-tirets',

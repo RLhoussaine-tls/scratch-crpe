@@ -62,6 +62,22 @@ export const exercises2025 = [
     ],
     answer:
       "M = 80 (côté du carré en pas), N = 90 (tourner à gauche de 90° pour le carré), P = 80 (côté du triangle en pas), R = 30 (angle d'orientation vers l'extérieur), T = 4 (4 triangles latéraux). Le script trace d'abord le carré central, puis les 4 triangles équilatéraux en pivotant de 90° entre chaque.",
+    corrige: {
+      figure: "Patron de la pyramide SABCD : carré central ABCD de 80 pas + 4 triangles équilatéraux de 80 pas sur chaque côté",
+      variables: { M: 80, N: 90, P: 80, R: 30, T: 4 },
+      etapes: [
+        "Carré ABCD : répéter 4 fois { avancer 80, tourner gauche 90° }",
+        "Faces latérales : répéter 4 fois { tourner gauche 30°, avancer 80, tourner droite 120°, avancer 80, puis tourner gauche 90° }",
+        "Chaque triangle équilatéral a un angle extérieur de 120° = 360°/3",
+        "T = 4 car la pyramide a 4 faces triangulaires (base carrée)",
+      ],
+      erreurs_classiques: [
+        "Confondre l'angle de rotation du carré (90°) avec celui du triangle (120°)",
+        "Oublier R = 30° pour l'orientation vers l'extérieur avant chaque triangle",
+        "Prendre T = 3 au lieu de T = 4 (pyramide à base carrée, pas triangulaire)",
+      ],
+      difficulte: 3,
+    },
   },
   {
     id: '2025-g2-triangle-iso',
@@ -159,6 +175,25 @@ export const exercises2025 = [
     ],
     answer:
       "1) Triangle rectangle isocèle de côtés 40 pas (4 cm) et hypoténuse ≈ 57 pas. 2) Orientation finale : 90° (tour complet : 90+135+135+90=450°=360°+90°). 3) Programme A → Figure 2, Programme B → Figure 4, Programme C → Figure 3.",
+    corrige: {
+      figure: "Triangle rectangle isocèle de cathètes a pas et d'hypoténuse a√2 pas",
+      variables: { a: 40, hypotenuse: "a√2 ≈ 57", orientation_finale: "90°" },
+      etapes: [
+        "Avancer a → premier côté horizontal",
+        "Tourner droite 90° → pointer vers le bas",
+        "Avancer a → second côté vertical",
+        "Tourner droite 135° → pointer vers le haut-gauche (diagonale)",
+        "Avancer a√2 → hypoténuse",
+        "Tourner droite 135° → retour à 90° (orientation initiale)",
+        "Somme des rotations : 90 + 135 + 135 = 360° → retour à l'orientation de départ (90°)",
+      ],
+      erreurs_classiques: [
+        "Oublier que a√2 ≈ 1,414 × a (pas 1,5 × a)",
+        "Calculer l'orientation finale en cumulant toutes les rotations sans faire mod 360°",
+        "Confondre programme A (décalage) et C (taille croissante)",
+      ],
+      difficulte: 3,
+    },
   },
   {
     id: '2025-g3-patron-triangle',

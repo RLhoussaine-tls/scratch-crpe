@@ -37,6 +37,22 @@ export const exercises2023 = [
     ],
     answer:
       'a) (0, 0). b) 4 triangles. c) Triangles équilatéraux (3 côtés égaux, angle extérieur 120°). d) Le 2e triangle a côté = 40 pas.',
+    corrige: {
+      figure: "4 triangles équilatéraux imbriqués de côtés 20, 40, 60, 80 pas",
+      variables: { "côté_initial": 20, "incrément": 20, "nombre_triangles": 4 },
+      etapes: [
+        "La boucle externe répète 4 fois (4 triangles)",
+        "La boucle interne répète 3 fois (3 côtés par triangle équilatéral)",
+        "Angle extérieur = 360°/3 = 120°",
+        "Côtés successifs : 20, 40, 60, 80 pas",
+        "2e triangle : côté = 20 + 20 = 40 pas",
+      ],
+      erreurs_classiques: [
+        "Confondre boucle interne (3 = nombre de côtés) et externe (4 = nombre de triangles)",
+        "Oublier que la variable côté est mise à jour après chaque triangle, pas avant",
+      ],
+      difficulte: 2,
+    },
   },
   {
     id: '2023-g3-carre',
@@ -100,6 +116,23 @@ export const exercises2023 = [
     ],
     answer:
       'Répéter 5 fois. L\'angle aux pointes est 144° (le lutin fait 2 tours complets : 720°/5 = 144°). L\'angle dans les creux est 72°. Le périmètre est 5 × (80 + 80) = 800 pas.',
+    corrige: {
+      figure: "Étoile à 5 branches, chaque branche = 2 segments de 80 pas",
+      variables: { "répétitions": 5, "angle_pointe": "144°", "angle_creux": "72°" },
+      etapes: [
+        "5 branches → répéter 5 fois",
+        "Chaque branche : avancer 80, tourner droite 144° (pointe), avancer 80, tourner droite 72° (creux)",
+        "Calcul angle pointe : 5 branches, 2 tours complets = 720° → 720°/5 = 144°",
+        "Calcul angle creux : 360°/5 = 72° (retour à la direction de départ)",
+        "Total rotations : 5 × (144° + 72°) = 5 × 216° = 1080° = 3 tours complets",
+      ],
+      erreurs_classiques: [
+        "Confondre angle pointe (144°) et angle creux (72°)",
+        "Penser que l'angle aux pointes = 360°/5 = 72° (erreur fréquente)",
+        "Oublier que pour une étoile le lutin fait 2 tours (pas 1)",
+      ],
+      difficulte: 3,
+    },
   },
   {
     id: '2023-g2-programmes-calcul',
