@@ -53,6 +53,20 @@
   font-weight: 600;
 }
 
+.free-mode-btn {
+  margin-bottom: 12px;
+  border: 2px dashed #4C97FF !important;
+  text-align: center !important;
+  font-weight: 600;
+  color: #4C97FF !important;
+}
+
+.free-mode-btn.active {
+  border-style: solid !important;
+  background: #4C97FF;
+  color: #fff !important;
+}
+
 .exercise-item .badge-entrainement {
   display: inline-block;
   margin-left: 6px;

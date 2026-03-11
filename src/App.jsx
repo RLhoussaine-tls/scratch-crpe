@@ -37,19 +37,23 @@ export default function App() {
   const [variables, setVariables] = useState({})
   const [promptState, setPromptState] = useState(null)
   const promptResolveRef = useRef(null)
+  const [freeMode, setFreeMode] = useState(false)
+  const [freeBlocks, setFreeBlocks] = useState([])
 
-  const activeBlocks = selectedExercise?.subExercises
-    ? selectedExercise.subExercises[activeSubIndex]?.blocks ?? []
-    : selectedExercise?.blocks ?? []
+  const activeBlocks = freeMode
+    ? freeBlocks
+    : selectedExercise?.subExercises
+      ? selectedExercise.subExercises[activeSubIndex]?.blocks ?? []
+      : selectedExercise?.blocks ?? []
 
   const displayBlocks = editedBlocks ?? activeBlocks
 
   const activeSub = selectedExercise?.subExercises?.[activeSubIndex]
-  const isQuiz = activeSub?.type === 'quiz' || (!activeSub && selectedExercise?.type === 'quiz')
-  const isCalcul = selectedExercise?.type === 'calcul' && !isQuiz
+  const isQuiz = !freeMode && (activeSub?.type === 'quiz' || (!activeSub && selectedExercise?.type === 'quiz'))
+  const isCalcul = !freeMode && selectedExercise?.type === 'calcul' && !isQuiz
   const hasBlocks = displayBlocks && displayBlocks.length > 0
-  const showCanvas = selectedExercise && !isQuiz
-  const showBlocksReadOnly = selectedExercise && isQuiz && hasBlocks
+  const showCanvas = freeMode || (selectedExercise && !isQuiz)
+  const showBlocksReadOnly = !freeMode && selectedExercise && isQuiz && hasBlocks
 
   const handleEditBlock = useCallback((path, newValue) => {
     const base = editedBlocks ?? activeBlocks
@@ -59,7 +63,7 @@ export default function App() {
   }, [editedBlocks, activeBlocks])
 
   const handleRun = useCallback(async () => {
-    if (!selectedExercise || isQuiz || isRunning) return
+    if ((!selectedExercise && !freeMode) || isQuiz || isRunning) return
     setIsRunning(true)
     setActivePath(null)
     cancelRef.current = false
@@ -125,6 +129,7 @@ export default function App() {
   }, [])
 
   const handleSelect = useCallback((exercise) => {
+    setFreeMode(false)
     setSelectedExercise(exercise)
     setActiveSubIndex(0)
     setEditedBlocks(null)
@@ -159,12 +164,28 @@ export default function App() {
     if (!data) return
     try {
       const newBlock = JSON.parse(data)
-      const base = editedBlocks ?? activeBlocks
-      const copy = deepClone(base)
-      copy.push(newBlock)
-      setEditedBlocks(copy)
+      if (freeMode) {
+        setFreeBlocks(prev => [...prev, newBlock])
+      } else {
+        const base = editedBlocks ?? activeBlocks
+        const copy = deepClone(base)
+        copy.push(newBlock)
+        setEditedBlocks(copy)
+      }
     } catch { /* ignore invalid data */ }
-  }, [editedBlocks, activeBlocks])
+  }, [freeMode, editedBlocks, activeBlocks])
+
+  const handleEnterFreeMode = useCallback(() => {
+    setFreeMode(true)
+    setSelectedExercise(null)
+    setEditedBlocks(null)
+    setFreeBlocks([])
+    const engine = engineRef.current
+    engine.reset()
+    setSegments([])
+    setTurtleState(engine.getState())
+    setVariables({})
+  }, [])
 
   const handleDragOver = useCallback((e) => {
     if (e.dataTransfer.types.includes('application/scratch-block')) {
@@ -183,6 +204,8 @@ export default function App() {
         <ExerciseList
           selectedId={selectedExercise?.id}
           onSelect={handleSelect}
+          freeMode={freeMode}
+          onFreeMode={handleEnterFreeMode}
         />
         <main className="main-area">
           <ExercisePanel
@@ -198,7 +221,7 @@ export default function App() {
               </div>
             </div>
           )}
-          {showCanvas && displayBlocks.length > 0 && (
+          {showCanvas && (freeMode || displayBlocks.length > 0) && (
             <div className="workspace">
               <BlockPalette />
               <div
