@@ -132,12 +132,9 @@ export const exercises2023 = [
       {
         subtitle: 'Programme B',
         type: 'quiz',
-        description: "Choisir un nombre x, prendre son double, ajouter 5, calculer le carré du résultat → (2x+5)².",
-        blocks: [
-          { type: 'demander', args: ['x', 3], category: 'sensing' },
-          { type: 'mettre_variable_op', args: ['b', { type: 'op', op: '*', left: 2, right: { type: 'variable', name: 'x' } }, '+', 5], category: 'variables' },
-          { type: 'mettre_variable_op', args: ['résultat', { type: 'variable', name: 'b' }, '*', { type: 'variable', name: 'b' }], category: 'variables' },
-        ],
+        scratchBlocks: false,
+        description: "Programme B (décrit textuellement, pas en blocs Scratch) :\n• Choisir un nombre x\n• Prendre son double\n• Ajouter 5\n• Calculer le carré du résultat\nRésultat : (2x+5)².",
+        blocks: [],
       },
     ],
   },
