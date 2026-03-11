@@ -7,6 +7,7 @@ import BlockSequence from './components/BlockSequence'
 import TurtleCanvas from './components/TurtleCanvas'
 import Toolbar from './components/Toolbar'
 import VariablePanel from './components/VariablePanel'
+import InputPrompt from './components/InputPrompt'
 import './App.css'
 
 function deepClone(obj) {
@@ -33,6 +34,8 @@ export default function App() {
   const [animDelay, setAnimDelay] = useState(300)
   const [editedBlocks, setEditedBlocks] = useState(null)
   const [variables, setVariables] = useState({})
+  const [promptState, setPromptState] = useState(null)
+  const promptResolveRef = useRef(null)
 
   const activeBlocks = selectedExercise?.subExercises
     ? selectedExercise.subExercises[activeSubIndex]?.blocks ?? []
@@ -66,6 +69,13 @@ export default function App() {
     const vars = {}
     setVariables(vars)
 
+    const handlePrompt = (varName, defaultValue) => {
+      return new Promise((resolve) => {
+        promptResolveRef.current = resolve
+        setPromptState({ varName, defaultValue })
+      })
+    }
+
     await runBlocksAnimated(
       displayBlocks,
       engine,
@@ -77,7 +87,10 @@ export default function App() {
         setVariables({ ...vars })
       },
       animDelay,
-      cancelRef
+      cancelRef,
+      {},
+      [],
+      handlePrompt
     )
 
     setSegments(engine.getSegments())
@@ -119,6 +132,14 @@ export default function App() {
     setSegments([])
     setTurtleState(engine.getState())
     setVariables({})
+  }, [])
+
+  const handlePromptSubmit = useCallback((value) => {
+    if (promptResolveRef.current) {
+      promptResolveRef.current(value)
+      promptResolveRef.current = null
+    }
+    setPromptState(null)
   }, [])
 
   const handleSubSelect = useCallback((i) => {
@@ -191,6 +212,13 @@ export default function App() {
           )}
         </main>
       </div>
+      {promptState && (
+        <InputPrompt
+          varName={promptState.varName}
+          defaultValue={promptState.defaultValue}
+          onSubmit={handlePromptSubmit}
+        />
+      )}
     </div>
   )
 }

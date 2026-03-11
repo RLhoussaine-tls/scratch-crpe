@@ -106,7 +106,7 @@ export function runBlocks(blocks, engine, variables = {}, registry = {}) {
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
-export async function runBlocksAnimated(blocks, engine, variables = {}, onStep, onDraw, delay = 300, cancelRef = null, registry = {}, currentPath = []) {
+export async function runBlocksAnimated(blocks, engine, variables = {}, onStep, onDraw, delay = 300, cancelRef = null, registry = {}, currentPath = [], onPrompt = null) {
   for (let i = 0; i < blocks.length; i++) {
     if (cancelRef && cancelRef.current) return
     const block = blocks[i]
@@ -118,7 +118,15 @@ export async function runBlocksAnimated(blocks, engine, variables = {}, onStep, 
     await sleep(delay)
     if (cancelRef && cancelRef.current) return
 
-    if (block.type === 'repeter') {
+    if (block.type === 'demander') {
+      if (onPrompt) {
+        const value = await onPrompt(block.args[0], block.args[1])
+        variables[block.args[0]] = value
+      } else {
+        variables[block.args[0]] = resolveValue(block.args[1], variables)
+      }
+      onDraw()
+    } else if (block.type === 'repeter') {
       const rawTimes = resolveValue(block.args[0], variables)
       const times = Math.min(rawTimes, MAX_ITERATIONS)
       if (rawTimes > MAX_ITERATIONS) {
@@ -126,7 +134,7 @@ export async function runBlocksAnimated(blocks, engine, variables = {}, onStep, 
       }
       for (let j = 0; j < times; j++) {
         if (cancelRef && cancelRef.current) return
-        await runBlocksAnimated(block.body || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'body'])
+        await runBlocksAnimated(block.body || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'body'], onPrompt)
       }
     } else if (block.type === 'repeter_jusqu_a') {
       let iterations = 0
@@ -136,21 +144,21 @@ export async function runBlocksAnimated(blocks, engine, variables = {}, onStep, 
           console.error(`Boucle repeter_jusqu_a limitée à ${MAX_ITERATIONS} itérations`)
           break
         }
-        await runBlocksAnimated(block.body || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'body'])
+        await runBlocksAnimated(block.body || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'body'], onPrompt)
       }
     } else if (block.type === 'si') {
       if (resolveCondition(block.args[0], variables)) {
-        await runBlocksAnimated(block.body || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'body'])
+        await runBlocksAnimated(block.body || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'body'], onPrompt)
       }
     } else if (block.type === 'si_sinon') {
       if (resolveCondition(block.args[0], variables)) {
-        await runBlocksAnimated(block.body || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'body'])
+        await runBlocksAnimated(block.body || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'body'], onPrompt)
       } else {
-        await runBlocksAnimated(block.elseBody || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'elseBody'])
+        await runBlocksAnimated(block.elseBody || [], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'elseBody'], onPrompt)
       }
     } else if (block.type === 'appeler_bloc') {
       if (registry[block.args[0]]) {
-        await runBlocksAnimated(registry[block.args[0]], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'custom'])
+        await runBlocksAnimated(registry[block.args[0]], engine, variables, onStep, onDraw, delay, cancelRef, registry, [...currentPath, i, 'custom'], onPrompt)
       }
     } else {
       executeBlock(block, engine, variables, registry)
