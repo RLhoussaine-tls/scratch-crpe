@@ -133,4 +133,29 @@ describe('TurtleEngine', () => {
     segs.push({ fake: true })
     expect(engine.getSegments()).toHaveLength(1)
   })
+
+  it('square trace (4x avancer+tournerDroite 90) returns to origin', () => {
+    const engine = new TurtleEngine()
+    engine.styloPoser()
+    for (let i = 0; i < 4; i++) {
+      engine.avancer(100)
+      engine.tournerDroite(90)
+    }
+    expect(engine.x).toBeCloseTo(0, 5)
+    expect(engine.y).toBeCloseTo(0, 5)
+    expect(engine.segments).toHaveLength(4)
+  })
+
+  it('equilateral triangle trace returns to origin', () => {
+    const engine = new TurtleEngine()
+    engine.orienter(0) // Face up
+    engine.styloPoser()
+    for (let i = 0; i < 3; i++) {
+      engine.avancer(100)
+      engine.tournerDroite(120)
+    }
+    expect(engine.x).toBeCloseTo(0, 5)
+    expect(engine.y).toBeCloseTo(0, 5)
+    expect(engine.segments).toHaveLength(3)
+  })
 })
