@@ -8,6 +8,7 @@ import TurtleCanvas from './components/TurtleCanvas'
 import Toolbar from './components/Toolbar'
 import VariablePanel from './components/VariablePanel'
 import InputPrompt from './components/InputPrompt'
+import BlockPalette from './components/BlockPalette'
 import './App.css'
 
 function deepClone(obj) {
@@ -152,6 +153,26 @@ export default function App() {
     setVariables({})
   }, [])
 
+  const handleDropBlock = useCallback((e) => {
+    e.preventDefault()
+    const data = e.dataTransfer.getData('application/scratch-block')
+    if (!data) return
+    try {
+      const newBlock = JSON.parse(data)
+      const base = editedBlocks ?? activeBlocks
+      const copy = deepClone(base)
+      copy.push(newBlock)
+      setEditedBlocks(copy)
+    } catch { /* ignore invalid data */ }
+  }, [editedBlocks, activeBlocks])
+
+  const handleDragOver = useCallback((e) => {
+    if (e.dataTransfer.types.includes('application/scratch-block')) {
+      e.preventDefault()
+      e.dataTransfer.dropEffect = 'copy'
+    }
+  }, [])
+
   return (
     <div className="app">
       <header className="scratch-header">
@@ -179,7 +200,12 @@ export default function App() {
           )}
           {showCanvas && displayBlocks.length > 0 && (
             <div className="workspace">
-              <div className="scripts-area">
+              <BlockPalette />
+              <div
+                className="scripts-area"
+                onDrop={handleDropBlock}
+                onDragOver={handleDragOver}
+              >
                 <BlockSequence
                   blocks={displayBlocks}
                   activePath={activePath}

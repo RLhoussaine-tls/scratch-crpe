@@ -1,0 +1,69 @@
+.block-palette {
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.palette-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 8px;
+  background: #e8e8e8;
+  border-bottom: 1px solid #ddd;
+}
+
+.palette-cat-btn {
+  padding: 4px 10px;
+  border: 2px solid var(--cat-color);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--cat-color);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.palette-cat-btn:hover {
+  background: var(--cat-color);
+  color: #fff;
+}
+
+.palette-cat-btn.active {
+  background: var(--cat-color);
+  color: #fff;
+}
+
+.palette-blocks {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.palette-block {
+  background: var(--block-color);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: grab;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  user-select: none;
+}
+
+.palette-block:active {
+  cursor: grabbing;
+  opacity: 0.8;
+}
+
+.palette-block:hover {
+  filter: brightness(1.1);
+}
