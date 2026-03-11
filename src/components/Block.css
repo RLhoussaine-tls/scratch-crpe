@@ -142,20 +142,57 @@
   -moz-appearance: textfield;
 }
 
-/* Variable args */
+/* Reporter (oval) shape — for values */
+.block-reporter {
+  display: inline-flex;
+  align-items: center;
+  background: #FF8C1A;
+  border-radius: 999px;
+  padding: 1px 8px;
+  font-weight: bold;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  vertical-align: middle;
+}
+
+.block-reporter-op {
+  display: inline-flex;
+  align-items: center;
+  background: #59C059;
+  border-radius: 999px;
+  padding: 1px 8px;
+  font-weight: bold;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  vertical-align: middle;
+}
+
+/* Boolean (hexagonal) shape — for conditions */
+.block-boolean {
+  display: inline-flex;
+  align-items: center;
+  background: #59C059;
+  padding: 1px 10px;
+  font-weight: bold;
+  clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+  vertical-align: middle;
+  min-height: 20px;
+}
+
+/* Variable args (legacy, kept for simple inline display) */
 .block-arg-variable {
   background: #FF8C1A;
-  border-radius: 4px;
-  padding: 1px 6px;
+  border-radius: 999px;
+  padding: 1px 8px;
   font-weight: bold;
+  border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 /* Expression display */
 .block-arg-expr {
   background: rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
-  padding: 1px 6px;
+  border-radius: 999px;
+  padding: 1px 8px;
   font-weight: bold;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 /* Else header for si_sinon */
