@@ -42,6 +42,7 @@ export const exercises2023 = [
     id: '2023-g3-carre',
     year: 2023,
     groupement: 3,
+    source: 'entrainement',
     title: 'Carré — Qui a raison ?',
     sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description:

@@ -29,6 +29,12 @@ export default function ExercisePanel({ exercise, activeSubIndex, onSubSelect })
     <div className="exercise-panel">
       <div className="exercise-header">
         <span className="exercise-year">{exercise.year}</span>
+        {exercise.groupement && (
+          <span className="exercise-groupement">G{exercise.groupement}</span>
+        )}
+        {exercise.source === 'entrainement' && (
+          <span className="badge-entrainement">entraînement</span>
+        )}
         <h2>{exercise.title}</h2>
         {exercise.sourceUrl && (
           <a

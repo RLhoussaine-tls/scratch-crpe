@@ -28,6 +28,24 @@
   font-weight: 700;
 }
 
+.exercise-groupement {
+  background: #9966FF;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.exercise-header .badge-entrainement {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  background: #FF9800;
+  color: #fff;
+}
+
 .exercise-source-link {
   margin-left: auto;
   font-size: 12px;

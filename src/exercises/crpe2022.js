@@ -127,6 +127,7 @@ export const exercises2022 = [
     id: '2022-g4-patron-cube',
     year: 2022,
     groupement: 4,
+    source: 'entrainement',
     title: 'Patron de cube',
     sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description: "Une enseignante veut faire construire des dés cubiques de 3 cm de côté avec Scratch. 1 pas = 0.05 cm, donc 60 pas = 3 cm. Le bloc 'carré' trace un carré de 60 pas puis avance de 60 pas stylo relevé.",

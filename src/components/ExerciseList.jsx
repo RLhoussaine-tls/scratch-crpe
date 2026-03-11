@@ -18,6 +18,9 @@ export default function ExerciseList({ selectedId, onSelect }) {
                   onClick={() => onSelect(ex)}
                 >
                   {ex.title}
+                  {ex.source === 'entrainement' && (
+                    <span className="badge-entrainement" title="Exercice d'entraînement (non officiel)">entraînement</span>
+                  )}
                 </button>
               </li>
             ))}
