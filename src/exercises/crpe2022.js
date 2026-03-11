@@ -1,14 +1,14 @@
 export const exercises2022 = [
   {
-    id: '2022-g1-losange',
+    id: '2022-g1-polygone',
     year: 2022,
     groupement: 1,
-    title: 'Losange avec variable C',
+    title: 'Polygone régulier avec variable C',
     sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description:
-      'EST MAT 1, Exercice 4 — Le Programme 1 utilise une variable C (valeur initiale C = 50) pour tracer un quadrilatère : répéter 4 fois { avancer de C pas, tourner de 90° }. Échelle : 1 cm = 10 pixels. Le Programme 2 utilise le Programme 1 en boucle en modifiant la variable C pour obtenir des carrés emboîtés.',
+      'EST MAT 1, Exercice 4 — Programme 1 : répéter 4 fois [avancer C pas, tourner droite 90°]. Variable C initialisée à 50. Échelle : 1 cm = 10 pixels (C=50 → 5 cm de côté). Programme 2 : répéter N fois [exécuter Programme 1, tourner droite A°].',
     question:
-      '1) En prenant C = 50 et 1 cm pour 10 pixels, tracer la figure du Programme 1. 2) Quelle est la nature de la figure tracée ? Justifier. 3) Quelles valeurs attribuer à A et N dans le Programme 2 ?',
+      '1) En prenant C = 50 et 1 cm pour 10 pixels, tracer la figure du Programme 1. 2) Quelle est la nature de la figure tracée ? 3) Quelles valeurs attribuer à A et N dans le Programme 2 pour obtenir une rosace carrée ? 4) Quelle est la valeur de C après exécution du Programme 1 ? 5) Comment modifier le programme pour que chaque segment fasse 30 pixels ?',
     blocks: [
       { type: 'mettreVariable', args: ['C', 50], category: 'variables' },
       { type: 'styloPoser', args: [], category: 'pen' },
@@ -23,23 +23,28 @@ export const exercises2022 = [
       },
     ],
     hints: [
-      'Le Programme 1 trace un quadrilatère avec 4 côtés de C pas et des angles de 90°.',
-      'Un carré est un losange particulier (losange à angles droits).',
-      'Pour le Programme 2, observer comment la variable C évolue à chaque itération.',
+      'Le Programme 1 répète 4 fois : avancer C pas + tourner droite 90°.',
+      '4 côtés égaux et 4 angles de 90° → la figure est un carré.',
+      'Pour une rosace, A × N doit être un multiple de 360°. Exemple : A=30°, N=12.',
+      'C ne change pas car le Programme 1 ne modifie pas la variable C.',
+      'Pour des segments de 30 px, remplacer C=50 par C=30.',
     ],
     answer:
-      'Le Programme 1 trace un carré de côté 50 pas = 5 cm (4 côtés égaux, 4 angles droits). Un carré est un cas particulier de losange (losange à angles droits). Pour le Programme 2, A est la valeur ajoutée à C après chaque carré et N le nombre de répétitions.',
+      'Le Programme 1 trace un carré de côté C=50 pas = 5 cm (4 côtés égaux, 4 angles droits de 90°). La figure est un carré. Pour une rosace carrée : A=30° et N=12 (ou tout multiple de 360° : A=45°/N=8, A=90°/N=4…). C ne change pas après exécution car le programme ne modifie pas la variable. Pour des segments de 30 px : initialiser C à 30.',
     corrige: {
       figure: "Carré de côté 50 pas (= 5 cm à l'échelle 1 cm = 10 pas)",
       variables: { C: 50 },
       etapes: [
-        "Répéter 4 fois : avancer C=50 pas, tourner droite 90°",
-        "4 côtés égaux + 4 angles droits → carré (cas particulier de losange)",
-        "Pour programme 2 : A = valeur d'incrément de C, N = nombre de carrés imbriqués",
+        "Programme 1 : répéter 4 fois { avancer C=50 pas, tourner droite 90° } → carré de 5 cm",
+        "4 côtés égaux + 4 angles droits → carré",
+        "Programme 2 : rosace avec A=30°, N=12 (30×12=360°) ou A=45°, N=8 etc.",
+        "C reste à 50 après exécution (programme ne modifie pas C)",
+        "Pour C=30 px : mettre C à 30 au lieu de 50",
       ],
       erreurs_classiques: [
-        "Dire que c'est uniquement un losange sans préciser que c'est aussi un carré",
+        "Appeler la figure 'losange' : un carré est un losange particulier, mais la réponse attendue est 'carré'",
         "Oublier de justifier géométriquement (4 côtés égaux ET 4 angles droits)",
+        "Penser que C change après exécution alors que le programme ne modifie pas la variable",
       ],
       difficulte: 2,
     },
@@ -154,75 +159,5 @@ export const exercises2022 = [
       'Q3 : Avec 45° au lieu de 90°, les tirets forment une étoile (8 × 45° = 360°).',
     ],
     answer: 'Q1 : carré ouvert de tirets. Q2 : 8 tirets en ligne. Q3 : étoile de tirets (rotation de 45°).',
-  },
-  {
-    id: '2022-g4-patron-cube',
-    year: 2022,
-    groupement: 4,
-    source: 'entrainement',
-    title: 'Patron de cube',
-    sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
-    description: "Une enseignante veut faire construire des dés cubiques de 3 cm de côté avec Scratch. 1 pas = 0.05 cm, donc 60 pas = 3 cm. Le bloc 'carré' trace un carré de 60 pas puis avance de 60 pas stylo relevé.",
-    subExercises: [
-      {
-        id: '2022-g4-patron-q1',
-        subtitle: 'Q1 — Patron en croix',
-        description: 'Compléter le bloc carré (avancer 60, tourner 90°, répéter 4 fois) puis ordonner les instructions pour tracer le patron en croix.',
-        blocks: [
-          { type: 'definirBloc', args: ['carré'], category: 'custom', body: [
-            { type: 'styloPoser', category: 'pen' },
-            { type: 'repeter', args: [4], category: 'control', body: [
-              { type: 'avancer', args: [60], category: 'motion' },
-              { type: 'tournerDroite', args: [90], category: 'motion' },
-            ]},
-            { type: 'styloRelever', category: 'pen' },
-            { type: 'avancer', args: [60], category: 'motion' },
-          ]},
-          { type: 'appelerBloc', args: ['carré'], category: 'custom' },
-          { type: 'appelerBloc', args: ['carré'], category: 'custom' },
-          { type: 'appelerBloc', args: ['carré'], category: 'custom' },
-          { type: 'appelerBloc', args: ['carré'], category: 'custom' },
-          { type: 'ajouterY', args: [60], category: 'motion' },
-          { type: 'ajouterX', args: [-180], category: 'motion' },
-          { type: 'appelerBloc', args: ['carré'], category: 'custom' },
-          { type: 'ajouterY', args: [-120], category: 'motion' },
-          { type: 'ajouterX', args: [-60], category: 'motion' },
-          { type: 'appelerBloc', args: ['carré'], category: 'custom' },
-        ],
-        answer: 'Le patron forme une croix de 6 carrés.',
-      },
-      {
-        id: '2022-g4-patron-q2',
-        subtitle: 'Q2 — Second patron',
-        description: "Un second algorithme utilise deux boucles imbriquées : répéter 2 fois { carré, répéter 3 fois { ajouter -60 à x }, ajouter -60 à y }.",
-        question: 'Dessiner ce patron à main levée.',
-        blocks: [
-          { type: 'definirBloc', args: ['carré'], category: 'custom', body: [
-            { type: 'styloPoser', category: 'pen' },
-            { type: 'repeter', args: [4], category: 'control', body: [
-              { type: 'avancer', args: [60], category: 'motion' },
-              { type: 'tournerDroite', args: [90], category: 'motion' },
-            ]},
-            { type: 'styloRelever', category: 'pen' },
-            { type: 'avancer', args: [60], category: 'motion' },
-          ]},
-          { type: 'repeter', args: [2], category: 'control', body: [
-            { type: 'appelerBloc', args: ['carré'], category: 'custom' },
-            { type: 'repeter', args: [3], category: 'control', body: [
-              { type: 'ajouterX', args: [-60], category: 'motion' },
-            ]},
-            { type: 'ajouterY', args: [-60], category: 'motion' },
-          ]},
-        ],
-        answer: "On obtient un patron en L : 1 carré en haut à gauche, puis 3 en dessous formant une colonne décalée.",
-      },
-    ],
-    blocks: [],
-    hints: [
-      "Le bloc 'carré' trace un carré de 60 pas de côté puis avance de 60 pas stylo relevé.",
-      "Pour le patron en croix, il faut positionner 6 carrés en forme de +.",
-      'Le second patron utilise des boucles imbriquées pour positionner les carrés.',
-    ],
-    answer: "Q1 : patron en croix (6 carrés). Q2 : patron en L (2 carrés alignés puis décalés).",
   },
 ]

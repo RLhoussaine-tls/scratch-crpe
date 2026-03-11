@@ -1,80 +1,57 @@
 export const exercises2025 = [
   {
-    id: '2025-g1-pyramide',
+    id: '2025-1',
     year: 2025,
     groupement: 1,
-    title: 'Patron de pyramide SABCD',
+    title: 'Programme incomplet — Trouver M, N, P, R, T',
     sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
+    type: 'quiz',
     description:
-      "EST MAT 1, Exercice 6 — La pyramide SABCD a une base carrée ABCD de côté 4 cm et des faces latérales triangulaires équilatérales de côté 4 cm. Un script Scratch trace le patron. Échelle : 1 cm = 20 pas (donc 4 cm = 80 pas). Le lutin s'oriente à 90° au départ.",
+      "EST MAT 1, Exercice — Le programme Scratch incomplet permet de construire la figure 4 en partant de l'origine (0,0). Échelle : 1 cm = 20 pas. L'instruction « s'orienter à 90 » oriente le lutin vers la droite. Les lettres M, N, P, R, T désignent des paramètres de longueur (en pas) et d'angle à déterminer.",
     question:
-      "Déterminer les valeurs à attribuer aux lettres M, N, P, R et T pour que le script permette de construire le patron de la pyramide SABCD.",
+      "Déterminer les valeurs à attribuer aux lettres M, N, P, R et T pour que le script construise la figure 4. (Aucune justification attendue)",
     blocks: [
       { type: 'effacer', args: [], category: 'pen' },
       { type: 'allerA', args: [0, 0], category: 'motion' },
       { type: 'orienter', args: [90], category: 'motion' },
       { type: 'styloPoser', args: [], category: 'pen' },
-      {
-        type: 'definirBloc',
-        args: ['carré'],
-        category: 'custom',
-        body: [
-          {
-            type: 'repeter',
-            args: [4],
-            category: 'control',
-            body: [
-              { type: 'avancer', args: [80], category: 'motion' },
-              { type: 'tournerGauche', args: [90], category: 'motion' },
-            ],
-          },
-        ],
-      },
-      {
-        type: 'definirBloc',
-        args: ['arêtes latérales'],
-        category: 'custom',
-        body: [
-          { type: 'tournerGauche', args: [30], category: 'motion' },
-          { type: 'avancer', args: [80], category: 'motion' },
-          { type: 'tournerDroite', args: [120], category: 'motion' },
-          { type: 'avancer', args: [80], category: 'motion' },
-        ],
-      },
-      { type: 'appelerBloc', args: ['carré'], category: 'custom' },
+      { type: 'mettreVariable', args: ['M', '?'], category: 'variables' },
+      { type: 'mettreVariable', args: ['N', '?'], category: 'variables' },
+      { type: 'mettreVariable', args: ['P', '?'], category: 'variables' },
+      { type: 'mettreVariable', args: ['R', '?'], category: 'variables' },
+      { type: 'mettreVariable', args: ['T', '?'], category: 'variables' },
       {
         type: 'repeter',
-        args: [4],
+        args: [{ type: 'variable', name: 'T' }],
         category: 'control',
         body: [
-          { type: 'appelerBloc', args: ['arêtes latérales'], category: 'custom' },
-          { type: 'tournerGauche', args: [90], category: 'motion' },
+          { type: 'avancer', args: [{ type: 'variable', name: 'M' }], category: 'motion' },
+          { type: 'tournerDroite', args: [{ type: 'variable', name: 'N' }], category: 'motion' },
+          { type: 'avancer', args: [{ type: 'variable', name: 'P' }], category: 'motion' },
+          { type: 'tournerDroite', args: [{ type: 'variable', name: 'R' }], category: 'motion' },
         ],
       },
     ],
     hints: [
-      "Le côté de la base ABCD = 4 cm = 80 pas (échelle 1 cm = 20 pas).",
-      "M = 80 (côté du carré en pas). N = 90 (angle gauche pour fermer le carré).",
-      "P = 80 (côté du triangle = 4 cm = 80 pas).",
-      "R = 30 (angle de rotation vers l'extérieur pour orienter le triangle).",
-      "T = 4 (4 faces latérales, une par côté du carré). Chaque face est un triangle équilatéral.",
-      "L'angle extérieur du triangle équilatéral est 120°.",
+      "Échelle : 1 cm = 20 pas. Les longueurs sont des multiples de 20.",
+      "M et P sont des longueurs de côtés (en pas). N et R sont des angles de rotation (en degrés).",
+      "T est le nombre de répétitions. Pour un polygone régulier à T côtés : T × angle_extérieur = 360°.",
+      "L'image de la figure 4 du sujet officiel est indispensable pour déterminer les valeurs exactes.",
     ],
     answer:
-      "M = 80 (côté du carré en pas), N = 90 (tourner à gauche de 90° pour le carré), P = 80 (côté du triangle en pas), R = 30 (angle d'orientation vers l'extérieur), T = 4 (4 triangles latéraux). Le script trace d'abord le carré central, puis les 4 triangles équilatéraux en pivotant de 90° entre chaque.",
+      "Exercice nécessitant l'image de la figure 4 du sujet officiel pour déterminer les valeurs exactes. M, N, P, R, T sont des paramètres de longueur (en pas) et d'angle. Avec 1 cm = 20 pas, les longueurs sont des multiples de 20 et les angles sont des valeurs simples (90°, 45°, 135°…). Se référer au sujet CRPE 2025 Groupement 1 (EST MAT 1) pour la figure 4.",
     corrige: {
-      figure: "Patron de la pyramide SABCD : carré central ABCD de 80 pas + 4 triangles équilatéraux de 80 pas sur chaque côté",
-      variables: { M: 80, N: 90, P: 80, R: 30, T: 4 },
+      figure: "Figure 4 du sujet CRPE 2025 Gr1 — valeurs exactes à lire sur le sujet officiel",
+      variables: { M: '?', N: '?', P: '?', R: '?', T: '?' },
       etapes: [
-        "Carré ABCD : répéter 4 fois { avancer 80, tourner gauche 90° }",
-        "Faces latérales : répéter 4 fois { tourner gauche 30°, avancer 80, tourner droite 120°, avancer 80, puis tourner gauche 90° }",
-        "Chaque triangle équilatéral a un angle extérieur de 120° = 360°/3",
-        "T = 4 car la pyramide a 4 faces triangulaires (base carrée)",
+        "Identifier la figure 4 sur le sujet officiel CRPE 2025 Groupement 1",
+        "Mesurer les longueurs des côtés (convertir en pas : longueur_cm × 20)",
+        "Identifier les angles de rotation (N et R) à partir de la géométrie de la figure",
+        "Compter le nombre de répétitions T",
       ],
       erreurs_classiques: [
-        "Confondre l'angle de rotation du carré (90°) avec celui du triangle (120°)",
-        "Oublier R = 30° pour l'orientation vers l'extérieur avant chaque triangle",
-        "Prendre T = 3 au lieu de T = 4 (pyramide à base carrée, pas triangulaire)",
+        "Oublier la conversion 1 cm = 20 pas",
+        "Confondre angle intérieur et angle extérieur (le programme utilise l'angle de rotation = angle extérieur)",
       ],
       difficulte: 3,
     },
@@ -194,67 +171,5 @@ export const exercises2025 = [
       ],
       difficulte: 3,
     },
-  },
-  {
-    id: '2025-g3-patron-triangle',
-    year: 2025,
-    groupement: 3,
-    title: 'Patron pyramide — Bloc triangle',
-    sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
-    description:
-      "EST MAT 3, Exercice 5 — Un bloc « triangle » trace un triangle équilatéral de côté 40 pas. Il faut compléter L1 et L2 du bloc, puis L3, L4, L5 du script pour tracer le patron d'un moule pyramidal (base carrée de 4 cm, faces = triangles équilatéraux). Échelle : 10 pas = 1 cm.",
-    question:
-      "a) Compléter L1 et L2 du bloc triangle pour tracer un triangle équilatéral de côté 40 pas. b) Compléter L3, L4, L5 du script pour tracer le patron complet.",
-    subExercises: [
-      {
-        subtitle: "Q1 — Bloc triangle (L1 et L2)",
-        description: "Le bloc 'triangle' trace un triangle équilatéral de côté 40 pas. L1 est le nombre de répétitions, L2 est l'angle de rotation.",
-        question: "Compléter L1 et L2. L1 = ? L2 = ?",
-        blocks: [
-          { type: 'orienter', args: [90], category: 'motion' },
-          { type: 'styloPoser', args: [], category: 'pen' },
-          { type: 'repeter', args: [3], category: 'control', body: [
-            { type: 'avancer', args: [40], category: 'motion' },
-            { type: 'tournerDroite', args: [120], category: 'motion' },
-          ]},
-        ],
-        answer: "L1 = 3 (un triangle a 3 côtés). L2 = 120° (angle extérieur d'un triangle équilatéral = 360°/3 = 120°).",
-      },
-      {
-        subtitle: "Q2 — Patron complet (L3, L4, L5)",
-        description: "Le script trace le patron : carré central de 40 pas, puis 4 triangles équilatéraux sur chaque côté. Utilise le bloc 'triangle' défini en Q1.",
-        question: "Compléter L3, L4, L5 du script pour tracer le patron complet.",
-        blocks: [
-          { type: 'definirBloc', args: ['triangle'], category: 'custom', body: [
-            { type: 'repeter', args: [3], category: 'control', body: [
-              { type: 'avancer', args: [40], category: 'motion' },
-              { type: 'tournerDroite', args: [120], category: 'motion' },
-            ]},
-          ]},
-          { type: 'orienter', args: [90], category: 'motion' },
-          { type: 'styloPoser', args: [], category: 'pen' },
-          { type: 'repeter', args: [4], category: 'control', body: [
-            { type: 'avancer', args: [40], category: 'motion' },
-            { type: 'tournerGauche', args: [90], category: 'motion' },
-          ]},
-          { type: 'repeter', args: [4], category: 'control', body: [
-            { type: 'tournerGauche', args: [60], category: 'motion' },
-            { type: 'appelerBloc', args: ['triangle'], category: 'custom' },
-            { type: 'tournerGauche', args: [30], category: 'motion' },
-            { type: 'avancer', args: [40], category: 'motion' },
-          ]},
-        ],
-        answer: "L3 = appeler 'triangle' (trace le triangle sur le côté courant). L4 = tourner à gauche de 30° (réorientation). L5 = avancer de 40 pas (passage au côté suivant). Le patron est composé du carré central et de 4 triangles équilatéraux.",
-      },
-    ],
-    blocks: [],
-    hints: [
-      "L1 = 3 (triangle = 3 côtés), L2 = 120° (angle extérieur du triangle équilatéral).",
-      "Le carré a 4 côtés de 40 pas, angle intérieur 90°, angle extérieur pour tourner gauche = 90°.",
-      "Pour placer un triangle sur un côté du carré : s'orienter vers l'extérieur (tourner gauche 60°), tracer le triangle, puis se réorienter (tourner gauche 30°) et avancer de 40 pas pour passer au côté suivant.",
-      "60° + 30° = 90° = angle de rotation entre deux côtés du carré.",
-    ],
-    answer:
-      "L1 = 3, L2 = 120°. L3 = appeler 'triangle', L4 = tourner gauche 30°, L5 = avancer 40. Le patron est composé du carré central et de 4 triangles équilatéraux.",
   },
 ]
