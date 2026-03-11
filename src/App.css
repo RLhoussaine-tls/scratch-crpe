@@ -133,4 +133,38 @@ body {
   .main-area {
     width: 100%;
   }
+
+  .scratch-header {
+    padding: 6px 12px;
+  }
+
+  .scratch-logo {
+    font-size: 15px;
+  }
+
+  .scripts-area {
+    min-width: 0;
+    min-height: 200px;
+    padding: 8px;
+  }
+
+  .workspace {
+    padding: 0 8px 8px;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 500px) {
+  .turtle-canvas {
+    max-width: 100%;
+    height: auto !important;
+  }
+
+  .workspace {
+    padding: 0 4px 4px;
+  }
+
+  .exercise-panel {
+    padding: 10px !important;
+  }
 }

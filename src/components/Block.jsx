@@ -9,22 +9,22 @@ function pathStartsWith(full, prefix) {
 function ExprDisplay({ val }) {
   if (val == null) return <span>0</span>
   if (typeof val === 'number' || typeof val === 'string') return <span>{val}</span>
-  if (typeof val === 'boolean') return <span>{val ? 'vrai' : 'faux'}</span>
-  if (val.type === 'variable') return <span className="block-arg-variable">{val.name}</span>
+  if (typeof val === 'boolean') return <span className="block-boolean">{val ? 'vrai' : 'faux'}</span>
+  if (val.type === 'variable') return <span className="block-reporter">{val.name}</span>
   if (val.type === 'op') {
     if (val.op === 'sqrt') {
-      return <span className="block-arg-expr">&#8730;(<ExprDisplay val={val.left} />)</span>
+      return <span className="block-reporter-op">&#8730;(<ExprDisplay val={val.left} />)</span>
     }
     return (
-      <span className="block-arg-expr">
-        (<ExprDisplay val={val.left} /> {val.op} <ExprDisplay val={val.right} />)
+      <span className="block-reporter-op">
+        <ExprDisplay val={val.left} /> {val.op} <ExprDisplay val={val.right} />
       </span>
     )
   }
   if (val.type === 'comp') {
     return (
-      <span className="block-arg-expr">
-        (<ExprDisplay val={val.left} /> {val.op} <ExprDisplay val={val.right} />)
+      <span className="block-boolean">
+        <ExprDisplay val={val.left} /> {val.op} <ExprDisplay val={val.right} />
       </span>
     )
   }
@@ -55,25 +55,25 @@ function ArgDisplay({ val, argIndex, path, onEditBlock }) {
 }
 
 function ConditionDisplay({ cond }) {
-  if (typeof cond === 'boolean') return <span>{cond ? 'vrai' : 'faux'}</span>
+  if (typeof cond === 'boolean') return <span className="block-boolean">{cond ? 'vrai' : 'faux'}</span>
   if (typeof cond === 'number') return <span>{cond}</span>
   if (cond && typeof cond === 'object') {
-    if (cond.type === 'variable') return <span className="block-arg-variable">{cond.name}</span>
+    if (cond.type === 'variable') return <span className="block-reporter">{cond.name}</span>
     if (cond.type === 'comp') {
       return (
-        <span className="block-arg-expr">
+        <span className="block-boolean">
           <ExprDisplay val={cond.left} /> {cond.op} <ExprDisplay val={cond.right} />
         </span>
       )
     }
     if (cond.type === 'et') {
-      return <span className="block-arg-expr"><ConditionDisplay cond={cond.left} /> et <ConditionDisplay cond={cond.right} /></span>
+      return <span className="block-boolean"><ConditionDisplay cond={cond.left} /> et <ConditionDisplay cond={cond.right} /></span>
     }
     if (cond.type === 'ou') {
-      return <span className="block-arg-expr"><ConditionDisplay cond={cond.left} /> ou <ConditionDisplay cond={cond.right} /></span>
+      return <span className="block-boolean"><ConditionDisplay cond={cond.left} /> ou <ConditionDisplay cond={cond.right} /></span>
     }
     if (cond.type === 'non') {
-      return <span className="block-arg-expr">non <ConditionDisplay cond={cond.cond} /></span>
+      return <span className="block-boolean">non <ConditionDisplay cond={cond.cond} /></span>
     }
   }
   return <span>{JSON.stringify(cond)}</span>

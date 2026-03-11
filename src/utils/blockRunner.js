@@ -126,7 +126,15 @@ export async function runBlocksAnimated(blocks, engine, variables = {}, onStep, 
     await sleep(delay)
     if (cancelRef && cancelRef.current) return
 
-    if (block.type === 'repeter') {
+    if (block.type === 'demander') {
+      if (onPrompt) {
+        const value = await onPrompt(block.args[0], block.args[1])
+        variables[block.args[0]] = value
+      } else {
+        variables[block.args[0]] = resolveValue(block.args[1], variables)
+      }
+      onDraw()
+    } else if (block.type === 'repeter') {
       const rawTimes = resolveValue(block.args[0], variables)
       const times = Math.min(rawTimes, MAX_ITERATIONS)
       if (rawTimes > MAX_ITERATIONS) {

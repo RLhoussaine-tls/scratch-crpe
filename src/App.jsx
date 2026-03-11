@@ -36,18 +36,20 @@ export default function App() {
   const [variables, setVariables] = useState({})
   const [askModal, setAskModal] = useState(null) // { label, defaultVal, resolve }
 
-  const activeBlocks = selectedExercise?.subExercises
-    ? selectedExercise.subExercises[activeSubIndex]?.blocks ?? []
-    : selectedExercise?.blocks ?? []
+  const activeBlocks = freeMode
+    ? freeBlocks
+    : selectedExercise?.subExercises
+      ? selectedExercise.subExercises[activeSubIndex]?.blocks ?? []
+      : selectedExercise?.blocks ?? []
 
   const displayBlocks = editedBlocks ?? activeBlocks
 
   const activeSub = selectedExercise?.subExercises?.[activeSubIndex]
-  const isQuiz = activeSub?.type === 'quiz' || (!activeSub && selectedExercise?.type === 'quiz')
-  const isCalcul = selectedExercise?.type === 'calcul' && !isQuiz
+  const isQuiz = !freeMode && (activeSub?.type === 'quiz' || (!activeSub && selectedExercise?.type === 'quiz'))
+  const isCalcul = !freeMode && selectedExercise?.type === 'calcul' && !isQuiz
   const hasBlocks = displayBlocks && displayBlocks.length > 0
-  const showCanvas = selectedExercise && !isQuiz
-  const showBlocksReadOnly = selectedExercise && isQuiz && hasBlocks
+  const showCanvas = freeMode || (selectedExercise && !isQuiz)
+  const showBlocksReadOnly = !freeMode && selectedExercise && isQuiz && hasBlocks
 
   const askCallback = useCallback((label, defaultVal) => {
     return new Promise((resolve) => {
@@ -70,7 +72,7 @@ export default function App() {
   }, [editedBlocks, activeBlocks])
 
   const handleRun = useCallback(async () => {
-    if (!selectedExercise || isQuiz || isRunning) return
+    if ((!selectedExercise && !freeMode) || isQuiz || isRunning) return
     setIsRunning(true)
     setActivePath(null)
     cancelRef.current = false
@@ -80,6 +82,13 @@ export default function App() {
     setTurtleState(engine.getState())
     const vars = {}
     setVariables(vars)
+
+    const handlePrompt = (varName, defaultValue) => {
+      return new Promise((resolve) => {
+        promptResolveRef.current = resolve
+        setPromptState({ varName, defaultValue })
+      })
+    }
 
     await runBlocksAnimated(
       displayBlocks,
@@ -129,6 +138,7 @@ export default function App() {
   }, [])
 
   const handleSelect = useCallback((exercise) => {
+    setFreeMode(false)
     setSelectedExercise(exercise)
     setActiveSubIndex(0)
     setEditedBlocks(null)
@@ -139,6 +149,14 @@ export default function App() {
     setVariables({})
   }, [])
 
+  const handlePromptSubmit = useCallback((value) => {
+    if (promptResolveRef.current) {
+      promptResolveRef.current(value)
+      promptResolveRef.current = null
+    }
+    setPromptState(null)
+  }, [])
+
   const handleSubSelect = useCallback((i) => {
     setActiveSubIndex(i)
     setEditedBlocks(null)
@@ -147,6 +165,53 @@ export default function App() {
     setSegments([])
     setTurtleState(engine.getState())
     setVariables({})
+  }, [])
+
+  const handleDropBlock = useCallback((e) => {
+    e.preventDefault()
+    const data = e.dataTransfer.getData('application/scratch-block')
+    if (!data) return
+    try {
+      const newBlock = JSON.parse(data)
+      if (freeMode) {
+        setFreeBlocks(prev => [...prev, newBlock])
+      } else {
+        const base = editedBlocks ?? activeBlocks
+        const copy = deepClone(base)
+        copy.push(newBlock)
+        setEditedBlocks(copy)
+      }
+    } catch { /* ignore invalid data */ }
+  }, [freeMode, editedBlocks, activeBlocks])
+
+  const handleEnterFreeMode = useCallback(() => {
+    setFreeMode(true)
+    setSelectedExercise(null)
+    setEditedBlocks(null)
+    setFreeBlocks([])
+    const engine = engineRef.current
+    engine.reset()
+    setSegments([])
+    setTurtleState(engine.getState())
+    setVariables({})
+  }, [])
+
+  const handleEnterExamMode = useCallback(() => {
+    setExamMode(true)
+    setFreeMode(false)
+    setSelectedExercise(null)
+    setEditedBlocks(null)
+  }, [])
+
+  const handleExitExamMode = useCallback(() => {
+    setExamMode(false)
+  }, [])
+
+  const handleDragOver = useCallback((e) => {
+    if (e.dataTransfer.types.includes('application/scratch-block')) {
+      e.preventDefault()
+      e.dataTransfer.dropEffect = 'copy'
+    }
   }, [])
 
   return (
@@ -166,8 +231,19 @@ export default function App() {
         <ExerciseList
           selectedId={selectedExercise?.id}
           onSelect={handleSelect}
+          freeMode={freeMode}
+          onFreeMode={handleEnterFreeMode}
+          examMode={examMode}
+          onExamMode={handleEnterExamMode}
         />
         <main className="main-area">
+          {examMode && !selectedExercise && (
+            <ExamMode
+              exercises={allExercises}
+              onSelect={(ex) => { setSelectedExercise(ex); setActiveSubIndex(0); setEditedBlocks(null) }}
+              onExit={handleExitExamMode}
+            />
+          )}
           <ExercisePanel
             exercise={selectedExercise}
             activeSubIndex={activeSubIndex}
@@ -181,9 +257,14 @@ export default function App() {
               </div>
             </div>
           )}
-          {showCanvas && displayBlocks.length > 0 && (
+          {showCanvas && (freeMode || displayBlocks.length > 0) && (
             <div className="workspace">
-              <div className="scripts-area">
+              <BlockPalette />
+              <div
+                className="scripts-area"
+                onDrop={handleDropBlock}
+                onDragOver={handleDragOver}
+              >
                 <BlockSequence
                   blocks={displayBlocks}
                   activePath={activePath}
@@ -216,6 +297,13 @@ export default function App() {
           )}
         </main>
       </div>
+      {promptState && (
+        <InputPrompt
+          varName={promptState.varName}
+          defaultValue={promptState.defaultValue}
+          onSubmit={handlePromptSubmit}
+        />
+      )}
     </div>
   )
 }

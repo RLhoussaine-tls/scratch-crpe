@@ -52,3 +52,42 @@
   color: #fff;
   font-weight: 600;
 }
+
+.free-mode-btn,
+.exam-mode-btn {
+  margin-bottom: 4px;
+  border: 2px dashed #4C97FF !important;
+  text-align: center !important;
+  font-weight: 600;
+  color: #4C97FF !important;
+}
+
+.exam-mode-btn {
+  border-color: #FF9800 !important;
+  color: #FF9800 !important;
+  margin-bottom: 12px;
+}
+
+.free-mode-btn.active {
+  border-style: solid !important;
+  background: #4C97FF;
+  color: #fff !important;
+}
+
+.exam-mode-btn.active {
+  border-style: solid !important;
+  background: #FF9800;
+  color: #fff !important;
+}
+
+.exercise-item .badge-entrainement {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 5px;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 3px;
+  background: #FF9800;
+  color: #fff;
+  vertical-align: middle;
+}

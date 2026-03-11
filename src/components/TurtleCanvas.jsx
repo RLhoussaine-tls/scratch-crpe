@@ -60,6 +60,26 @@ export default function TurtleCanvas({ segments, turtleState, variables = {} }) 
     link.click()
   }, [])
 
+  const handleDownloadSVG = useCallback(() => {
+    const lines = segments.map((seg) => {
+      const x1 = (CANVAS_W / 2 + seg.fromX).toFixed(2)
+      const y1 = (CANVAS_H / 2 - seg.fromY).toFixed(2)
+      const x2 = (CANVAS_W / 2 + seg.toX).toFixed(2)
+      const y2 = (CANVAS_H / 2 - seg.toY).toFixed(2)
+      return `  <line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${seg.color}" stroke-width="${seg.thickness}" stroke-linecap="round" />`
+    })
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${CANVAS_W}" height="${CANVAS_H}" viewBox="0 0 ${CANVAS_W} ${CANVAS_H}">
+  <rect width="${CANVAS_W}" height="${CANVAS_H}" fill="#fff" />
+${lines.join('\n')}
+</svg>`
+    const blob = new Blob([svg], { type: 'image/svg+xml' })
+    const link = document.createElement('a')
+    link.download = 'scratch-crpe.svg'
+    link.href = URL.createObjectURL(blob)
+    link.click()
+    URL.revokeObjectURL(link.href)
+  }, [segments])
+
   const direText = variables['__dire__'] || ''
 
   return (
@@ -79,9 +99,14 @@ export default function TurtleCanvas({ segments, turtleState, variables = {} }) 
         y : {Math.round(turtleState?.y ?? 0)} &nbsp;&nbsp;
         direction : {Math.round(turtleState?.angle ?? 0)}°
         {segments.length > 0 && (
-          <button className="download-btn" onClick={handleDownload} title="Télécharger en PNG">
-            Télécharger PNG
-          </button>
+          <>
+            <button className="download-btn" onClick={handleDownload} title="Télécharger en PNG">
+              PNG
+            </button>
+            <button className="download-btn" onClick={handleDownloadSVG} title="Télécharger en SVG">
+              SVG
+            </button>
+          </>
         )}
       </div>
     </div>
@@ -142,24 +167,75 @@ function drawGrid(ctx) {
 
 function drawTurtle(ctx, state) {
   const { x, y, angle } = state
-  const size = 10
-  // Scratch angle: 0=up, 90=right => math: rad = (90 - angle) * PI/180
-  const rad = ((90 - angle) * Math.PI) / 180
+  // Scratch angle: 0=up, 90=right => canvas rotation
+  const rad = ((angle - 90) * Math.PI) / 180
 
   ctx.save()
   ctx.translate(x, -y)
-  ctx.rotate(-rad + Math.PI / 2)
+  ctx.rotate(rad)
 
+  // Draw a Scratch-style cat sprite silhouette
+  const s = 1.2 // scale factor
+
+  // Body (orange)
+  ctx.fillStyle = '#FF8C1A'
   ctx.beginPath()
-  ctx.moveTo(0, -size)
-  ctx.lineTo(-size * 0.6, size * 0.5)
-  ctx.lineTo(size * 0.6, size * 0.5)
-  ctx.closePath()
-
-  ctx.fillStyle = 'rgba(76, 151, 255, 0.7)'
+  ctx.ellipse(0, 0, 8 * s, 10 * s, 0, 0, Math.PI * 2)
   ctx.fill()
-  ctx.strokeStyle = '#3373CC'
-  ctx.lineWidth = 1.5
+  ctx.strokeStyle = '#CC6600'
+  ctx.lineWidth = 1
   ctx.stroke()
+
+  // Head
+  ctx.fillStyle = '#FF8C1A'
+  ctx.beginPath()
+  ctx.arc(0, -12 * s, 7 * s, 0, Math.PI * 2)
+  ctx.fill()
+  ctx.stroke()
+
+  // Ears
+  ctx.fillStyle = '#FF8C1A'
+  ctx.beginPath()
+  ctx.moveTo(-5 * s, -16 * s)
+  ctx.lineTo(-8 * s, -22 * s)
+  ctx.lineTo(-1 * s, -18 * s)
+  ctx.closePath()
+  ctx.fill()
+  ctx.stroke()
+  ctx.beginPath()
+  ctx.moveTo(5 * s, -16 * s)
+  ctx.lineTo(8 * s, -22 * s)
+  ctx.lineTo(1 * s, -18 * s)
+  ctx.closePath()
+  ctx.fill()
+  ctx.stroke()
+
+  // Eyes
+  ctx.fillStyle = '#fff'
+  ctx.beginPath()
+  ctx.ellipse(-3 * s, -13 * s, 2.5 * s, 3 * s, 0, 0, Math.PI * 2)
+  ctx.fill()
+  ctx.beginPath()
+  ctx.ellipse(3 * s, -13 * s, 2.5 * s, 3 * s, 0, 0, Math.PI * 2)
+  ctx.fill()
+
+  // Pupils
+  ctx.fillStyle = '#333'
+  ctx.beginPath()
+  ctx.arc(-3 * s, -13 * s, 1.2 * s, 0, Math.PI * 2)
+  ctx.fill()
+  ctx.beginPath()
+  ctx.arc(3 * s, -13 * s, 1.2 * s, 0, Math.PI * 2)
+  ctx.fill()
+
+  // Direction arrow
+  ctx.fillStyle = 'rgba(76, 151, 255, 0.6)'
+  ctx.beginPath()
+  ctx.moveTo(0, -26 * s)
+  ctx.lineTo(-3 * s, -20 * s)
+  ctx.lineTo(3 * s, -20 * s)
+  ctx.closePath()
+  ctx.fill()
+
   ctx.restore()
 }

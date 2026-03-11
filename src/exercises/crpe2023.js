@@ -1,7 +1,8 @@
 export const exercises2023 = [
   {
-    id: '2023-1',
+    id: '2023-g1-triangles',
     year: 2023,
+    groupement: 1,
     title: 'Triangles emboîtés',
     sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description:
@@ -38,8 +39,10 @@ export const exercises2023 = [
       'a) (0, 0). b) 4 triangles. c) Triangles équilatéraux (3 côtés égaux, angle extérieur 120°). d) Le 2e triangle a côté = 40 pas.',
   },
   {
-    id: '2023-2',
+    id: '2023-g3-carre',
     year: 2023,
+    groupement: 3,
+    source: 'entrainement',
     title: 'Carré — Qui a raison ?',
     sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description:
@@ -66,8 +69,9 @@ export const exercises2023 = [
       'Pierre : VRAI (un carré est un losange particulier). Ana : FAUX (un carré est un rectangle). Karim : VRAI (un carré est un quadrilatère). Lucie : VRAI.',
   },
   {
-    id: '2023-3',
+    id: '2023-g3-etoile',
     year: 2023,
+    groupement: 3,
     title: 'Étoile à 5 branches',
     sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     description:
@@ -100,6 +104,7 @@ export const exercises2023 = [
   {
     id: '2023-g2-programmes-calcul',
     year: 2023,
+    groupement: 2,
     title: 'Programmes de calcul A et B',
     sourceUrl: 'https://www.devenirenseignant.gouv.fr/les-sujets-des-epreuves-ecrites-du-crpe-externe-et-du-crpe-externe-special-899',
     type: 'calcul',
