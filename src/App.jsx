@@ -9,6 +9,8 @@ import Toolbar from './components/Toolbar'
 import VariablePanel from './components/VariablePanel'
 import InputPrompt from './components/InputPrompt'
 import BlockPalette from './components/BlockPalette'
+import ExamMode from './components/ExamMode'
+import { allExercises } from './exercises'
 import './App.css'
 
 function deepClone(obj) {
@@ -39,6 +41,7 @@ export default function App() {
   const promptResolveRef = useRef(null)
   const [freeMode, setFreeMode] = useState(false)
   const [freeBlocks, setFreeBlocks] = useState([])
+  const [examMode, setExamMode] = useState(false)
 
   const activeBlocks = freeMode
     ? freeBlocks
@@ -187,6 +190,17 @@ export default function App() {
     setVariables({})
   }, [])
 
+  const handleEnterExamMode = useCallback(() => {
+    setExamMode(true)
+    setFreeMode(false)
+    setSelectedExercise(null)
+    setEditedBlocks(null)
+  }, [])
+
+  const handleExitExamMode = useCallback(() => {
+    setExamMode(false)
+  }, [])
+
   const handleDragOver = useCallback((e) => {
     if (e.dataTransfer.types.includes('application/scratch-block')) {
       e.preventDefault()
@@ -206,8 +220,17 @@ export default function App() {
           onSelect={handleSelect}
           freeMode={freeMode}
           onFreeMode={handleEnterFreeMode}
+          examMode={examMode}
+          onExamMode={handleEnterExamMode}
         />
         <main className="main-area">
+          {examMode && !selectedExercise && (
+            <ExamMode
+              exercises={allExercises}
+              onSelect={(ex) => { setSelectedExercise(ex); setActiveSubIndex(0); setEditedBlocks(null) }}
+              onExit={handleExitExamMode}
+            />
+          )}
           <ExercisePanel
             exercise={selectedExercise}
             activeSubIndex={activeSubIndex}

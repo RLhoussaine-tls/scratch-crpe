@@ -3,7 +3,7 @@ import './ExerciseList.css'
 
 const YEARS = [2025, 2024, 2023, 2022]
 
-export default function ExerciseList({ selectedId, onSelect, freeMode, onFreeMode }) {
+export default function ExerciseList({ selectedId, onSelect, freeMode, onFreeMode, examMode, onExamMode }) {
   return (
     <nav className="exercise-list">
       <h1 className="exercise-list-title">CRPE Scratch</h1>
@@ -12,6 +12,12 @@ export default function ExerciseList({ selectedId, onSelect, freeMode, onFreeMod
         onClick={onFreeMode}
       >
         Mode libre
+      </button>
+      <button
+        className={`exercise-item exam-mode-btn ${examMode ? 'active' : ''}`}
+        onClick={onExamMode}
+      >
+        Mode examen
       </button>
       {YEARS.map((year) => (
         <div key={year} className="exercise-year-group">
