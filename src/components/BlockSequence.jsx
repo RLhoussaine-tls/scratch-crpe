@@ -7,10 +7,16 @@ export default function BlockSequence({ blocks, activePath, onEditBlock }) {
   return (
     <div className="block-sequence">
       <div className="block-sequence-hat">
-        <svg width="16" height="16" viewBox="0 0 16 16" style={{ marginRight: 6 }}>
-          <polygon points="3,1 14,8 3,15" fill="#4CBF56" />
+        <svg className="flag-icon" width="18" height="18" viewBox="0 0 18 18">
+          <rect x="3" y="2" width="2" height="14" rx="1" fill="#45993D" />
+          <path d="M5,3 L15,3 C15,3 14,5.5 15,8 L5,8 Z" fill="#4CBF56" />
         </svg>
-        quand 🚩 est cliqué
+        quand
+        <svg className="flag-icon-inline" width="14" height="14" viewBox="0 0 18 18">
+          <rect x="3" y="2" width="2" height="14" rx="1" fill="#45993D" />
+          <path d="M5,3 L15,3 C15,3 14,5.5 15,8 L5,8 Z" fill="#4CBF56" />
+        </svg>
+        est cliqué
       </div>
       {blocks.map((block, i) => (
         <Block
