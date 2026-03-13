@@ -51,14 +51,13 @@ src/
 
 ## Exercices couverts
 
-15 exercices issus des annales officielles CRPE 2022–2025.
+13 exercices issus des annales officielles CRPE 2022–2025.
 
 | Année | Exercice | Type |
 |-------|----------|------|
-| 2022 | Losange avec variable C | Géométrie |
+| 2022 | Polygone régulier avec variable C | Géométrie |
 | 2022 | Programme d'Adam | Calcul |
 | 2022 | Tirets et transformations | Géométrie |
-| 2022 | Patron de cube | Géométrie |
 | 2023 | Triangles emboîtés | Géométrie |
 | 2023 | Carré — Qui a raison ? | Géométrie |
 | 2023 | Étoile à 5 branches | Géométrie |
@@ -67,9 +66,8 @@ src/
 | 2024 | Programme de calcul x²+3x−4 | Calcul |
 | 2024 | Figure de base — Carré puis triangle | Géométrie |
 | 2024 | Segments directionnels — Touches a, b, c | Géométrie |
-| 2025 | Patron de pyramide SABCD | Géométrie |
+| 2025 | Programme incomplet — Trouver M, N, P, R, T | Quiz |
 | 2025 | Triangle rectangle isocèle | Géométrie |
-| 2025 | Patron pyramide — Bloc triangle | Géométrie |
 
 ## Technologies
 
