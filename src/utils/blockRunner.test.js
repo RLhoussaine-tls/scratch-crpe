@@ -267,6 +267,23 @@ describe('runBlocks', () => {
     spy.mockRestore()
   })
 
+  it("repeter_jusqu_a s'arrête quand une variable atteint la valeur cible", () => {
+    const engine = createMockEngine()
+    const blocks = [
+      { type: 'mettreVariable', args: ['x', 0] },
+      { type: 'repeter_jusqu_a',
+        args: [{ type: 'comp', op: '>=', left: { type: 'variable', name: 'x' }, right: 5 }],
+        body: [
+          { type: 'avancer', args: [1] },
+          { type: 'ajouterVariable', args: ['x', 1] },
+        ],
+      },
+    ]
+    const vars = runBlocks(blocks, engine)
+    expect(vars.x).toBe(5)
+    expect(engine.calls.filter(c => c[0] === 'avancer')).toHaveLength(5)
+  })
+
   it('executes demander block', () => {
     const engine = createMockEngine()
     const blocks = [
