@@ -19,7 +19,7 @@ export const exercises2025 = [
                 type: 'repeter', args: [3], category: 'control',
                 body: [
                   { type: 'avancer', args: [40], category: 'motion' },
-                  { type: 'tournerGauche', args: [120], category: 'motion' },
+                  { type: 'tournerDroite', args: [120], category: 'motion' },
                 ]
               },
               { type: 'styloRelever', args: [], category: 'pen' },
@@ -30,7 +30,7 @@ export const exercises2025 = [
           { type: 'orienter', args: [90], category: 'motion' },
           { type: 'appelerBloc', args: ['Triangle'], category: 'custom' },
         ],
-        answer: "L1 : répéter 3 fois. L2 : avancer de 40 pas (car 4 cm × 10 = 40 pas). Angle extérieur d'un triangle équilatéral = 120°.",
+        answer: "L1 : avancer de 40 pas (car 4 cm × 10 = 40 pas). L2 : tourner droite de 120 degrés (angle extérieur d'un triangle équilatéral).",
       },
       {
         id: '2025-S2-5-4b',
@@ -46,7 +46,7 @@ export const exercises2025 = [
                 type: 'repeter', args: [3], category: 'control',
                 body: [
                   { type: 'avancer', args: [40], category: 'motion' },
-                  { type: 'tournerGauche', args: [120], category: 'motion' },
+                  { type: 'tournerDroite', args: [120], category: 'motion' },
                 ]
               },
               { type: 'styloRelever', args: [], category: 'pen' },
