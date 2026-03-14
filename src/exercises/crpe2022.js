@@ -8,20 +8,57 @@ export const exercises2022 = [
     description:
       'EST MAT 1, Exercice 4 — Programme 1 : répéter 4 fois [avancer C pas, tourner droite 90°]. Variable C initialisée à 50. Échelle : 1 cm = 10 pixels (C=50 → 5 cm de côté). Programme 2 : répéter N fois [exécuter Programme 1, tourner droite A°].',
     question:
-      '1) En prenant C = 50 et 1 cm pour 10 pixels, tracer la figure du Programme 1. 2) Quelle est la nature de la figure tracée ? 3) Quelles valeurs attribuer à A et N dans le Programme 2 pour obtenir une rosace carrée ? 4) Quelle est la valeur de C après exécution du Programme 1 ? 5) Comment modifier le programme pour que chaque segment fasse 30 pixels ?',
-    blocks: [
-      { type: 'mettreVariable', args: ['C', 50], category: 'variables' },
-      { type: 'styloPoser', args: [], category: 'pen' },
+      '1) En prenant C = 50 et 1 cm pour 10 pixels, tracer la figure du Programme 1. 2) Quelle est la nature de la figure tracée ? 3) Quelles valeurs attribuer à A et N dans le Programme 2 pour obtenir une rosace carrée ? 4) Quelle est la valeur de C après exécution ? 5) Comment modifier le programme pour que chaque segment fasse 30 pixels ?',
+    subExercises: [
       {
-        type: 'repeter',
-        args: [4],
-        category: 'control',
-        body: [
-          { type: 'avancer', args: [{ type: 'variable', name: 'C' }], category: 'motion' },
-          { type: 'tournerDroite', args: [90], category: 'motion' },
+        id: '2022-g1-polygone-p1',
+        subtitle: 'Programme 1 — Carré (C = 50)',
+        question: '1) Tracer la figure pour C = 50 (1 cm = 10 pixels). 2) Quelle est la nature de la figure tracée ?',
+        blocks: [
+          { type: 'effacer', args: [], category: 'pen' },
+          { type: 'allerA', args: [0, 0], category: 'motion' },
+          { type: 'orienter', args: [90], category: 'motion' },
+          { type: 'mettreVariable', args: ['C', 50], category: 'variables' },
+          { type: 'styloPoser', args: [], category: 'pen' },
+          {
+            type: 'repeter', args: [4], category: 'control',
+            body: [
+              { type: 'avancer', args: [{ type: 'variable', name: 'C' }], category: 'motion' },
+              { type: 'tournerDroite', args: [90], category: 'motion' },
+            ],
+          },
         ],
+        answer: 'La figure est un carré de côté 50 pas (4 côtés égaux de 50 pas, 4 angles droits de 90°). C reste à 50 après exécution car le programme ne modifie pas la variable.',
+      },
+      {
+        id: '2022-g1-polygone-p2',
+        subtitle: 'Programme 2 — Rosace de carrés (A = 30°, N = 12)',
+        question: '3) Quelles valeurs attribuer à A et N dans le Programme 2 pour obtenir une rosace carrée ?',
+        blocks: [
+          { type: 'effacer', args: [], category: 'pen' },
+          { type: 'allerA', args: [0, 0], category: 'motion' },
+          { type: 'orienter', args: [90], category: 'motion' },
+          { type: 'mettreVariable', args: ['C', 50], category: 'variables' },
+          {
+            type: 'repeter', args: [12], category: 'control',
+            body: [
+              { type: 'styloPoser', args: [], category: 'pen' },
+              {
+                type: 'repeter', args: [4], category: 'control',
+                body: [
+                  { type: 'avancer', args: [{ type: 'variable', name: 'C' }], category: 'motion' },
+                  { type: 'tournerDroite', args: [90], category: 'motion' },
+                ],
+              },
+              { type: 'styloRelever', args: [], category: 'pen' },
+              { type: 'tournerDroite', args: [30], category: 'motion' },
+            ],
+          },
+        ],
+        answer: 'Pour une rosace carrée : A = 30° et N = 12 (car 30 × 12 = 360°). On peut aussi choisir A = 45° et N = 8, ou A = 90° et N = 4. C reste à 50 car le programme ne modifie pas la variable.',
       },
     ],
+    blocks: [],
     hints: [
       'Le Programme 1 répète 4 fois : avancer C pas + tourner droite 90°.',
       '4 côtés égaux et 4 angles de 90° → la figure est un carré.',
