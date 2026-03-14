@@ -1,5 +1,88 @@
 export const exercises2025 = [
   {
+    id: '2025-S2-5',
+    year: 2025,
+    title: 'Bloc triangle + patron pyramide carrée',
+    description: "La directrice fabrique des bougies avec des moules pyramidaux (base carrée, toutes arêtes = 4 cm). 10 pas = 1 cm.",
+    subExercises: [
+      {
+        id: '2025-S2-5-4a',
+        title: 'Triangle équilatéral de côté 40 pas',
+        subtitle: '4a — Triangle équilatéral',
+        question: "Compléter les lignes L1 et L2 du bloc Triangle pour tracer un triangle équilatéral de côté 40 pas.",
+        blocks: [
+          {
+            type: 'definirBloc', args: ['Triangle'], category: 'custom',
+            body: [
+              { type: 'styloPoser', args: [], category: 'pen' },
+              {
+                type: 'repeter', args: [3], category: 'control',
+                body: [
+                  { type: 'avancer', args: [40], category: 'motion' },
+                  { type: 'tournerGauche', args: [120], category: 'motion' },
+                ]
+              },
+              { type: 'styloRelever', args: [], category: 'pen' },
+            ]
+          },
+          { type: 'effacer', args: [], category: 'pen' },
+          { type: 'allerA', args: [0, 0], category: 'motion' },
+          { type: 'orienter', args: [90], category: 'motion' },
+          { type: 'appelerBloc', args: ['Triangle'], category: 'custom' },
+        ],
+        answer: "L1 : répéter 3 fois. L2 : avancer de 40 pas (car 4 cm × 10 = 40 pas). Angle extérieur d'un triangle équilatéral = 120°.",
+      },
+      {
+        id: '2025-S2-5-4b',
+        title: 'Patron de la pyramide',
+        subtitle: '4b — Patron pyramide',
+        question: "Compléter les lignes L3, L4, L5 du script pour tracer le patron du moule type B (pyramide à base carrée, arêtes = 4 cm, 10 pas = 1 cm). Le patron est un carré central avec 4 triangles équilatéraux sur chaque côté.",
+        blocks: [
+          {
+            type: 'definirBloc', args: ['Triangle'], category: 'custom',
+            body: [
+              { type: 'styloPoser', args: [], category: 'pen' },
+              {
+                type: 'repeter', args: [3], category: 'control',
+                body: [
+                  { type: 'avancer', args: [40], category: 'motion' },
+                  { type: 'tournerGauche', args: [120], category: 'motion' },
+                ]
+              },
+              { type: 'styloRelever', args: [], category: 'pen' },
+            ]
+          },
+          { type: 'effacer', args: [], category: 'pen' },
+          { type: 'allerA', args: [-20, -20], category: 'motion' },
+          { type: 'orienter', args: [90], category: 'motion' },
+          // Carré central
+          { type: 'styloPoser', args: [], category: 'pen' },
+          {
+            type: 'repeter', args: [4], category: 'control',
+            body: [
+              { type: 'avancer', args: [40], category: 'motion' },
+              { type: 'tournerDroite', args: [90], category: 'motion' },
+            ]
+          },
+          { type: 'styloRelever', args: [], category: 'pen' },
+          // 4 triangles sur chaque côté
+          {
+            type: 'repeter', args: [4], category: 'control',
+            body: [
+              { type: 'appelerBloc', args: ['Triangle'], category: 'custom' },
+              { type: 'avancer', args: [40], category: 'motion' },
+              { type: 'tournerDroite', args: [90], category: 'motion' },
+            ]
+          },
+        ],
+        answer: "L3 : répéter 4 fois. L4 : appeler Triangle. L5 : avancer de 40 pas. Le patron est un carré central entouré de 4 triangles équilatéraux.",
+      }
+    ],
+    hints: ["Un triangle équilatéral a 3 côtés égaux et des angles extérieurs de 120°."],
+    answer: "L1=répéter 3 fois, L2=avancer 40 pas. Pour le patron : L3=répéter 4 fois, L4=appeler Triangle, L5=avancer 40 pas.",
+    blocks: [],
+  },
+  {
     id: '2025-1',
     year: 2025,
     groupement: 1,
@@ -118,6 +201,63 @@ export const exercises2025 = [
           { type: 'avancer', args: [57], category: 'motion' },
         ],
         answer: "Programme B → Figure 4 : grand triangle avec diagonales parallèles à l'intérieur. Sans le retour, chaque triangle partage la diagonale du suivant.",
+      },
+      {
+        id: '2025-S1-5-A',
+        subtitle: 'Programme A — tourner à gauche',
+        title: 'Programme A',
+        question: "Le programme A remplace `tourner à droite` par `tourner à gauche`. Quelle figure obtient-on ? Associer à Figure 1, 2, 3 ou 4.",
+        blocks: [
+          { type: 'orienter', args: [90], category: 'motion' },
+          { type: 'styloPoser', args: [], category: 'pen' },
+          { type: 'avancer', args: [40], category: 'motion' },
+          { type: 'tournerGauche', args: [90], category: 'motion' },
+          { type: 'avancer', args: [40], category: 'motion' },
+          { type: 'tournerGauche', args: [135], category: 'motion' },
+          { type: 'avancer', args: [57], category: 'motion' },
+          { type: 'tournerGauche', args: [135], category: 'motion' },
+          { type: 'avancer', args: [40], category: 'motion' },
+          { type: 'tournerGauche', args: [90], category: 'motion' },
+        ],
+        answer: "Programme A → Figure 2 (triangle symétrique par rapport à l'axe vertical).",
+      },
+      {
+        id: '2025-S1-5-B',
+        subtitle: 'Programme B — a = 60',
+        title: 'Programme B',
+        question: "Le programme B change la valeur de `a` (a = 60 au lieu de 40). Quelle figure obtient-on ?",
+        blocks: [
+          { type: 'orienter', args: [90], category: 'motion' },
+          { type: 'styloPoser', args: [], category: 'pen' },
+          { type: 'avancer', args: [60], category: 'motion' },
+          { type: 'tournerDroite', args: [90], category: 'motion' },
+          { type: 'avancer', args: [60], category: 'motion' },
+          { type: 'tournerDroite', args: [135], category: 'motion' },
+          { type: 'avancer', args: [85], category: 'motion' },
+          { type: 'tournerDroite', args: [135], category: 'motion' },
+          { type: 'avancer', args: [60], category: 'motion' },
+          { type: 'tournerDroite', args: [90], category: 'motion' },
+        ],
+        answer: "Programme B → Figure 3 (même triangle mais agrandi, a=60 au lieu de 40).",
+      },
+      {
+        id: '2025-S1-5-C',
+        subtitle: "Programme C — s'orienter 0°",
+        title: 'Programme C',
+        question: "Le programme C change l'orientation initiale (`s'orienter 0` au lieu de 90). Quelle figure obtient-on ?",
+        blocks: [
+          { type: 'orienter', args: [0], category: 'motion' },
+          { type: 'styloPoser', args: [], category: 'pen' },
+          { type: 'avancer', args: [40], category: 'motion' },
+          { type: 'tournerDroite', args: [90], category: 'motion' },
+          { type: 'avancer', args: [40], category: 'motion' },
+          { type: 'tournerDroite', args: [135], category: 'motion' },
+          { type: 'avancer', args: [57], category: 'motion' },
+          { type: 'tournerDroite', args: [135], category: 'motion' },
+          { type: 'avancer', args: [40], category: 'motion' },
+          { type: 'tournerDroite', args: [90], category: 'motion' },
+        ],
+        answer: "Programme C → Figure 4 (triangle pivoté de 90°, orienté vers le haut).",
       },
       {
         subtitle: "Programme C → Figure 3",

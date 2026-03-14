@@ -9,24 +9,12 @@ function getExerciseType(ex) {
   return 'geometrie'
 }
 
-export default function ExerciseList({ selectedId, onSelect, freeMode, onFreeMode, examMode, onExamMode }) {
+export default function ExerciseList({ selectedId, onSelect }) {
   const [filterType, setFilterType] = useState('all')
 
   return (
     <nav className="exercise-list">
       <h1 className="exercise-list-title">CRPE Scratch</h1>
-      <button
-        className={`exercise-item free-mode-btn ${freeMode ? 'active' : ''}`}
-        onClick={onFreeMode}
-      >
-        Mode libre
-      </button>
-      <button
-        className={`exercise-item exam-mode-btn ${examMode ? 'active' : ''}`}
-        onClick={onExamMode}
-      >
-        Mode examen
-      </button>
 
       <div className="filter-type-row">
         {[['all', 'Tous'], ['geometrie', '△ Géom.'], ['calcul', '∑ Calcul']].map(([t, label]) => (

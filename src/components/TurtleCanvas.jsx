@@ -167,75 +167,28 @@ function drawGrid(ctx) {
 
 function drawTurtle(ctx, state) {
   const { x, y, angle } = state
-  // Scratch angle: 0=up, 90=right => canvas rotation
+  // angle Scratch : 0=haut, 90=droite => rotation canvas
   const rad = ((angle - 90) * Math.PI) / 180
 
   ctx.save()
   ctx.translate(x, -y)
   ctx.rotate(rad)
 
-  // Draw a Scratch-style cat sprite silhouette
-  const s = 1.2 // scale factor
+  const s = 14 // taille de la flèche
 
-  // Body (orange)
-  ctx.fillStyle = '#FF8C1A'
+  // Corps de la flèche : triangle pointu vers le haut (direction de déplacement)
   ctx.beginPath()
-  ctx.ellipse(0, 0, 8 * s, 10 * s, 0, 0, Math.PI * 2)
-  ctx.fill()
-  ctx.strokeStyle = '#CC6600'
-  ctx.lineWidth = 1
-  ctx.stroke()
-
-  // Head
-  ctx.fillStyle = '#FF8C1A'
-  ctx.beginPath()
-  ctx.arc(0, -12 * s, 7 * s, 0, Math.PI * 2)
-  ctx.fill()
-  ctx.stroke()
-
-  // Ears
-  ctx.fillStyle = '#FF8C1A'
-  ctx.beginPath()
-  ctx.moveTo(-5 * s, -16 * s)
-  ctx.lineTo(-8 * s, -22 * s)
-  ctx.lineTo(-1 * s, -18 * s)
+  ctx.moveTo(0, -s)           // pointe avant
+  ctx.lineTo(-s * 0.5, s * 0.5)  // bas gauche
+  ctx.lineTo(0, s * 0.2)         // encoche centrale
+  ctx.lineTo(s * 0.5, s * 0.5)   // bas droite
   ctx.closePath()
+
+  ctx.fillStyle = '#4C97FF'
   ctx.fill()
+  ctx.strokeStyle = '#1a5fb5'
+  ctx.lineWidth = 1.5
   ctx.stroke()
-  ctx.beginPath()
-  ctx.moveTo(5 * s, -16 * s)
-  ctx.lineTo(8 * s, -22 * s)
-  ctx.lineTo(1 * s, -18 * s)
-  ctx.closePath()
-  ctx.fill()
-  ctx.stroke()
-
-  // Eyes
-  ctx.fillStyle = '#fff'
-  ctx.beginPath()
-  ctx.ellipse(-3 * s, -13 * s, 2.5 * s, 3 * s, 0, 0, Math.PI * 2)
-  ctx.fill()
-  ctx.beginPath()
-  ctx.ellipse(3 * s, -13 * s, 2.5 * s, 3 * s, 0, 0, Math.PI * 2)
-  ctx.fill()
-
-  // Pupils
-  ctx.fillStyle = '#333'
-  ctx.beginPath()
-  ctx.arc(-3 * s, -13 * s, 1.2 * s, 0, Math.PI * 2)
-  ctx.fill()
-  ctx.beginPath()
-  ctx.arc(3 * s, -13 * s, 1.2 * s, 0, Math.PI * 2)
-  ctx.fill()
-
-  // Direction arrow
-  ctx.fillStyle = 'rgba(76, 151, 255, 0.6)'
-  ctx.beginPath()
-  ctx.moveTo(0, -26 * s)
-  ctx.lineTo(-3 * s, -20 * s)
-  ctx.lineTo(3 * s, -20 * s)
-  ctx.closePath()
-  ctx.fill()
 
   ctx.restore()
 }

@@ -248,6 +248,22 @@ export const exercises2024 = [
           "Un enchaînement possible : a (→80), descendre 60, d (←80), monter 60.",
         ],
       },
+      {
+        id: '2024-Suppl-3d',
+        subtitle: 'Q4 — Touche d — Rectangle avec diagonales de 100 pas',
+        description: "Un programme d est ajouté : s'orienter vers le bas, avancer de N pas, relever le stylo, avancer de N pas.",
+        question: "Donner un enchaînement de touches (a, b, c, d) pour obtenir un rectangle de longueur 80 pas dont les diagonales mesurent 100 pas.",
+        type: 'quiz',
+        blocks: [
+          { type: 'allerA', args: [-40, 30], category: 'motion' },
+          { type: 'orienter', args: [180], category: 'motion' },
+          { type: 'styloPoser', args: [], category: 'pen' },
+          { type: 'avancer', args: [60], category: 'motion' },
+          { type: 'styloRelever', args: [], category: 'pen' },
+          { type: 'avancer', args: [60], category: 'motion' },
+        ],
+        answer: "La largeur du rectangle : si longueur=80 et diagonale=100, alors par Pythagore la largeur=60 (car 60²+80²=100²). Enchaînement : a a (80 pas vers la droite), d (60 pas vers le bas), a a (80 pas vers la droite), b b (60 pas vers le haut). Ou équivalent avec c.",
+      },
     ],
     blocks: [],
     hints: [
@@ -257,6 +273,6 @@ export const exercises2024 = [
       "Aucune touche ne permet un segment diagonal.",
       "Q3 : utiliser Pythagore pour trouver la largeur du rectangle.",
     ],
-    answer: "Q1 : Proposition 2 impossible (segment diagonal). Q2 : figure en escalier irrégulier. Q3 : rectangle 80×60 (largeur calculée par Pythagore : √(100²−80²) = 60 pas).",
+    answer: "Q1 : Proposition 2 impossible (segment diagonal). Q2 : figure en escalier irrégulier. Q3 : rectangle 80×60 (largeur calculée par Pythagore : √(100²−80²) = 60 pas). Q4 : enchaînement a a d a a b b.",
   },
 ]

@@ -160,4 +160,89 @@ export const exercises2022 = [
     ],
     answer: 'Q1 : carré ouvert de tirets. Q2 : 8 tirets en ligne. Q3 : étoile de tirets (rotation de 45°).',
   },
+  {
+    id: '2022-S4-4a',
+    year: 2022,
+    title: 'Patron de cube — Bloc carré',
+    description: "Un élève souhaite construire le patron d'un cube de 3 cm de côté avec Scratch. 1 pas = 0,05 cm donc 3 cm = 60 pas.",
+    question: "Compléter le bloc `carré` : avancer de combien de pas ? Tourner de combien de degrés ? Répéter combien de fois ?",
+    blocks: [
+      {
+        type: 'definirBloc',
+        args: ['carré'],
+        category: 'custom',
+        body: [
+          { type: 'styloPoser', args: [], category: 'pen' },
+          {
+            type: 'repeter', args: [4], category: 'control',
+            body: [
+              { type: 'avancer', args: [60], category: 'motion' },
+              { type: 'tournerDroite', args: [90], category: 'motion' },
+            ]
+          },
+          { type: 'styloRelever', args: [], category: 'pen' },
+          { type: 'avancer', args: [60], category: 'motion' },
+        ]
+      },
+      { type: 'effacer', args: [], category: 'pen' },
+      { type: 'allerA', args: [-150, -60], category: 'motion' },
+      { type: 'orienter', args: [90], category: 'motion' },
+      // Ligne du bas : 4 carrés
+      { type: 'appelerBloc', args: ['carré'], category: 'custom' },
+      { type: 'appelerBloc', args: ['carré'], category: 'custom' },
+      { type: 'appelerBloc', args: ['carré'], category: 'custom' },
+      { type: 'appelerBloc', args: ['carré'], category: 'custom' },
+      // Remonter pour la ligne du milieu
+      { type: 'allerA', args: [-150, 0], category: 'motion' },
+      { type: 'orienter', args: [90], category: 'motion' },
+      { type: 'appelerBloc', args: ['carré'], category: 'custom' },
+      // Remonter encore pour la ligne du haut
+      { type: 'allerA', args: [-90, 0], category: 'motion' },
+      { type: 'orienter', args: [90], category: 'motion' },
+      { type: 'appelerBloc', args: ['carré'], category: 'custom' },
+    ],
+    answer: "Avancer de 60 pas (car 3 cm ÷ 0,05 = 60), tourner de 90°, répéter 4 fois. Le patron est une croix de 4 carrés en ligne + 2 carrés décalés.",
+  },
+  {
+    id: '2022-S4-4b',
+    year: 2022,
+    title: 'Patron de cube — Algorithme en T',
+    description: "Un deuxième algorithme trace un autre patron de cube avec répétitions imbriquées.",
+    question: "Dessiner le patron obtenu par ce programme : répéter 3 fois [appeler carré, ajouter -60 à x], puis répéter 2 fois [ajouter -60 à y, appeler carré].",
+    type: 'quiz',
+    blocks: [
+      {
+        type: 'definirBloc', args: ['carré'], category: 'custom',
+        body: [
+          { type: 'styloPoser', args: [], category: 'pen' },
+          {
+            type: 'repeter', args: [4], category: 'control',
+            body: [
+              { type: 'avancer', args: [60], category: 'motion' },
+              { type: 'tournerDroite', args: [90], category: 'motion' },
+            ]
+          },
+          { type: 'styloRelever', args: [], category: 'pen' },
+        ]
+      },
+      { type: 'effacer', args: [], category: 'pen' },
+      { type: 'allerA', args: [-90, 60], category: 'motion' },
+      { type: 'orienter', args: [90], category: 'motion' },
+      {
+        type: 'repeter', args: [3], category: 'control',
+        body: [
+          { type: 'appelerBloc', args: ['carré'], category: 'custom' },
+          { type: 'ajouterX', args: [-60], category: 'motion' },
+        ]
+      },
+      {
+        type: 'repeter', args: [2], category: 'control',
+        body: [
+          { type: 'ajouterY', args: [-60], category: 'motion' },
+          { type: 'appelerBloc', args: ['carré'], category: 'custom' },
+        ]
+      },
+    ],
+    answer: "Le patron obtenu est une croix en T inversé : 3 carrés en ligne horizontale et 2 carrés vers le bas depuis le carré central.",
+  },
 ]
