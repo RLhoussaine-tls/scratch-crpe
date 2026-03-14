@@ -135,6 +135,69 @@ export const exercises2023 = [
     },
   },
   {
+    id: '2023-Suppl-4',
+    year: 2023,
+    title: 'Script principal + Bloc Carré — transformation',
+    description: "Un script principal appelle un bloc Carré. On souhaite modifier les lignes A, B, C pour obtenir un second carré EFGH décalé, puis identifier la transformation géométrique de ABCD vers EFGH.",
+    subExercises: [
+      {
+        id: '2023-Suppl-4-1',
+        title: 'Figure initiale ABCD',
+        question: "Représenter la figure tracée par le script principal. Le lutin se déplace en pixels (25 pixels = 1 cm).",
+        blocks: [
+          {
+            type: 'definirBloc', args: ['Carré'], category: 'custom',
+            body: [
+              { type: 'styloPoser', args: [], category: 'pen' },
+              {
+                type: 'repeter', args: [4], category: 'control',
+                body: [
+                  { type: 'avancer', args: [100], category: 'motion' },
+                  { type: 'tournerDroite', args: [90], category: 'motion' },
+                ]
+              },
+              { type: 'styloRelever', args: [], category: 'pen' },
+            ]
+          },
+          { type: 'effacer', args: [], category: 'pen' },
+          { type: 'allerA', args: [-50, -50], category: 'motion' },
+          { type: 'orienter', args: [90], category: 'motion' },
+          { type: 'appelerBloc', args: ['Carré'], category: 'custom' },
+        ],
+        answer: "Un carré ABCD de côté 100 pixels tracé depuis (−50, −50) vers la droite.",
+      },
+      {
+        id: '2023-Suppl-4-2',
+        title: 'Figure modifiée EFGH + transformation',
+        question: "Quelles modifications des lignes A (position initiale), B (orientation) et C (sens de rotation) permettent d'obtenir le carré EFGH ? Quelle transformation géométrique permet de passer de ABCD à EFGH ?",
+        blocks: [
+          {
+            type: 'definirBloc', args: ['Carré'], category: 'custom',
+            body: [
+              { type: 'styloPoser', args: [], category: 'pen' },
+              {
+                type: 'repeter', args: [4], category: 'control',
+                body: [
+                  { type: 'avancer', args: [100], category: 'motion' },
+                  { type: 'tournerGauche', args: [90], category: 'motion' },
+                ]
+              },
+              { type: 'styloRelever', args: [], category: 'pen' },
+            ]
+          },
+          { type: 'effacer', args: [], category: 'pen' },
+          { type: 'allerA', args: [50, 50], category: 'motion' },
+          { type: 'orienter', args: [90], category: 'motion' },
+          { type: 'appelerBloc', args: ['Carré'], category: 'custom' },
+        ],
+        answer: "La transformation est une translation de vecteur (100, 100). Le carré EFGH est l'image de ABCD par cette translation.",
+      }
+    ],
+    hints: ["Observer la position de départ et le sens de rotation du bloc Carré."],
+    answer: "Ligne A : changer la position initiale. Ligne B : changer l'orientation. Ligne C : tourner gauche au lieu de droite. Transformation : translation.",
+    blocks: [],
+  },
+  {
     id: '2023-g2-programmes-calcul',
     year: 2023,
     groupement: 2,

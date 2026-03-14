@@ -1,7 +1,6 @@
 import { useState, useRef, useCallback } from 'react'
 import TurtleEngine from './engine/TurtleEngine'
 import { runBlocksAnimated } from './utils/blockRunner'
-import { allExercises } from './exercises'
 import ExerciseList from './components/ExerciseList'
 import ExercisePanel from './components/ExercisePanel'
 import BlockSequence from './components/BlockSequence'
@@ -10,10 +9,6 @@ import Toolbar from './components/Toolbar'
 import VariablePanel from './components/VariablePanel'
 import AskModal from './components/AskModal'
 import BlockPalette from './components/BlockPalette'
-import ExamMode from './components/ExamMode'
-import InputPrompt from './components/InputPrompt'
-import Notions from './components/Notions'
-import Progress from './components/Progress'
 import './App.css'
 
 function deepClone(obj) {
@@ -31,10 +26,6 @@ function setValueAtPath(arr, path, val) {
 export default function App() {
   const engineRef = useRef(new TurtleEngine())
   const cancelRef = useRef(false)
-  const promptResolveRef = useRef(null)
-
-  // Page navigation
-  const [currentPage, setCurrentPage] = useState('exercises') // 'exercises' | 'notions' | 'progress'
 
   // Exercise state
   const [selectedExercise, setSelectedExercise] = useState(null)
@@ -47,25 +38,19 @@ export default function App() {
   const [editedBlocks, setEditedBlocks] = useState(null)
   const [variables, setVariables] = useState({})
   const [askModal, setAskModal] = useState(null)
-  const [promptState, setPromptState] = useState(null)
-  const [freeMode, setFreeMode] = useState(false)
-  const [freeBlocks, setFreeBlocks] = useState([])
-  const [examMode, setExamMode] = useState(false)
 
-  const activeBlocks = freeMode
-    ? freeBlocks
-    : selectedExercise?.subExercises
-      ? selectedExercise.subExercises[activeSubIndex]?.blocks ?? []
-      : selectedExercise?.blocks ?? []
+  const activeBlocks = selectedExercise?.subExercises
+    ? selectedExercise.subExercises[activeSubIndex]?.blocks ?? []
+    : selectedExercise?.blocks ?? []
 
   const displayBlocks = editedBlocks ?? activeBlocks
 
   const activeSub = selectedExercise?.subExercises?.[activeSubIndex]
-  const isQuiz = !freeMode && (activeSub?.type === 'quiz' || (!activeSub && selectedExercise?.type === 'quiz'))
-  const isCalcul = !freeMode && selectedExercise?.type === 'calcul' && !isQuiz
+  const isQuiz = activeSub?.type === 'quiz' || (!activeSub && selectedExercise?.type === 'quiz')
+  const isCalcul = selectedExercise?.type === 'calcul' && !isQuiz
   const hasBlocks = displayBlocks && displayBlocks.length > 0
-  const showCanvas = freeMode || (selectedExercise && !isQuiz)
-  const showBlocksReadOnly = !freeMode && selectedExercise && isQuiz && hasBlocks
+  const showCanvas = selectedExercise && !isQuiz
+  const showBlocksReadOnly = selectedExercise && isQuiz && hasBlocks
 
   const askCallback = useCallback((label, defaultVal) => {
     return new Promise((resolve) => {
@@ -88,7 +73,7 @@ export default function App() {
   }, [editedBlocks, activeBlocks])
 
   const handleRun = useCallback(async () => {
-    if ((!selectedExercise && !freeMode) || isQuiz || isRunning) return
+    if (!selectedExercise || isQuiz || isRunning) return
     setIsRunning(true)
     setActivePath(null)
     cancelRef.current = false
@@ -121,7 +106,7 @@ export default function App() {
     setVariables({ ...vars })
     setActivePath(null)
     setIsRunning(false)
-  }, [selectedExercise, freeMode, displayBlocks, isQuiz, isRunning, animDelay, askCallback])
+  }, [selectedExercise, displayBlocks, isQuiz, isRunning, animDelay, askCallback])
 
   const handleStop = useCallback(() => {
     cancelRef.current = true
@@ -147,9 +132,6 @@ export default function App() {
   }, [])
 
   const handleSelect = useCallback((exercise) => {
-    setFreeMode(false)
-    setExamMode(false)
-    setCurrentPage('exercises')
     setSelectedExercise(exercise)
     setActiveSubIndex(0)
     setEditedBlocks(null)
@@ -158,14 +140,6 @@ export default function App() {
     setSegments([])
     setTurtleState(engine.getState())
     setVariables({})
-  }, [])
-
-  const handlePromptSubmit = useCallback((value) => {
-    if (promptResolveRef.current) {
-      promptResolveRef.current(value)
-      promptResolveRef.current = null
-    }
-    setPromptState(null)
   }, [])
 
   const handleSubSelect = useCallback((i) => {
@@ -184,42 +158,12 @@ export default function App() {
     if (!data) return
     try {
       const newBlock = JSON.parse(data)
-      if (freeMode) {
-        setFreeBlocks(prev => [...prev, newBlock])
-      } else {
-        const base = editedBlocks ?? activeBlocks
-        const copy = deepClone(base)
-        copy.push(newBlock)
-        setEditedBlocks(copy)
-      }
+      const base = editedBlocks ?? activeBlocks
+      const copy = deepClone(base)
+      copy.push(newBlock)
+      setEditedBlocks(copy)
     } catch { /* ignore invalid data */ }
-  }, [freeMode, editedBlocks, activeBlocks])
-
-  const handleEnterFreeMode = useCallback(() => {
-    setFreeMode(true)
-    setExamMode(false)
-    setSelectedExercise(null)
-    setEditedBlocks(null)
-    setFreeBlocks([])
-    setCurrentPage('exercises')
-    const engine = engineRef.current
-    engine.reset()
-    setSegments([])
-    setTurtleState(engine.getState())
-    setVariables({})
-  }, [])
-
-  const handleEnterExamMode = useCallback(() => {
-    setExamMode(true)
-    setFreeMode(false)
-    setSelectedExercise(null)
-    setEditedBlocks(null)
-    setCurrentPage('exercises')
-  }, [])
-
-  const handleExitExamMode = useCallback(() => {
-    setExamMode(false)
-  }, [])
+  }, [editedBlocks, activeBlocks])
 
   const handleDragOver = useCallback((e) => {
     if (e.dataTransfer.types.includes('application/scratch-block')) {
@@ -240,113 +184,67 @@ export default function App() {
       <header className="scratch-header">
         <div className="scratch-logo">scratch-CRPE</div>
         <div className="scratch-subtitle">Annales CRPE 2022-2025</div>
-        <nav className="header-nav">
-          <button
-            className={`header-nav-btn ${currentPage === 'exercises' ? 'active' : ''}`}
-            onClick={() => setCurrentPage('exercises')}
-          >
-            Exercices
-          </button>
-          <button
-            className={`header-nav-btn ${currentPage === 'notions' ? 'active' : ''}`}
-            onClick={() => setCurrentPage('notions')}
-          >
-            Notions
-          </button>
-          <button
-            className={`header-nav-btn ${currentPage === 'progress' ? 'active' : ''}`}
-            onClick={() => setCurrentPage('progress')}
-          >
-            Progression
-          </button>
-        </nav>
       </header>
 
-      {currentPage === 'notions' && <Notions onBack={() => setCurrentPage('exercises')} />}
-      {currentPage === 'progress' && (
-        <Progress exercises={allExercises} onSelectExercise={handleSelect} onBack={() => setCurrentPage('exercises')} />
-      )}
-
-      {currentPage === 'exercises' && (
-        <div className="app-body">
-          <ExerciseList
-            selectedId={selectedExercise?.id}
-            onSelect={handleSelect}
-            freeMode={freeMode}
-            onFreeMode={handleEnterFreeMode}
-            examMode={examMode}
-            onExamMode={handleEnterExamMode}
-          />
-          <main className="main-area">
-            {examMode && !selectedExercise && (
-              <ExamMode
-                exercises={allExercises}
-                onSelect={(ex) => { setSelectedExercise(ex); setActiveSubIndex(0); setEditedBlocks(null) }}
-                onExit={handleExitExamMode}
-              />
-            )}
-            <ExercisePanel
-              exercise={selectedExercise}
-              activeSubIndex={activeSubIndex}
-              onSubSelect={handleSubSelect}
-            />
-            {showBlocksReadOnly && (
-              <div className="workspace workspace-readonly">
-                <div className="scripts-area">
-                  <div className="readonly-label">Programme Scratch à analyser</div>
-                  <BlockSequence blocks={displayBlocks} />
-                </div>
-              </div>
-            )}
-            {showCanvas && (freeMode || displayBlocks.length > 0) && (
-              <div className="workspace">
-                <BlockPalette />
-                <div
-                  className="scripts-area"
-                  onDrop={handleDropBlock}
-                  onDragOver={handleDragOver}
-                >
-                  <BlockSequence
-                    blocks={displayBlocks}
-                    activePath={activePath}
-                    onEditBlock={handleEditBlock}
-                  />
-                  <Toolbar
-                    onRun={handleRun}
-                    onStop={handleStop}
-                    onResetCanvas={handleResetCanvas}
-                    onResetExercise={handleResetExercise}
-                    isRunning={isRunning}
-                    animDelay={animDelay}
-                    onSpeedChange={setAnimDelay}
-                    hasEdits={editedBlocks !== null}
-                  />
-                </div>
-                <div className="canvas-area">
-                  {isCalcul ? (
-                    <VariablePanel variables={variables} />
-                  ) : (
-                    <TurtleCanvas segments={segments} turtleState={turtleState} variables={variables} />
-                  )}
-                </div>
-              </div>
-            )}
-            {showCanvas && displayBlocks.length === 0 && selectedExercise?.subExercises && (
-              <div className="exercise-panel exercise-panel-empty">
-                <p>Sélectionnez une question ci-dessus pour voir les blocs</p>
-              </div>
-            )}
-          </main>
-        </div>
-      )}
-
-      {promptState && (
-        <InputPrompt
-          varName={promptState.varName}
-          defaultValue={promptState.defaultValue}
-          onSubmit={handlePromptSubmit}
+      <div className="app-body">
+        <ExerciseList
+          selectedId={selectedExercise?.id}
+          onSelect={handleSelect}
         />
-      )}
+        <main className="main-area">
+          <ExercisePanel
+            exercise={selectedExercise}
+            activeSubIndex={activeSubIndex}
+            onSubSelect={handleSubSelect}
+          />
+          {showBlocksReadOnly && (
+            <div className="workspace workspace-readonly">
+              <div className="scripts-area">
+                <div className="readonly-label">Programme Scratch à analyser</div>
+                <BlockSequence blocks={displayBlocks} />
+              </div>
+            </div>
+          )}
+          {showCanvas && displayBlocks.length > 0 && (
+            <div className="workspace">
+              <BlockPalette />
+              <div
+                className="scripts-area"
+                onDrop={handleDropBlock}
+                onDragOver={handleDragOver}
+              >
+                <BlockSequence
+                  blocks={displayBlocks}
+                  activePath={activePath}
+                  onEditBlock={handleEditBlock}
+                />
+                <Toolbar
+                  onRun={handleRun}
+                  onStop={handleStop}
+                  onResetCanvas={handleResetCanvas}
+                  onResetExercise={handleResetExercise}
+                  isRunning={isRunning}
+                  animDelay={animDelay}
+                  onSpeedChange={setAnimDelay}
+                  hasEdits={editedBlocks !== null}
+                />
+              </div>
+              <div className="canvas-area">
+                {isCalcul ? (
+                  <VariablePanel variables={variables} />
+                ) : (
+                  <TurtleCanvas segments={segments} turtleState={turtleState} variables={variables} />
+                )}
+              </div>
+            </div>
+          )}
+          {showCanvas && displayBlocks.length === 0 && selectedExercise?.subExercises && (
+            <div className="exercise-panel exercise-panel-empty">
+              <p>Sélectionnez une question ci-dessus pour voir les blocs</p>
+            </div>
+          )}
+        </main>
+      </div>
     </div>
   )
 }
