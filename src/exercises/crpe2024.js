@@ -106,27 +106,26 @@ export const exercises2024 = [
     question:
       '1) Quelle est la nature de la figure de base ? 2) Tracer la figure obtenue après clic sur le drapeau vert. 3a) Quelles modifications pour obtenir un triangle équilatéral ? 3b) Quel est le rapport entre les aires des deux triangles ?',
     blocks: [
+      {
+        type: 'definirBloc', args: ['figure_de_base'], category: 'custom',
+        body: [
+          {
+            type: 'repeter', args: [4], category: 'control',
+            body: [
+              { type: 'avancer', args: [{ type: 'variable', name: 'longueur' }], category: 'motion' },
+              { type: 'tournerDroite', args: [90], category: 'motion' },
+            ],
+          },
+        ],
+      },
+      { type: 'effacer', args: [], category: 'pen' },
+      { type: 'allerA', args: [0, 0], category: 'motion' },
+      { type: 'orienter', args: [90], category: 'motion' },
       { type: 'mettreVariable', args: ['longueur', 50], category: 'variables' },
       { type: 'styloPoser', args: [], category: 'pen' },
-      {
-        type: 'repeter',
-        args: [4],
-        category: 'control',
-        body: [
-          { type: 'avancer', args: [{ type: 'variable', name: 'longueur' }], category: 'motion' },
-          { type: 'tournerDroite', args: [90], category: 'motion' },
-        ],
-      },
+      { type: 'appelerBloc', args: ['figure_de_base'], category: 'custom' },
       { type: 'ajouterVariable', args: ['longueur', 50], category: 'variables' },
-      {
-        type: 'repeter',
-        args: [4],
-        category: 'control',
-        body: [
-          { type: 'avancer', args: [{ type: 'variable', name: 'longueur' }], category: 'motion' },
-          { type: 'tournerDroite', args: [90], category: 'motion' },
-        ],
-      },
+      { type: 'appelerBloc', args: ['figure_de_base'], category: 'custom' },
     ],
     hints: [
       'La figure de base répète 4 fois avec angle 90° → c\'est un carré.',
